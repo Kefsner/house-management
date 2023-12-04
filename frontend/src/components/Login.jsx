@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
+import "./Login.css";
+
 const apiURL = process.env.REACT_APP_API_URL;
 
 function Login() {
@@ -35,28 +37,32 @@ function Login() {
     }
 
     return (
-        <form onSubmit={handleSubmit}>
-            <label htmlFor="username">Username</label>
-            <input
-                type="text"
-                id="username"
-                autoComplete="username"
-                value={username}
-                onChange={(event) => setUsername(event.target.value)}
-                autoFocus
-            />
-            
-            <label htmlFor="password">Password</label>
-            <input
-                type="password"
-                id="password"
-                autoComplete="off"
-                value={password}
-                onChange={(event) => setPassword(event.target.value)}
-            />
-
-            <button type="submit">Login</button>
-        </form>
+        <div className="bg-image">
+            <div className="login-container">
+                <div className="login-form-container">
+                    <form onSubmit={handleSubmit}>
+                        <label htmlFor="username">Usuário</label>
+                        <input
+                            type="text"
+                            id="username"
+                            autoComplete="username"
+                            value={username}
+                            onChange={(event) => setUsername(event.target.value)}
+                            autoFocus
+                            />
+                        <label htmlFor="password">Senha</label>
+                        <input
+                            type="password"
+                            id="password"
+                            autoComplete="off"
+                            value={password}
+                            onChange={(event) => setPassword(event.target.value)}
+                            />
+                        <button type="submit">Entrar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
     );
 }
 
