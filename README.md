@@ -15,10 +15,10 @@ House Management is a comprehensive web application designed to streamline and e
 ## Technologies
 - **Frontend**: React.js
 - **Backend**: Django REST Framework
-- **Database**: [Your choice of database]
+- **Database**: PostgreSQL
 - **AI/ML**: Python libraries (scikit-learn, TensorFlow)
 - **Data Visualization**: Chart.js / D3.js
-- **Deployment**: [Heroku, AWS, DigitalOcean, etc.]
+- **Deployment**: Google Cloud Platform
 
 ## Getting Started
 These instructions will get you a copy of the project up and running on your local machine for development and testing purposes.
@@ -34,11 +34,11 @@ A step-by-step series of examples that tell you how to get a development environ
 
 1. Clone the repository:
    ```
-   git clone https://github.com/yourusername/house-management-app.git
+   git clone https://github.com/Kefsner/house-management.git
    ```
 2. Navigate to the project directory:
    ```
-   cd house-management-app
+   cd house-management
    ```
 3. [Additional installation steps]
 
@@ -47,23 +47,8 @@ Instructions on how to run the application locally:
 1. [Steps to start the backend]
 2. [Steps to start the frontend]
 
-## Contributing
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
-
 ## Authors
-- **Your Name** - *Initial work* - [YourUsername](https://github.com/YourUsername)
+- **Kesley Raimundo** - *Initial work* - [Kefsner](https://github.com/Kefsner)
 
 ## License
-This project is licensed under the [MIT License](LICENSE.md) - see the LICENSE.md file for details.
-
-## Acknowledgments
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc.
-
----
-
-### Notes:
-- Replace placeholders (like `yourusername`, `house-management-app`, `[Your choice of database]`, etc.) with the actual data relevant to your project.
-- You might want to add a `CONTRIBUTING.md` and a `LICENSE.md` file for detailed contribution guidelines and license information.
-- If your application has more specific setup or running instructions, be sure to include those.
+All rights reserved - see the [LICENSE.md](LICENSE.md) file for details.
