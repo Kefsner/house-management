@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
+const apiURL = process.env.REACT_APP_API_URL;
+
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
@@ -16,7 +18,7 @@ function Login() {
         console.log(JSON.stringify(data));
 
         try {
-            const response = await fetch("http://localhost:8000/auth/login/", {
+            const response = await fetch(`${apiURL}/auth/login/`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
@@ -33,7 +35,6 @@ function Login() {
     }
 
     return (
-        <div>
         <form onSubmit={handleSubmit}>
             <label htmlFor="username">Username</label>
             <input
@@ -56,7 +57,6 @@ function Login() {
 
             <button type="submit">Login</button>
         </form>
-        </div>
     );
 }
 
