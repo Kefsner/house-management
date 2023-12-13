@@ -6,6 +6,7 @@ form {
     border-radius: 8px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
     border: 1px solid rgba(0, 0, 0, 0.2);
+    width: 250px;
 }
 
 label {
@@ -53,4 +54,13 @@ button[type="button"] {
 
 button[type="button"]:hover {
     background-color: #e0e0e0;
+}
+
+.error-message {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    color: #f44336;
+    margin-bottom: 20px;
 }

@@ -13,14 +13,27 @@ function InputForm(props) {
             value={props.value}
             onChange={props.onChange}
             autoFocus={props.autoFocus}
+            required={props.required}
+            minLength={props.minLength}
+            maxLength={props.maxLength}
         />
     </>
+  );
+}
+
+function ErrorMessage(props) {
+  return (
+    <div className="error-message">
+      <p>{props.message}</p>
+    </div>
   );
 }
 
 function AuthForm(props) {
   const toogleForm = () => {
     props.setIsRegister(!props.isRegister);
+    props.setErrorMessage("");
+    props.setPassword("");
   };
 
   return (
@@ -33,6 +46,9 @@ function AuthForm(props) {
         onChange={(event) => props.setUsername(event.target.value)}
         autoFocus={true}
         label="Usuário"
+        required={true}
+        minLength={3}
+        maxLength={20}
       />
       <InputForm
         type="password"
@@ -41,6 +57,9 @@ function AuthForm(props) {
         value={props.data.password}
         onChange={(event) => props.setPassword(event.target.value)}
         label="Senha"
+        required={true}
+        minLength={6}
+        maxLength={30}
       />
       {props.isRegister && (
         <InputForm
@@ -52,6 +71,7 @@ function AuthForm(props) {
           label="Confirmar senha"
         />
       )}
+      {props.errorMessage && <ErrorMessage message={props.errorMessage} />}
       <button type="submit" className="button-form">
         {props.isRegister ? "Criar conta" : "Entrar"}
       </button>

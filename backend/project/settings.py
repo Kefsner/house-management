@@ -28,6 +28,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'rest_framework',
+    'rest_framework_simplejwt.token_blacklist',
+
     'user_authentication',
     
     'corsheaders',
@@ -50,6 +52,21 @@ MIDDLEWARE = [
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:3000",
 ]
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': [
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    ],
+}
+
+from datetime import timedelta
+
+SIMPLE_JWT = {
+    # 'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    # 'REFRESH_TOKEN_LIFETIME': timedelta(hours=12),
+    'ACCESS_TOKEN_LIFETIME': timedelta(seconds=5),
+    'REFRESH_TOKEN_LIFETIME': timedelta(seconds=10),
+}
 
 ROOT_URLCONF = 'project.urls'
 

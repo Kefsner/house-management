@@ -1,0 +1,8 @@
+#page-not-found {
+    height: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-image: url('../assets/page-not-found.png');
+    min-height: 100vh;
+}

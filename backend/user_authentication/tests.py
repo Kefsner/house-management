@@ -65,7 +65,7 @@ class LoginViewTest(TestCase):
         self.assertEqual(response.status_code, status.HTTP_200_OK)
         self.assertEqual(response.data, 'Login realizado com sucesso')
 
-    def test_bad_request(self):
+    def test_missing_field(self):
         response = self.client.post(
             '/auth/login/',
             {
