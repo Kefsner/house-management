@@ -1,16 +1,11 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { isAuthenticated } from "../utils/utils";
+import { isAuthenticated, logErrorToServer } from "../../utils/utils";
 
 import "./Home.css";
 
 const apiURL = process.env.REACT_APP_API_URL;
-
-function resetTokens() {
-  localStorage.removeItem("accessToken");
-  localStorage.removeItem("refreshToken");
-}
 
 function Home() {
 
@@ -35,19 +30,21 @@ function Home() {
           body: JSON.stringify({ refresh: localStorage.getItem("refreshToken") }),
         }
       );
-
+      const responseData = await response.json();
       if (response.status === 200) {
-        resetTokens();
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         navigate("/auth");
-      } else if (response.status === 400) {
-        console.log("Bad Request");
       } else if (response.status === 401) {
-        resetTokens();
+        localStorage.removeItem("accessToken");
+        localStorage.removeItem("refreshToken");
         navigate("/auth");
+      } else if (response.status === 500) {
+        logErrorToServer(responseData, "Home.jsx");
       }
     }
     catch (exception) {
-      console.log("Exception: ", exception);
+      logErrorToServer(exception, "Exception in Home.jsx");
     }
   };
 

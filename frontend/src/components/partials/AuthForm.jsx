@@ -1,44 +1,20 @@
 import React from 'react';
 
 import './AuthForm.css';
-
-function InputForm(props) {
-  return (
-    <>
-        <label htmlFor={props.id}>{props.label}</label>
-        <input
-            type={props.type}
-            id={props.id}
-            autoComplete={props.autoComplete}
-            value={props.value}
-            onChange={props.onChange}
-            autoFocus={props.autoFocus}
-            required={props.required}
-            minLength={props.minLength}
-            maxLength={props.maxLength}
-        />
-    </>
-  );
-}
-
-function ErrorMessage(props) {
-  return (
-    <div className="error-message">
-      <p>{props.message}</p>
-    </div>
-  );
-}
+import Input from '../common/Input';
+import Message from '../common/Message';
+import Button from '../common/Button';
 
 function AuthForm(props) {
   const toogleForm = () => {
     props.setIsRegister(!props.isRegister);
-    props.setErrorMessage("");
+    props.setMessage("");
     props.setPassword("");
   };
 
   return (
     <form onSubmit={props.handleSubmit}>
-      <InputForm
+      <Input
         type="text"
         id="username"
         autoComplete="username"
@@ -50,7 +26,7 @@ function AuthForm(props) {
         minLength={3}
         maxLength={20}
       />
-      <InputForm
+      <Input
         type="password"
         id="password"
         autoComplete="off"
@@ -62,7 +38,7 @@ function AuthForm(props) {
         maxLength={30}
       />
       {props.isRegister && (
-        <InputForm
+        <Input
           type="password"
           id="confirmPassword"
           autoComplete="off"
@@ -71,13 +47,18 @@ function AuthForm(props) {
           label="Confirmar senha"
         />
       )}
-      {props.errorMessage && <ErrorMessage message={props.errorMessage} />}
-      <button type="submit" className="button-form">
+      {(props.message.success || props.message.error) && (
+        <Message
+          message={props.message.success || props.message.error}
+          success={Boolean(props.message.success)}
+        />
+      )}
+      <Button type="submit" className="button-form">
         {props.isRegister ? "Criar conta" : "Entrar"}
-      </button>
-      <button type="button" onClick={toogleForm} className="button-form">
+      </Button>
+      <Button type="button" onClick={toogleForm} className="button-form">
         {props.isRegister ? "Voltar" : "Criar conta"}
-      </button>
+      </Button>
     </form>
   );
 }

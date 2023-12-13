@@ -137,7 +137,7 @@ class UserAuthenticationServices(UserAuthenticationDataValidation):
             self.response['payload'] = {
                 'refresh': str(refresh),
                 'access': str(refresh.access_token),
-                'message': self.messages.login_success
+                'success': self.messages.login_success
             }
             self.response['status'] = status.HTTP_200_OK
         return Response(self.response['payload'], self.response['status'])
@@ -151,7 +151,7 @@ class UserAuthenticationServices(UserAuthenticationDataValidation):
             user = User.objects.create_user(username=username, password=password)
             user.save()
             self.response['payload'] = {
-                'message': self.messages.register_success
+                'success': self.messages.register_success
             }
             self.response['status'] = status.HTTP_201_CREATED
         return Response(self.response['payload'], self.response['status'])

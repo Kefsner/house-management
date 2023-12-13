@@ -30,3 +30,7 @@ export function isAuthenticated() {
         return false;
     }
 }
+
+export function logErrorToServer(error, info = null) {
+    console.log(error, info);
+}

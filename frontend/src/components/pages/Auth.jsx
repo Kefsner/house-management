@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getCsrfToken, isAuthenticated } from "../utils/utils";
+import { getCsrfToken, isAuthenticated, logErrorToServer } from "../../utils/utils";
 
-import AuthForm from "./AuthForm";
+import AuthForm from "../partials/AuthForm";
 
 import "./Auth.css";
 
@@ -14,7 +14,7 @@ function Auth() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
-  const [errorMessage, setErrorMessage] = useState("");
+  const [message, setMessage] = useState({success: "", error: ""});
 
   const navigate = useNavigate();
 
@@ -33,7 +33,6 @@ function Auth() {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const csrfToken = getCsrfToken();
-
     try {
       const response = await fetch(
         `${apiURL}auth/${isRegister ? "register" : "login"}/`,
@@ -46,20 +45,26 @@ function Auth() {
           body: JSON.stringify(data),
         }
       );
-
       const responseData = await response.json();
-
-      if (response.ok) {
-        localStorage.setItem("accessToken", responseData.access);
+      if (response.status === 200) {
         localStorage.setItem("refreshToken", responseData.refresh);
+        localStorage.setItem("accessToken", responseData.access);
         navigate("/");
-      } else {
-        setErrorMessage(responseData.error);
+      } else if (response.status === 201) {
+        setIsRegister(false);
+        setUsername("");
         setPassword("");
         setConfirmPassword("");
+        setMessage(responseData);
+      } else if (response.status === 400 || response.status === 500) {
+        setPassword("");
+        setConfirmPassword("");
+        setMessage(responseData);
+      } else {
+        logErrorToServer(responseData, "Auth.jsx");
       }
     } catch (exception) {
-      console.log("Exception: ", exception);
+      logErrorToServer(exception, "Exception in Auth.jsx");
     }
   };
 
@@ -75,8 +80,8 @@ function Auth() {
           setConfirmPassword={setConfirmPassword}
           setIsRegister={setIsRegister}
           isRegister={isRegister}
-          setErrorMessage={setErrorMessage}
-          errorMessage={errorMessage}
+          setMessage={setMessage}
+          message={message}
         />
       </div>
     </div>
