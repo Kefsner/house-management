@@ -1,0 +1,221 @@
+2023-12-14 12:25:33.024801
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 22, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:25:33.657271
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 22, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:25:34.233278
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 22, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:25:35.515146
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 22, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:26:36.578518
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 22, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:26:39.504677
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 22, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:41:30.244334
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 22, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:42:31.195039
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 22, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:43:12.759503
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 22, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:43:39.662246
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 21, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:43:53.055734
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 22, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:43:58.869022
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 21, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 12:50:06.040630
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 21, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 13:21:31.943867
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 21, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 13:21:32.099844
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 21, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 13:21:32.252511
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 21, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================
+2023-12-14 13:34:08.542399
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/user_authentication/views/LogoutView.py", line 21, in post
+    token = RefreshToken(refresh_token)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 61, in __init__
+    self.verify()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 245, in verify
+    self.check_blacklist()
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework_simplejwt/tokens.py", line 257, in check_blacklist
+    raise TokenError(_("Token is blacklisted"))
+rest_framework_simplejwt.exceptions.TokenError: Token is blacklisted
+==================================================

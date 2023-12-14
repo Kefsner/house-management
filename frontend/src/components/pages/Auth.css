@@ -16,10 +16,11 @@
     width: 20%;
     min-width: 300px;
     background-color: rgba(255, 255, 255, 0.7);
+    /* background-color: rgb(30, 45, 59 , 0.7); */
     overflow: auto;
 }
 
-img {
+#login-logo {
     width: 200px;
     max-width: 100%;
     margin-bottom: 50px;

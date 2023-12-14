@@ -1,10 +1,10 @@
 import React from "react";
 
-function Message(props) {
+export default function Message(props) {
     return (
-      <div className={`message ${props.success ? "success" : "error"}`}>
+      <div className={`${props.className} ${props.success ? "success" : "error"}`}>
         <p>
-          {props.message}
+          {`${props.message}!`}
         </p>
         <p>
           {props.success && "Faça login para continuar"}
@@ -12,5 +12,3 @@ function Message(props) {
       </div>
     );
   }
-
-export default Message;

@@ -15,6 +15,7 @@ class UserAuthenticationMessages(CoreMessages):
     _password_has_no_number = 'A senha deve conter pelo menos um número'
     _password_has_no_special_char = 'A senha deve conter pelo menos um caractere especial'
     _password_has_space = 'A senha não deve conter espaços'
+    _token_error = 'Há algo de errado com o token de autenticação'
 
     @property
     def login_success(self):
@@ -67,3 +68,7 @@ class UserAuthenticationMessages(CoreMessages):
     @property
     def password_has_space(self):
         return self._password_has_space
+
+    @property
+    def token_error(self):
+        return self._token_error

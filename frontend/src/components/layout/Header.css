@@ -1,0 +1,33 @@
+header {
+    background-color: #f0f0f0;
+    padding: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+    position: relative;
+    z-index: 1;
+}
+
+.header-title{
+    display: flex;
+    align-items: center;
+}
+
+#header-logo {
+    width: 50px;
+    margin-right: 10px;
+}
+
+.nav-links {
+    display: flex;
+    align-items: center;
+    list-style: none;
+}
+
+.nav-link a {
+    color: #00796b;
+    text-decoration: none;
+    margin-left: 20px;
+    font-weight: bold;
+}

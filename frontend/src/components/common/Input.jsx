@@ -1,22 +1,25 @@
-import React from 'react';
+import React from "react";
 
-function Input(props) {
-    return (
-      <>
-          {props.label && <label htmlFor={props.id}>{props.label}</label>}
-          <input
-              type={props.type}
-              id={props.id}
-              autoComplete={props.autoComplete}
-              value={props.value}
-              onChange={props.onChange}
-              autoFocus={props.autoFocus}
-              required={props.required}
-              minLength={props.minLength}
-              maxLength={props.maxLength}
-          />
-      </>
-    );
-  }
-
-export default Input;
+export default function Input(props) {
+  return (
+    <>
+      {props.label && (
+        <label htmlFor={props.id} className={props.className}>
+          {props.label}
+        </label>
+      )}
+      <input
+        type={props.type}
+        id={props.id}
+        autoComplete={props.autoComplete}
+        value={props.value}
+        onChange={props.onChange}
+        autoFocus={props.autoFocus}
+        required={props.required}
+        minLength={props.minLength}
+        maxLength={props.maxLength}
+        className={props.className}
+      />
+    </>
+  );
+}

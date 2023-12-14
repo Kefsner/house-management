@@ -13,7 +13,7 @@ function AuthForm(props) {
   };
 
   return (
-    <form onSubmit={props.handleSubmit}>
+    <form onSubmit={props.handleSubmit} className="auth-form-container">
       <Input
         type="text"
         id="username"
@@ -25,6 +25,7 @@ function AuthForm(props) {
         required={true}
         minLength={3}
         maxLength={20}
+        className="auth-form-input"
       />
       <Input
         type="password"
@@ -36,6 +37,7 @@ function AuthForm(props) {
         required={true}
         minLength={6}
         maxLength={30}
+        className="auth-form-input"
       />
       {props.isRegister && (
         <Input
@@ -45,18 +47,23 @@ function AuthForm(props) {
           value={props.data.confirmPassword}
           onChange={(event) => props.setConfirmPassword(event.target.value)}
           label="Confirmar senha"
+          required={true}
+          minLength={6}
+          maxLength={30}
+          className="auth-form-input"
         />
       )}
       {(props.message.success || props.message.error) && (
         <Message
           message={props.message.success || props.message.error}
           success={Boolean(props.message.success)}
+          className="auth-form-message"
         />
       )}
-      <Button type="submit" className="button-form">
+      <Button type="submit" className="auth-form-button">
         {props.isRegister ? "Criar conta" : "Entrar"}
       </Button>
-      <Button type="button" onClick={toogleForm} className="button-form">
+      <Button type="button" onClick={toogleForm} className="auth-form-button">
         {props.isRegister ? "Voltar" : "Criar conta"}
       </Button>
     </form>

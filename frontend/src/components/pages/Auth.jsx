@@ -9,7 +9,7 @@ import "./Auth.css";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
-function Auth() {
+export default function Auth() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -56,7 +56,11 @@ function Auth() {
         setPassword("");
         setConfirmPassword("");
         setMessage(responseData);
-      } else if (response.status === 400 || response.status === 500) {
+      } else if (
+        response.status === 400 ||
+        response.status === 401 ||
+        response.status === 500
+        ) {
         setPassword("");
         setConfirmPassword("");
         setMessage(responseData);
@@ -71,7 +75,7 @@ function Auth() {
   return (
     <div className="bg-image">
       <div className="content-container">
-        <img src="/logo.png" alt="Logo" />
+        <img src="/logo.png" alt="Logo" id="login-logo" />
         <AuthForm
           data={data}
           handleSubmit={handleSubmit}
@@ -87,5 +91,3 @@ function Auth() {
     </div>
   );
 }
-
-export default Auth;

@@ -1,0 +1,54 @@
+.home-container {
+  font-family: "Arial", sans-serif;
+  color: #333; /* Based on the login page color */
+}
+
+.home-header {
+  background-color: #f0f0f0; /* Light grey background */
+  padding: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.home-navigation .nav-link {
+  color: #00796b; /* Teal color from your login page */
+  text-decoration: none;
+  margin-left: 20px;
+  font-weight: bold;
+}
+
+.home-navigation .nav-link:hover {
+  opacity: 0.8;
+}
+
+.home-main {
+  padding: 20px;
+}
+
+.welcome-section h1 {
+  color: #00796b; /* Consistent with the button color on login page */
+}
+
+.feature-section {
+  margin-top: 30px;
+}
+
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 20px;
+}
+
+.feature-card {
+  background-color: #f0f0f0;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.feature-card h3 {
+  color: #00796b;
+}
+
+/* Add more styles as necessary... */

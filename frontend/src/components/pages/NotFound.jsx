@@ -2,11 +2,9 @@ import React from "react";
 
 import "./NotFound.css";
 
-function NotFound() {
+export default function NotFound() {
   return (
     <div id="page-not-found">
     </div>
   );
 }
-
-export default NotFound;
