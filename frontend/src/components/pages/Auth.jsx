@@ -49,6 +49,7 @@ export default function Auth() {
       if (response.status === 200) {
         localStorage.setItem("refreshToken", responseData.refresh);
         localStorage.setItem("accessToken", responseData.access);
+        localStorage.setItem("username", username);
         navigate("/");
       } else if (response.status === 201) {
         setIsRegister(false);

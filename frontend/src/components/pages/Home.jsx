@@ -31,7 +31,7 @@ export default function Home() {
         body: JSON.stringify({ refresh: localStorage.getItem("refreshToken") }),
       });
       const responseData = await response.json();
-      
+
       if (response.status === 200) {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
@@ -54,14 +54,14 @@ export default function Home() {
         navLinks={[
           { label: "Dashboard", path: "/dashboard" },
           { label: "Finances", path: "/finances" },
-          { label: "Shopping List", path: "/shopping-list" },
+          { label: "ShopList", path: "/shoplist" },
           { label: "Documents", path: "/documents" },
           { label: "Tasks", path: "/tasks" },
           { label: "Logout", onClick: handleLogout },
         ]}      
       />
       <Sidebar
-        handleLogout={handleLogout}
+        username={localStorage.getItem("username")}
       />
       <Content />
     </div>
