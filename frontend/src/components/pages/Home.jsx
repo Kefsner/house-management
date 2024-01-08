@@ -31,6 +31,7 @@ export default function Home() {
         body: JSON.stringify({ refresh: localStorage.getItem("refreshToken") }),
       });
       const responseData = await response.json();
+      
       if (response.status === 200) {
         localStorage.removeItem("accessToken");
         localStorage.removeItem("refreshToken");
@@ -56,7 +57,7 @@ export default function Home() {
           { label: "Shopping List", path: "/shopping-list" },
           { label: "Documents", path: "/documents" },
           { label: "Tasks", path: "/tasks" },
-          { label: "Logout", path: "/auth", onClick: handleLogout },
+          { label: "Logout", onClick: handleLogout },
         ]}      
       />
       <Sidebar

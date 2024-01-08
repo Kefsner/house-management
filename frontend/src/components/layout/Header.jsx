@@ -14,7 +14,7 @@ export default function Header({ navLinks }) {
           {navLinks.map((link) => {
             return (
               <li key={link.label} className="nav-link">
-                <a href={link.path} onClick={link.onClick}>
+                <a href={link.path || "#"} onClick={link.onClick || null}>
                   {link.label}
                 </a>
               </li>

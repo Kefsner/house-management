@@ -4,13 +4,16 @@
     height: calc(100vh - 70px);
     position: fixed;
     top: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 }
 
 .sidebar-main,
 .sidebar-footer {
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: space-around;
     padding: 10px;
 }
 
@@ -21,4 +24,4 @@
     justify-content: center;
     padding: 10px;
     border-top: 1px solid #ccc;
-} 
+}
