@@ -25,11 +25,8 @@ export default function Layout({ children }) {
     <div className='layout-container'>
         <Header
             navLinks={[
-                { label: "Dashboard", path: "/dashboard" },
                 { label: "Finances", path: "/finances" },
                 { label: "ShopList", path: "/shoplist" },
-                { label: "Documents", path: "/documents" },
-                { label: "Tasks", path: "/tasks" },
                 { label: "Logout", onClick: onLogout },
             ]}
         />

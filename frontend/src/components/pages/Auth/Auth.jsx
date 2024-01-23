@@ -1,21 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getCsrfToken, isAuthenticated, logErrorToServer } from "../../utils/utils";
+import { getCsrfToken, isAuthenticated, logErrorToServer } from "../../../utils/utils";
 
-import AuthForm from "../partials/AuthForm";
+import AuthForm from "./partials/AuthForm";
 
 import "./Auth.css";
 
 const apiURL = process.env.REACT_APP_API_URL;
 
 export default function Auth() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [isRegister, setIsRegister] = useState(false);
-  const [message, setMessage] = useState({success: "", error: ""});
-
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -23,6 +17,12 @@ export default function Auth() {
       navigate("/");
     }
   }, [navigate]);
+
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isRegister, setIsRegister] = useState(false);
+  const [message, setMessage] = useState({success: "", error: ""});
 
   const data = {
     username,

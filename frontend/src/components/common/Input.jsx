@@ -19,6 +19,10 @@ export default function Input(props) {
         minLength={props.minLength}
         maxLength={props.maxLength}
         className={props.className}
+        step={props.step}
+        min={props.min}
+        max={props.max}
+        placeholder={props.placeholder}
       />
     </>
   );

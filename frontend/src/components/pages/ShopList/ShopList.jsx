@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import Layout from "../layout/Layout";
+import Layout from "../../layout/Layout";
 
 import "./ShopList.css";
 

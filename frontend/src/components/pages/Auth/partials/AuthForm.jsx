@@ -1,11 +1,12 @@
 import React from 'react';
 
-import './AuthForm.css';
-import Input from '../common/Input';
-import Message from '../common/Message';
-import Button from '../common/Button';
+import Input from '../../../common/Input';
+import Message from '../../../common/Message';
+import Button from '../../../common/Button';
 
-function AuthForm(props) {
+import './AuthForm.css';
+
+export default function AuthForm(props) {
   const toogleForm = () => {
     props.setIsRegister(!props.isRegister);
     props.setMessage("");
@@ -69,5 +70,3 @@ function AuthForm(props) {
     </form>
   );
 }
-
-export default AuthForm;
