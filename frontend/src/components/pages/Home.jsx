@@ -1,43 +1,42 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { isAuthenticated, handleLogout } from "../../utils/utils";
-
-import Header from "../layout/Header";
-import Sidebar from "../layout/Sidebar";
-import Content from "../layout/Content";
+import Layout from "../layout/Layout";
+import Card from "../common/Card";
 
 import "./Home.css";
 
 export default function Home() {
   const navigate = useNavigate();
 
-  const onLogout = () => {
-    handleLogout(navigate);
-  }
-
-  useEffect(() => {
-    if (!isAuthenticated()) {
-      navigate("/auth");
-    }
-  }, [navigate]);
-
   return (
-    <div className="home-container">
-      <Header
-        navLinks={[
-          { label: "Dashboard", path: "/dashboard" },
-          { label: "Finances", path: "/finances" },
-          { label: "ShopList", path: "/shoplist" },
-          { label: "Documents", path: "/documents" },
-          { label: "Tasks", path: "/tasks" },
-          { label: "Logout", onClick: onLogout },
-        ]}      
-      />
-      <Sidebar
-        username={localStorage.getItem("username")}
-      />
-      <Content />
-    </div>
+    <Layout>
+      <div className="home">
+        <Card
+          className="finances-card"
+          icon="icons/finances.svg"
+          text="Finances"
+          onClick={() => navigate("/finances")}
+        />
+        <Card
+          className="shoplist-card"
+          icon="icons/shoplist.svg"
+          text="ShopList"
+          onClick={() => navigate("/shoplist")}
+        />
+        <Card
+          className="documents-card"
+          icon="icons/documents.svg"
+          text="Documents"
+          onClick={() => navigate("/documents")}
+        />
+        <Card
+          className="calendar-card"
+          icon="icons/calendar.svg"
+          text="Calendar"
+          onClick={() => navigate("/calendar")}
+        />
+      </div>
+    </Layout>
   );
 }

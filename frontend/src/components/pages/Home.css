@@ -1,10 +1,15 @@
-.home-container {
+.home {
   font-family: "Arial", sans-serif;
-  color: #333; /* Based on the login page color */
+  color: #333;
+  height: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+  align-items: center;
 }
 
 .home-header {
-  background-color: #f0f0f0; /* Light grey background */
+  background-color: #f0f0f0;
   padding: 10px;
   display: flex;
   align-items: center;
@@ -12,7 +17,7 @@
 }
 
 .home-navigation .nav-link {
-  color: #00796b; /* Teal color from your login page */
+  color: #00796b;
   text-decoration: none;
   margin-left: 20px;
   font-weight: bold;
@@ -50,5 +55,3 @@
 .feature-card h3 {
   color: #00796b;
 }
-
-/* Add more styles as necessary... */
