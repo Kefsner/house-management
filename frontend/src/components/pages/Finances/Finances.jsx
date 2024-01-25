@@ -31,12 +31,13 @@ export default function Finances(props) {
         const csrfToken = getCsrfToken();
         try {
             const response = await fetch(
-                `${apiURL}finances/transactions/`,
+                `${apiURL}finances/transaction/create/`,
                 {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json",
                         "X-CSRFToken": csrfToken,
+                        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
                     },
                     body: JSON.stringify(transactionData),
                 }

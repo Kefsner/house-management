@@ -1,8 +1,8 @@
 from django.urls import path
 
-from user_authentication.views.RegisterView import RegisterView
-from user_authentication.views.LogoutView import LogoutView
-from user_authentication.views.LoginView import LoginView
+from user_authentication.views.Register import RegisterView
+from user_authentication.views.Logout import LogoutView
+from user_authentication.views.Login import LoginView
 
 app_name = 'user_authentication'
 
