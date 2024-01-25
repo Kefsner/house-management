@@ -1,0 +1,22 @@
+.modal-overlay {
+  position: fixed; /* Fixed position to cover the whole screen */
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.6); /* Semi-transparent black background */
+  display: flex;
+  align-items: center; /* Aligns modal vertically */
+  justify-content: center; /* Aligns modal horizontally */
+  z-index: 1000; /* Ensures the overlay is above other elements */
+}
+
+.modal {
+  background-color: white; /* White background for the modal */
+  padding: 20px; /* Spacing inside the modal */
+  border-radius: 5px; /* Rounded corners */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Adds a subtle shadow */
+  max-width: 500px; /* Maximum width of the modal */
+  width: 90%; /* Modal width, with a max of 500px */
+  z-index: 1001; /* Ensures the modal content is above the overlay */
+}

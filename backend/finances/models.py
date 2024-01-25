@@ -24,4 +24,3 @@ class Transaction(MetaData):
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
     subcategory = models.ForeignKey(Subcategory, on_delete=models.DO_NOTHING)
     date = models.DateField()
-    

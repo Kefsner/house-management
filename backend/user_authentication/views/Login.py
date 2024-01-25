@@ -7,11 +7,12 @@ from django.contrib.auth.models import User
 from django.http.response import HttpResponse
 from django.http.request import HttpRequest
 
-from core.logger import Logger
 from core.exceptions import SerializerError
-from user_authentication.serializers import LoginSerializer
+from core.logger import Logger
+
 from user_authentication.messages import UserAuthenticationMessages
 from user_authentication.services import UserAuthenticationServices
+from user_authentication.serializers import LoginSerializer
 
 import traceback
 import json

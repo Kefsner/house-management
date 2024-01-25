@@ -1,4 +1,4 @@
-.auth-form-container {
+.auth-form {
     display: flex;
     flex-direction: column;
     background-color: #f5f5f5;
@@ -9,13 +9,13 @@
     width: 250px;
 }
 
-label.auth-form-input {
+.auth-form label {
     margin-bottom: 5px;
     font-size: 18px;
     color: #333;
 }
 
-input.auth-form-input {
+.auth-form input {
     padding: 10px;
     margin-bottom: 20px;
     border: 1px solid #ddd;
@@ -23,13 +23,13 @@ input.auth-form-input {
     font-size: 16px;
 }
 
-input.auth-form-input[type="text"]:focus,
-input.auth-form-input[type="password"]:focus {
+.auth-form input[type="text"]:focus,
+.auth-form input[type="password"]:focus {
     outline: none;
     border-color: #009688;
 }
 
-.auth-form-button {
+.auth-form button {
     padding: 10px;
     border: 1px solid #ddd;
     border-radius: 4px;
@@ -38,26 +38,26 @@ input.auth-form-input[type="password"]:focus {
     transition: background-color 0.3s;
 }
 
-.auth-form-button[type="submit"] {
+.auth-form button[type="submit"] {
     background-color: #009688;
     color: #fff;
 }
 
-.auth-form-button[type="submit"]:hover {
+.auth-form button[type="submit"]:hover {
     background-color: #33a9a5;
 }
 
-.auth-form-button[type="button"] {
+.auth-form button[type="button"] {
     background-color: #f5f5f5;
     color: #333;
     margin-top: 10px;
 }
 
-.auth-form-button[type="button"]:hover {
+.auth-form button[type="button"]:hover {
     background-color: #e0e0e0;
 }
 
-.auth-form-message {
+.auth-form .message {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -66,14 +66,14 @@ input.auth-form-input[type="password"]:focus {
     margin-bottom: 10px;
 }
 
-.auth-form-message p {
+.auth-form .message p {
     margin-bottom: 10px;
 }
 
-.auth-form-message.error {
+.auth-form .message.error {
     color: #f44336;
 }
 
-.auth-form-message.success {
+.auth-form .message.success {
     color: #333;
 }

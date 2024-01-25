@@ -1,19 +1,59 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
+import Modal from "../../../../components/common/Modal";
+
+import { logErrorToServer } from "../../../../utils/utils";
 
 import "./TransactionForm.css";
+import AddCategoryForm from "./AddCategoryForm";
+
+const apiURL = process.env.REACT_APP_API_URL;
 
 export default function TransactionForm(props) {
+  const [categories, setCategories] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
+
+  useEffect(() => {
+    const fetchCategories = async () => {
+      try {
+        const response = await fetch(`${apiURL}finances/category/get/`, {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        });
+
+        const responseData = await response.json();
+
+        if (response.status === 200) {
+          setCategories(responseData);
+        } else if (response.status === 500) {
+          logErrorToServer(responseData, "Home.jsx");
+        }
+      } catch (exception) {
+        logErrorToServer(exception, "Exception in Home.jsx");
+      }
+    };
+    fetchCategories();
+  }, []);
+
   return (
-    <form
-      onSubmit={props.handleTransactionSubmit}
-      className="add-transaction-form-container"
-    >
-      <div className="add-transaction-form-input-container">
-        <label htmlFor="description">Description</label>
+    <>
+      <form
+        onSubmit={props.handleTransactionSubmit}
+        className="add-transaction-form"
+      >
+        <label htmlFor="description" className="add-transaction-label">
+          Description
+        </label>
         <input
           type="text"
           id="description"
-          autoComplete="off"
+          className="add-transaction-input"
           value={props.transactionData.description}
           onChange={(event) =>
             props.setTransactionData({
@@ -25,96 +65,106 @@ export default function TransactionForm(props) {
           required={true}
           minLength={3}
           maxLength={50}
-          className="add-transaction-form-input"
         />
-      </div>
-        <div className="add-transaction-form-input-container">
-            <label htmlFor="value">Value</label>
-            <input
-            type="number"
-            id="value"
-            step="0.01"
-            autoComplete="off"
-            value={props.transactionData.value}
-            onChange={(event) =>
-                props.setTransactionData({
-                ...props.transactionData,
-                value: event.target.value,
-                })
-            }
-            required={true}
-            min={0}
-            className="add-transaction-form-input"
-            />
-        </div>
-        <div className="add-transaction-form-input-container">
-            <label htmlFor="date">Date</label>
-            <input
-            type="date"
-            id="date"
-            autoComplete="off"
-            value={props.transactionData.date}
-            onChange={(event) =>
-                props.setTransactionData({
-                ...props.transactionData,
-                date: event.target.value,
-                })
-            }
-            required={true}
-            className="add-transaction-form-input"
-            />
-        </div>
-        <div className="add-transaction-form-input-container">
-            <label htmlFor="category">Category</label>
-            <select
+        <label htmlFor="value" className="add-transaction-label">
+          Value
+        </label>
+        <input
+          type="number"
+          id="value"
+          className="add-transaction-input"
+          step="0.01"
+          value={props.transactionData.value}
+          onChange={(event) =>
+            props.setTransactionData({
+              ...props.transactionData,
+              value: event.target.value,
+            })
+          }
+          required={true}
+          min={0}
+        />
+        <label htmlFor="date" className="add-transaction-label">
+          Date
+        </label>
+        <input
+          type="date"
+          id="date"
+          className="add-transaction-input"
+          autoComplete="off"
+          value={props.transactionData.date}
+          onChange={(event) =>
+            props.setTransactionData({
+              ...props.transactionData,
+              date: event.target.value,
+            })
+          }
+          required={true}
+        />
+        <label htmlFor="category" className="add-transaction-label">
+          Category
+        </label>
+        <div className="add-transaction-category-container">
+          <select
             id="category"
+            className="add-transaction-input"
             autoComplete="off"
             value={props.transactionData.category}
             onChange={(event) =>
-                props.setTransactionData({
+              props.setTransactionData({
                 ...props.transactionData,
                 category: event.target.value,
-                })
+              })
             }
             required={true}
-            className="add-transaction-form-input"
-            >
+          >
             <option value="">Select a category</option>
-            <option value="food">Food</option>
-            <option value="transport">Transport</option>
-            <option value="housing">Housing</option>
-            <option value="health">Health</option>
-            <option value="education">Education</option>
-            <option value="entertainment">Entertainment</option>
-            <option value="other">Other</option>
-            </select>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            className="add-transaction-button-add-category"
+            onClick={openModal}
+          >
+            Add category
+          </button>
         </div>
-        <div className="add-transaction-form-input-container">
-            <label htmlFor="type">Type</label>
-            <select
-            id="type"
-            autoComplete="off"
-            value={props.transactionData.type}
-            onChange={(event) =>
-                props.setTransactionData({
-                ...props.transactionData,
-                type: event.target.value,
-                })
-            }
-            required={true}
-            className="add-transaction-form-input"
-            >
-            <option value="">Select a type</option>
-            <option value="expense">Expense</option>
-            <option value="income">Income</option>
-            </select>
-        </div>
-        <button type="submit" className="add-transaction-form-button">
-            Add transaction
+        <label htmlFor="type" className="add-transaction-label">
+          Type
+        </label>
+        <select
+          id="type"
+          className="add-transaction-input"
+          autoComplete="off"
+          value={props.transactionData.type}
+          onChange={(event) =>
+            props.setTransactionData({
+              ...props.transactionData,
+              type: event.target.value,
+            })
+          }
+          required={true}
+        >
+          <option value="">Select a type</option>
+          <option value="expense">Expense</option>
+          <option value="income">Income</option>
+        </select>
+        <button type="submit" className="add-transaction-button">
+          Add transaction
         </button>
-        <a href="/finances" className="add-transaction-form-button">
-            Cancel
-        </a>
-    </form>
+        <button type="button" className="add-transaction-button">
+          Cancel
+        </button>
+      </form>
+      <Modal
+        isOpen={isModalOpen}
+        onClose={closeModal}
+        children={<AddCategoryForm />}
+      />
+    </>
   );
 }

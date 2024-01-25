@@ -44,7 +44,7 @@ export default function Finances(props) {
             );
             const responseData = await response.json();
             if (response.status === 200) {
-                console.log(responseData);
+                console.log("Transaction created successfully");
             } else {
                 logErrorToServer(responseData, "Finances.jsx");
             }

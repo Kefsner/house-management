@@ -43,6 +43,7 @@ class TransactionServices(TransactionDataValidation):
         self.data = self.set_dtypes(data)
 
     def create_transaction(self):
+        return
         if self.can_create_transaction(self.data):
             Transaction.objects.create(
             )

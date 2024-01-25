@@ -1,7 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { getCsrfToken, isAuthenticated, logErrorToServer } from "../../../utils/utils";
+import {
+  getCsrfToken,
+  isAuthenticated,
+  logErrorToServer,
+} from "../../../utils/utils";
 
 import AuthForm from "./partials/AuthForm";
 
@@ -22,7 +26,7 @@ export default function Auth() {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [isRegister, setIsRegister] = useState(false);
-  const [message, setMessage] = useState({success: "", error: ""});
+  const [message, setMessage] = useState({ success: "", error: "" });
 
   const data = {
     username,
@@ -61,7 +65,7 @@ export default function Auth() {
         response.status === 400 ||
         response.status === 401 ||
         response.status === 500
-        ) {
+      ) {
         setPassword("");
         setConfirmPassword("");
         setMessage(responseData);

@@ -1,0 +1,15 @@
+Serializer Errors:
+2024-01-25 15:39:28.127254
+{'created_by': [ErrorDetail(string='This field is required.', code='required')], 'category': [ErrorDetail(string='Incorrect type. Expected pk value, received str.', code='incorrect_type')], 'subcategory': [ErrorDetail(string='This field is required.', code='required')]}==================================================
+Serializer Errors:
+2024-01-25 16:06:38.478970
+{'created_by': [ErrorDetail(string='This field is required.', code='required')], 'category': [ErrorDetail(string='Incorrect type. Expected pk value, received str.', code='incorrect_type')], 'subcategory': [ErrorDetail(string='This field is required.', code='required')]}==================================================
+Serializer Errors:
+2024-01-25 16:07:33.919246
+{'category': [ErrorDetail(string='Incorrect type. Expected pk value, received str.', code='incorrect_type')], 'subcategory': [ErrorDetail(string='This field is required.', code='required')]}==================================================
+Serializer Errors:
+2024-01-25 16:28:45.082212
+{'category': [ErrorDetail(string='Incorrect type. Expected pk value, received str.', code='incorrect_type')], 'subcategory': [ErrorDetail(string='This field is required.', code='required')]}==================================================
+Serializer Errors:
+2024-01-25 16:48:44.835212
+{'category': [ErrorDetail(string='Incorrect type. Expected pk value, received str.', code='incorrect_type')], 'subcategory': [ErrorDetail(string='This field is required.', code='required')]}==================================================

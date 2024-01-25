@@ -1,10 +1,8 @@
-import React from 'react';
+import React from "react";
 
-import Input from '../../../common/Input';
-import Message from '../../../common/Message';
-import Button from '../../../common/Button';
+import Message from "./Message";
 
-import './AuthForm.css';
+import "./AuthForm.css";
 
 export default function AuthForm(props) {
   const toogleForm = () => {
@@ -14,59 +12,55 @@ export default function AuthForm(props) {
   };
 
   return (
-    <form onSubmit={props.handleSubmit} className="auth-form-container">
-      <Input
+    <form onSubmit={props.handleSubmit} className="auth-form">
+      <label htmlFor="username">Usuário</label>
+      <input
         type="text"
         id="username"
-        autoComplete="username"
         value={props.data.username}
         onChange={(event) => props.setUsername(event.target.value)}
         autoFocus={true}
-        label="Usuário"
         required={true}
         minLength={3}
         maxLength={20}
-        className="auth-form-input"
       />
-      <Input
+      <label htmlFor="password">Senha</label>
+      <input
         type="password"
         id="password"
-        autoComplete="off"
         value={props.data.password}
         onChange={(event) => props.setPassword(event.target.value)}
-        label="Senha"
         required={true}
         minLength={6}
         maxLength={30}
-        className="auth-form-input"
       />
       {props.isRegister && (
-        <Input
-          type="password"
-          id="confirmPassword"
-          autoComplete="off"
-          value={props.data.confirmPassword}
-          onChange={(event) => props.setConfirmPassword(event.target.value)}
-          label="Confirmar senha"
-          required={true}
-          minLength={6}
-          maxLength={30}
-          className="auth-form-input"
-        />
+        <>
+          <label htmlFor="confirmPassword">Confirmar senha</label>
+          <input
+            type="password"
+            id="confirmPassword"
+            value={props.data.confirmPassword}
+            onChange={(event) => props.setConfirmPassword(event.target.value)}
+            required={true}
+            minLength={6}
+            maxLength={30}
+          />
+        </>
       )}
       {(props.message.success || props.message.error) && (
         <Message
           message={props.message.success || props.message.error}
           success={Boolean(props.message.success)}
-          className="auth-form-message"
+          className="message"
         />
       )}
-      <Button type="submit" className="auth-form-button">
+      <button type="submit">
         {props.isRegister ? "Criar conta" : "Entrar"}
-      </Button>
-      <Button type="button" onClick={toogleForm} className="auth-form-button">
+      </button>
+      <button type="button" onClick={toogleForm}>
         {props.isRegister ? "Voltar" : "Criar conta"}
-      </Button>
+      </button>
     </form>
   );
 }
