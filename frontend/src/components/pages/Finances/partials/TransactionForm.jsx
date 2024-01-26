@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback } from "react";
 
 import Modal from "../../../../components/common/Modal";
 
@@ -16,30 +16,34 @@ export default function TransactionForm(props) {
   const openModal = () => setIsModalOpen(true);
   const closeModal = () => setIsModalOpen(false);
 
-  useEffect(() => {
-    const fetchCategories = async () => {
-      try {
-        const response = await fetch(`${apiURL}finances/category/get/`, {
+  const fetchCategories = useCallback(async () => {
+    try {
+      const response = await fetch(
+        `${apiURL}finances/category/get/?type=${props.transactionData.type}`,
+        {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
           },
-        });
-
-        const responseData = await response.json();
-
-        if (response.status === 200) {
-          setCategories(responseData);
-        } else if (response.status === 500) {
-          logErrorToServer(responseData, "Home.jsx");
         }
-      } catch (exception) {
-        logErrorToServer(exception, "Exception in Home.jsx");
+      );
+      const responseData = await response.json();
+      if (response.status === 200) {
+        setCategories(responseData);
+      } else if (response.status === 400 || response.status === 500) {
+        logErrorToServer(responseData, "Home.jsx");
       }
-    };
-    fetchCategories();
-  }, []);
+    } catch (exception) {
+      logErrorToServer(exception, "Exception in Home.jsx");
+    }
+  }, [props.transactionData.type]);
+
+  useEffect(() => {
+    if (props.transactionData.type) {
+      fetchCategories();
+    }
+  }, [props.transactionData.type, fetchCategories]);
 
   return (
     <>
@@ -47,6 +51,26 @@ export default function TransactionForm(props) {
         onSubmit={props.handleTransactionSubmit}
         className="add-transaction-form"
       >
+        <label htmlFor="type" className="add-transaction-label">
+          Type
+        </label>
+        <select
+          id="type"
+          className="add-transaction-input"
+          autoComplete="off"
+          value={props.transactionData.type}
+          onChange={(event) =>
+            props.setTransactionData({
+              ...props.transactionData,
+              type: event.target.value,
+            })
+          }
+          required={true}
+        >
+          <option value="">Select a type</option>
+          <option value="E">Expense</option>
+          <option value="I">Income</option>
+        </select>
         <label htmlFor="description" className="add-transaction-label">
           Description
         </label>
@@ -133,26 +157,6 @@ export default function TransactionForm(props) {
             Add category
           </button>
         </div>
-        <label htmlFor="type" className="add-transaction-label">
-          Type
-        </label>
-        <select
-          id="type"
-          className="add-transaction-input"
-          autoComplete="off"
-          value={props.transactionData.type}
-          onChange={(event) =>
-            props.setTransactionData({
-              ...props.transactionData,
-              type: event.target.value,
-            })
-          }
-          required={true}
-        >
-          <option value="">Select a type</option>
-          <option value="expense">Expense</option>
-          <option value="income">Income</option>
-        </select>
         <button type="submit" className="add-transaction-button">
           Add transaction
         </button>
@@ -162,8 +166,12 @@ export default function TransactionForm(props) {
       </form>
       <Modal
         isOpen={isModalOpen}
-        onClose={closeModal}
-        children={<AddCategoryForm />}
+        children={
+          <AddCategoryForm
+            closeModal={closeModal}
+            onCategoryAdded={fetchCategories}
+          />
+        }
       />
     </>
   );

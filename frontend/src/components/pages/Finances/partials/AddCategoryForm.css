@@ -1,0 +1,65 @@
+.add-category-form {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    border-radius: 4px;
+}
+
+.add-category-label {
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.add-category-input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.add-category-select {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 16px;
+}
+
+.add-category-input[type="text"]:focus,
+.add-category-select:focus {
+    outline: none;
+    border-color: #4c6aa5;
+}
+
+.add-category-buttons {
+    display: flex;
+    justify-content: space-between;
+}
+
+.add-category-button {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    font-size: 18px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.add-category-button[type="submit"] {
+    background-color: #4c6aa5;
+    color: #fff;
+}
+
+.add-category-button[type="submit"]:hover {
+    background-color: #2a3e6f;
+}
+
+.add-category-button[type="button"] {
+    background-color: #c43d3d;
+    color: #fff;
+}
+
+.add-category-button[type="button"]:hover {
+    background-color: #a32f2f;
+}

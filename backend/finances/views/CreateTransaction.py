@@ -4,8 +4,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 from finances.serializers import TransactionSerializer
-from finances.messages import TransactionMessages
-from finances.services import TransactionServices
+from finances.messages import FinancesMessages
 
 from core.exceptions import SerializerError
 from core.logger import Logger
@@ -17,7 +16,7 @@ class CreateTransactionView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
-        messages = TransactionMessages()
+        messages = FinancesMessages()
         logger = Logger()
         try:
             data = json.loads(request.body)
@@ -25,8 +24,7 @@ class CreateTransactionView(APIView):
             if not serializer.is_valid():
                 logger.log_serializer_errors(serializer.errors)
                 raise SerializerError
-            services = TransactionServices(data)
-            return services.create_transaction()
+            return
         except (json.JSONDecodeError, KeyError, SerializerError):
             payload = { 'error': messages.bad_request }
             return Response(payload, status.HTTP_400_BAD_REQUEST)

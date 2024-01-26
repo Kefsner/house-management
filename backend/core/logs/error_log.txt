@@ -1,15 +1,3 @@
 Serializer Errors:
-2024-01-26 18:07:44.337611
-{'type': [ErrorDetail(string='This field may not be blank.', code='blank')], 'description': [ErrorDetail(string='This field may not be blank.', code='blank')]}==================================================
-Serializer Errors:
-2024-01-26 18:07:46.237600
-{'type': [ErrorDetail(string='This field may not be blank.', code='blank')], 'description': [ErrorDetail(string='This field may not be blank.', code='blank')]}==================================================
-Serializer Errors:
-2024-01-26 18:07:46.381918
-{'type': [ErrorDetail(string='This field may not be blank.', code='blank')], 'description': [ErrorDetail(string='This field may not be blank.', code='blank')]}==================================================
-Serializer Errors:
-2024-01-26 18:07:46.550054
-{'type': [ErrorDetail(string='This field may not be blank.', code='blank')], 'description': [ErrorDetail(string='This field may not be blank.', code='blank')]}==================================================
-Serializer Errors:
-2024-01-26 18:07:46.692573
-{'type': [ErrorDetail(string='This field may not be blank.', code='blank')], 'description': [ErrorDetail(string='This field may not be blank.', code='blank')]}==================================================
+2024-01-26 18:46:50.737126
+{'type': [ErrorDetail(string='This field may not be blank.', code='blank')]}==================================================
