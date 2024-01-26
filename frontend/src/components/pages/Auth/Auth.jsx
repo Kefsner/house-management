@@ -64,6 +64,7 @@ export default function Auth() {
       } else if (
         response.status === 400 ||
         response.status === 401 ||
+        response.status === 409 ||
         response.status === 500
       ) {
         setPassword("");

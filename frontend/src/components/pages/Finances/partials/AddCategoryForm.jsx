@@ -43,8 +43,9 @@ export default function AddCategoryForm(props) {
                 value={categoryData.type}
                 onChange={(event) => setCategoryData({ ...categoryData, type: event.target.value })}
             >
-                <option value="income">Income</option>
-                <option value="expense">Expense</option>
+                <option value="">Select type</option>
+                <option value="I">Income</option>
+                <option value="E">Expense</option>
             </select>
             <label htmlFor="description">Description</label>
             <input
@@ -53,6 +54,7 @@ export default function AddCategoryForm(props) {
                 value={categoryData.description}
                 onChange={(event) => setCategoryData({ ...categoryData, description: event.target.value })}
             />
+            <button type="submit">Add Category</button>
         </form>
     );
 }

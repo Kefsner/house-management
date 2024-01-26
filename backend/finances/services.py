@@ -59,3 +59,43 @@ class TransactionServices(TransactionDataValidation):
         data['subcategory'] = Subcategory.objects.get(id=data['subcategory'])
         data['date'] = datetime.strptime(data['date'], '%Y-%m-%d').date()
         return data
+    
+class CategoryServices():
+    def __init__(self, data: dict) -> None:
+        self.data = data
+        self.messages = TransactionMessages()
+        self.response = {}
+
+    def create_category(self):
+        return
+        if self.can_create_category(self.data):
+            Category.objects.create(
+                description=self.data['description'],
+                type=self.data['type']
+            )
+            self.response['payload'] = {
+                'message': self.messages.created
+            }
+            self.response['status'] = status.HTTP_201_CREATED
+        return Response(self.response['payload'], self.response['status'])
+    
+    def can_create_category(self, data: dict) -> bool:
+        if not self.description_is_valid(data['description']):
+            self.response['payload'] = {
+                'error': self.messages.description_length_invalid
+            }
+            self.response['status'] = status.HTTP_400_BAD_REQUEST
+            return False
+        
+        if not self.type_is_valid(data['type']):
+            self.response['payload'] = {
+                'error': self.messages.type_invalid
+            }
+            self.response['status'] = status.HTTP_400_BAD_REQUEST
+            return False
+        
+        return True
+    
+    @staticmethod
+    def type_is_valid(type: str) -> bool:
+        return type in ['I', 'E']

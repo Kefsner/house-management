@@ -23,7 +23,6 @@ class LogoutView(APIView):
             return Response(payload, status.HTTP_200_OK)
         except TokenError:
             payload = { 'error': messages.token_error }
-            logger.log_tracebak(traceback.format_exc())
             return Response(payload, status.HTTP_400_BAD_REQUEST)
         except Exception:
             logger.log_tracebak(traceback.format_exc())

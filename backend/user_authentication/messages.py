@@ -9,7 +9,7 @@ class UserAuthenticationMessages(CoreMessages):
     _username_length_invalid = f'O nome de usuário deve ter entre {MIN_USERNAME_LENGHT} e {MAX_USERNAME_LENGHT} caracteres'
     _password_length_invalid = f'A senha deve ter entre {MIN_PASSWORD_LENGHT} e {MAX_PASSWORD_LENGHT} caracteres'
     _passwords_do_not_match = 'As senhas não coincidem'
-    _username_already_exists = 'Username já existe'
+    _username_already_exists = 'O nome de usuário já existe'
     _password_has_no_uppercase = 'A senha deve conter pelo menos uma letra maiúscula'
     _password_has_no_lowercase = 'A senha deve conter pelo menos uma letra minúscula'
     _password_has_no_number = 'A senha deve conter pelo menos um número'

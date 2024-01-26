@@ -4,15 +4,16 @@ from rest_framework.views import APIView
 from rest_framework import status
 
 from django.contrib.auth.models import User
+
 from django.http.response import HttpResponse
 from django.http.request import HttpRequest
 
-from core.exceptions import SerializerError
+from core.exceptions import SerializerError, InvalidCredentials
 from core.logger import Logger
 
 from user_authentication.messages import UserAuthenticationMessages
-from user_authentication.services import UserAuthenticationServices
 from user_authentication.serializers import LoginSerializer
+from user_authentication.services import AuthServices
 
 import traceback
 import json
@@ -22,19 +23,19 @@ class LoginView(APIView):
     def post(self, request: HttpRequest) -> HttpResponse:
         messages = UserAuthenticationMessages()
         logger = Logger()
-
         try:
             data = json.loads(request.body)
             serializer = LoginSerializer(data=data)
             if not serializer.is_valid():
                 logger.log_serializer_errors(serializer.errors)
                 raise SerializerError
-            services = UserAuthenticationServices(data)
-            return services.login()
+            services = AuthServices(data)
+            payload = services.login()
+            return Response(payload, status.HTTP_200_OK)
         except (json.JSONDecodeError, KeyError, SerializerError):
             payload = { 'error': messages.bad_request }
             return Response(payload, status.HTTP_400_BAD_REQUEST)
-        except User.DoesNotExist:
+        except (User.DoesNotExist, InvalidCredentials):
             payload = { 'error': messages.invalid_credentials }
             return Response(payload, status.HTTP_401_UNAUTHORIZED)
         except:
