@@ -25,6 +25,7 @@ export default function Finances(props) {
         date: new Date().toISOString().slice(0, 10),
         category: "",
         subcategory: "",
+        user: localStorage.getItem("username"),
     });
 
     const handleTransactionSubmit = async (event) => {
@@ -45,7 +46,21 @@ export default function Finances(props) {
             );
             const responseData = await response.json();
             if (response.status === 201) {
-                console.log("Transaction created successfully");
+                setTransactionData({
+                    type: "",
+                    description: "",
+                    value: "",
+                    date: new Date().toISOString().slice(0, 10),
+                    category: "",
+                    subcategory: "",
+                    user: localStorage.getItem("username"),
+                });
+            } else if (
+                response.status === 400 ||
+                response.status === 409 ||
+                response.status === 500
+            ) {
+                logErrorToServer(responseData, "Finances.jsx");
             } else {
                 logErrorToServer(responseData, "Finances.jsx");
             }

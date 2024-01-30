@@ -1,6 +1,6 @@
-from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework import status
 
 from core.exceptions import SerializerError, SubcategoryAlreadyExists
@@ -8,8 +8,6 @@ from core.exceptions import SerializerError, SubcategoryAlreadyExists
 from finances.serializers import SubcategorySerializer
 from finances.services import SubcategoryServices
 from finances.messages import FinancesMessages
-
-from finances.models import Category, Subcategory
 
 from core.logger import Logger
 

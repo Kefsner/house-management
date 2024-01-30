@@ -4,6 +4,7 @@ from rest_framework import status
 from rest_framework.views import APIView
 
 from finances.serializers import TransactionSerializer
+from finances.services import TransactionServices
 from finances.messages import FinancesMessages
 
 from core.exceptions import SerializerError
@@ -24,8 +25,11 @@ class CreateTransactionView(APIView):
             if not serializer.is_valid():
                 logger.log_serializer_errors(serializer.errors)
                 raise SerializerError
-            return
+            services = TransactionServices(data)
+            payload = services.create_transaction()
+            return Response(payload, status.HTTP_201_CREATED)
         except (json.JSONDecodeError, KeyError, SerializerError):
+            print(traceback.format_exc())
             payload = { 'error': messages.bad_request }
             return Response(payload, status.HTTP_400_BAD_REQUEST)
         except:
