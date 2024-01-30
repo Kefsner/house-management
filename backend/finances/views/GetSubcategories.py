@@ -1,28 +1,29 @@
+from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.views import APIView
 from rest_framework import status
 
 from finances.messages import FinancesMessages
-from finances.models import Category
+from finances.models import Category, Subcategory
 
 from core.logger import Logger
 
 import traceback
-
-class GetCategoriesView(APIView):
+class GetSubcategoriesView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         messages = FinancesMessages()
         logger = Logger()
         try:
-            type = request.GET['type'][0]
-            categories = Category.objects.filter(type=type)
+            category_name = request.GET['category']
+            category_type = request.GET['type'][0]
+            category = Category.objects.get(name=category_name, type=category_type)
+            subcategories = Subcategory.objects.filter(category=category)
             payload = []
-            for category in categories:
+            for subcategory in subcategories:
                 payload.append({
-                    'id': category.id,
-                    'name': category.name
+                    'id': subcategory.id,
+                    'name': subcategory.name
                 })
             return Response(payload, status.HTTP_200_OK)
         except (KeyError):

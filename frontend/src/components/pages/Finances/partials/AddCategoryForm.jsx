@@ -8,16 +8,22 @@ const apiURL = process.env.REACT_APP_API_URL;
 
 export default function AddCategoryForm(props) {
   const [categoryData, setCategoryData] = useState({
-    type: "",
-    description: "",
+    type: props.type,
+    name: "",
     user: localStorage.getItem("username"),
+    category: props.category,
   });
 
-  const handleCategorySubmit = async (event) => {
+  const handleCategorySubmit = () => async (event) => {
     event.preventDefault();
+
+  const apiEndpoint = props.category
+  ? `finances/subcategory/create/`
+  : "finances/category/create/";
+
     const csrfToken = getCsrfToken();
     try {
-      const response = await fetch(`${apiURL}finances/category/create/`, {
+      const response = await fetch(`${apiURL}${apiEndpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -35,7 +41,7 @@ export default function AddCategoryForm(props) {
         response.status === 409 ||
         response.status === 500
       ) {
-        console.log(responseData);
+        logErrorToServer(responseData, "AddCategoryForm.jsx");
       } else {
         logErrorToServer(responseData, "Finances.jsx");
       }
@@ -44,33 +50,38 @@ export default function AddCategoryForm(props) {
     }
   };
   return (
-    <form onSubmit={handleCategorySubmit} className="add-category-form">
-      <label htmlFor="type" className="add-category-label">
-        Type
-      </label>
-      <select
-        id="type"
-        className="add-category-select"
-        value={categoryData.type}
-        onChange={(event) =>
-          setCategoryData({ ...categoryData, type: event.target.value })
-        }
-        required={true}
-      >
-        <option value="">Select type</option>
-        <option value="I">Income</option>
-        <option value="E">Expense</option>
-      </select>
-      <label htmlFor="description" className="add-category-label">
-        Description
+    <form
+      onSubmit={handleCategorySubmit(props.category)}
+      className="add-category-form"
+    >
+      {props.category ? (
+      <h2 className="add-category-title">Add subcategory to {props.category}</h2>
+      ) : (
+        <h2 className="add-category-title">Add category</h2>
+      )}
+        <label htmlFor="type" className="add-category-label">
+          Type
+        </label>
+        <input
+          id="type"
+          className="add-category-select"
+          value={props.type}
+          onChange={(event) =>
+            setCategoryData({ ...categoryData, type: event.target.value })
+          }
+          required={true}
+          readOnly={true}
+        />
+      <label htmlFor="name" className="add-category-label">
+        Name
       </label>
       <input
         type="text"
-        id="description"
+        id="name"
         className="add-category-input"
-        value={categoryData.description}
+        value={categoryData.name}
         onChange={(event) =>
-          setCategoryData({ ...categoryData, description: event.target.value })
+          setCategoryData({ ...categoryData, name: event.target.value })
         }
         required={true}
       />
@@ -82,7 +93,6 @@ export default function AddCategoryForm(props) {
         >
           Cancel
         </button>
-        
         <button type="submit" className="add-category-button">
           Confirm
         </button>

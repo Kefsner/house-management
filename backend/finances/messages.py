@@ -6,6 +6,8 @@ class FinancesMessages(CoreMessages):
     _created = 'Transaction created successfully.'
     _category_created = 'Category created successfully.'
     _category_already_exists = 'Category already exists.'
+    _subcategory_created = 'Subcategory created successfully.'
+    _subcategory_already_exists = 'Subcategory already exists.'
 
     @property
     def description_length_invalid(self):
@@ -26,3 +28,11 @@ class FinancesMessages(CoreMessages):
     @property
     def category_already_exists(self):
         return self._category_already_exists
+    
+    @property
+    def subcategory_created(self):
+        return self._subcategory_created
+    
+    @property
+    def subcategory_already_exists(self):
+        return self._subcategory_already_exists

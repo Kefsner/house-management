@@ -19,11 +19,12 @@ export default function Finances(props) {
     }, [navigate]);
 
     const [transactionData, setTransactionData] = useState({
+        type: "",
         description: "",
         value: "",
         date: new Date().toISOString().slice(0, 10),
         category: "",
-        type: "",
+        subcategory: "",
     });
 
     const handleTransactionSubmit = async (event) => {
@@ -43,7 +44,7 @@ export default function Finances(props) {
                 }
             );
             const responseData = await response.json();
-            if (response.status === 200) {
+            if (response.status === 201) {
                 console.log("Transaction created successfully");
             } else {
                 logErrorToServer(responseData, "Finances.jsx");

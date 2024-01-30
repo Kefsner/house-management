@@ -11,10 +11,19 @@ const apiURL = process.env.REACT_APP_API_URL;
 
 export default function TransactionForm(props) {
   const [categories, setCategories] = useState([]);
+  const [subcategories, setSubcategories] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [modalAction, setModalAction] = useState(null);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const openModal = (action) => {
+    setIsModalOpen(true);
+    setModalAction(action);
+  };
+
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalAction(null);
+  };
 
   const fetchCategories = useCallback(async () => {
     try {
@@ -24,7 +33,7 @@ export default function TransactionForm(props) {
           method: "GET",
           headers: {
             "Content-Type": "application/json",
-            "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
           },
         }
       );
@@ -32,10 +41,10 @@ export default function TransactionForm(props) {
       if (response.status === 200) {
         setCategories(responseData);
       } else if (response.status === 400 || response.status === 500) {
-        logErrorToServer(responseData, "Home.jsx");
+        logErrorToServer(responseData, "TransactionForm.jsx");
       }
     } catch (exception) {
-      logErrorToServer(exception, "Exception in Home.jsx");
+      logErrorToServer(exception, "Exception in TransactionForm.jsx");
     }
   }, [props.transactionData.type]);
 
@@ -44,6 +53,40 @@ export default function TransactionForm(props) {
       fetchCategories();
     }
   }, [props.transactionData.type, fetchCategories]);
+
+  const fetchSubcategories = useCallback(async () => {
+    if (!props.transactionData.category) {
+      setSubcategories([]);
+      return;
+    }
+
+    const apiEndpoint = `finances/subcategory/get/?category=${props.transactionData.category}&type=${props.transactionData.type}`;
+
+    try {
+      const response = await fetch(
+        `${apiURL}${apiEndpoint}`,
+        {
+          method: "GET",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+          },
+        }
+      );
+      const responseData = await response.json();
+      if (response.status === 200) {
+        setSubcategories(responseData);
+      } else if (response.status === 400 || response.status === 500) {
+        logErrorToServer(responseData, "TransactionForm.jsx");
+      }
+    } catch (exception) {
+      logErrorToServer(exception, "Exception in TransactionForm.jsx");
+    }
+  }, [props.transactionData.category, props.transactionData.type]);
+
+  useEffect(() => {
+    fetchSubcategories();
+  }, [props.transactionData.category, props.transactionData.type, fetchSubcategories]);
 
   return (
     <>
@@ -67,10 +110,88 @@ export default function TransactionForm(props) {
           }
           required={true}
         >
-          <option value="">Select a type</option>
-          <option value="E">Expense</option>
-          <option value="I">Income</option>
+          <option value="" disabled hidden>
+            Select a type
+          </option>
+          <option value="Expense">Expense</option>
+          <option value="Income">Income</option>
         </select>
+        {props.transactionData.type && (
+          <>
+        <label htmlFor="category" className="add-transaction-label">
+          Category
+        </label>
+        <div className="add-transaction-category-container">
+          <select
+            id="category"
+            className="add-transaction-select"
+            autoComplete="off"
+            value={props.transactionData.category}
+            onChange={(event) =>
+              props.setTransactionData({
+                ...props.transactionData,
+                category: event.target.value,
+              })
+            }
+            required={true}
+          >
+            <option value="" disabled hidden>
+              Select a category
+            </option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.name}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            className="add-transaction-button-add-category"
+            onClick={() => openModal("category")}
+          >
+            Add new
+          </button>
+        </div>
+        </>
+        )}
+        {props.transactionData.category && (
+          <>
+        <label htmlFor="subcategory" className="add-transaction-label">
+          Subcategory
+        </label>
+        <div className="add-transaction-category-container">
+          <select
+            id="subcategory"
+            className="add-transaction-select"
+            autoComplete="off"
+            value={props.transactionData.subcategory}
+            onChange={(event) =>
+              props.setTransactionData({
+                ...props.transactionData,
+                subcategory: event.target.value,
+              })
+            }
+            required={true}
+          >
+            <option value="" disabled hidden>
+              Select a subcategory
+            </option>
+            {subcategories.map((subcategory) => (
+              <option key={subcategory.id} value={subcategory.name}>
+                {subcategory.name}
+              </option>
+            ))}
+          </select>
+          <button
+            type="button"
+            className="add-transaction-button-add-category"
+            onClick={() => openModal("subcategory")}
+          >
+            Add new
+          </button>
+        </div>
+        </>
+        )}
         <label htmlFor="description" className="add-transaction-label">
           Description
         </label>
@@ -89,7 +210,7 @@ export default function TransactionForm(props) {
           required={true}
           minLength={3}
           maxLength={50}
-        />
+          />
         <label htmlFor="value" className="add-transaction-label">
           Value
         </label>
@@ -125,54 +246,26 @@ export default function TransactionForm(props) {
           }
           required={true}
         />
-        <label htmlFor="category" className="add-transaction-label">
-          Category
-        </label>
-        <div className="add-transaction-category-container">
-          <select
-            id="category"
-            className="add-transaction-input"
-            autoComplete="off"
-            value={props.transactionData.category}
-            onChange={(event) =>
-              props.setTransactionData({
-                ...props.transactionData,
-                category: event.target.value,
-              })
-            }
-            required={true}
-          >
-            <option value="">Select a category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
-              </option>
-            ))}
-          </select>
-          <button
-            type="button"
-            className="add-transaction-button-add-category"
-            onClick={openModal}
-          >
-            Add category
-          </button>
-        </div>
         <button type="submit" className="add-transaction-button">
           Add transaction
         </button>
-        <button type="button" className="add-transaction-button">
-          Cancel
-        </button>
       </form>
-      <Modal
-        isOpen={isModalOpen}
-        children={
+      <Modal isOpen={isModalOpen}>
+        {modalAction === "category" ? (
           <AddCategoryForm
-            closeModal={closeModal}
+            type={props.transactionData.type}
             onCategoryAdded={fetchCategories}
+            closeModal={closeModal}
           />
-        }
-      />
+        ) : (
+          <AddCategoryForm
+            type={props.transactionData.type}
+            category={props.transactionData.category}
+            onCategoryAdded={fetchSubcategories}
+            closeModal={closeModal}
+          />
+        )}
+      </Modal>
     </>
   );
 }

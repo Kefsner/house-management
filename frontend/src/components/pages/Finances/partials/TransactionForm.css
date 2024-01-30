@@ -28,6 +28,7 @@
     border: 1px solid #ddd;
     border-radius: 4px;
     font-size: 16px;
+    width: 60%;
 }
 
 .add-transaction-input[type="text"]:focus,
@@ -82,6 +83,7 @@
     background-color: #4c6aa5;
     color: #fff;
     transition: background-color 0.3s;
+    width: 30%;
 }
 
 .add-transaction-button-add-category:hover {
