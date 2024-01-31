@@ -68,17 +68,3 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-
-# Components organization
-
-### pages
-Contains components that are tied to routes in your application. These components are typically rendered by the Route component from React Router and represent entire pages.
-
-### partials
-Contains smaller components that are not tied to a specific route but are used as part of larger page components, like forms, list items, or any section of a page.
-
-### layouts
-Contains components that are related to the layout of your application, such as headers, footers, navigation bars, and sidebars. These components help to wrap or are used across different pages.
-
-### common
-Contains the most reusable components across your application, like buttons, inputs, modals, cards, etc. These are the building blocks of your UI and are used in multiple places.
