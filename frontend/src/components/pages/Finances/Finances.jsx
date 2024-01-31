@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import { PieChart, Pie, Cell, Tooltip, Legend } from "recharts";
 
 import {
   getCsrfToken,
@@ -90,33 +91,44 @@ export default function Finances(props) {
     updateBalance();
   }, []);
 
-    // const data = {
-    // labels: ["Income", "Expense"],
-    // datasets: [
-    //   {
-    //     label: "Balance",
-    //     data: [income, expense],
-    //     backgroundColor: ["rgba(75, 192, 192, 0.2)", "rgba(255, 99, 132, 0.2)"],
-    //     borderColor: ["rgba(75, 192, 192, 1)", "rgba(255, 99, 132, 1)"],
-    //     borderWidth: 1,
-    //   },
-    // ],
-    // };
+  const pieData = [
+    { name: "Income", value: income },
+    { name: "Expense", value: expense },
+  ];
 
   return (
     <Layout>
-      <h1>Finances</h1>
       <section className="balance-section">
-        <h2>Balance</h2>
-        <p>Income: {income}</p>
-        <p>Expense: {expense}</p>
-        <p>Balance: {income - expense}</p>
-        <div>
-          {/* <Pie data={data} /> */}
+      <h2>Monthly Balance for {new Date().toLocaleString("default", { month: "long" })}</h2>
+        <div className="pie-chart">
+          <PieChart width={400} height={400}>
+            <text x={200} y={200} textAnchor="middle" dominantBaseline="middle">
+              {`Balance: R$ ${income - expense}`}
+            </text>
+            <Pie
+              data={pieData}
+              dataKey="value"
+              nameKey="name"
+              cx="50%"
+              cy="50%"
+              outerRadius={150}
+              innerRadius={100}
+              fill="#8884d8"
+              label
+            >
+              {pieData.map((entry, index) => (
+                <Cell
+                  key={`cell-${index}`}
+                  fill={index === 0 ? "#82ca9d" : "#8884d8"}
+                />
+              ))}
+            </Pie>
+            <Tooltip />
+            <Legend />
+          </PieChart>
         </div>
       </section>
       <section className="transactions-section">
-        <h2>Transactions</h2>
         <TransactionForm
           transactionData={transactionData}
           setTransactionData={setTransactionData}

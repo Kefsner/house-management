@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-import Modal from "../../../../components/common/Modal";
+import Modal from "../../../common/Modal";
 
 import { logErrorToServer, fetchCategories } from "../../../../utils/utils";
 
