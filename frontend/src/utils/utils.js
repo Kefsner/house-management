@@ -37,7 +37,8 @@ export function logErrorToServer(error, info = null) {
 
 export async function handleLogout(navigate) {
   try {
-    const response = await fetch(`${apiURL}auth/logout/`, {
+    const apiEndpoint = "auth/logout/";
+    const response = await fetch(`${apiURL}${apiEndpoint}`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -68,6 +69,28 @@ export async function fetchCategories(transactionType, category, onSuccess, onEr
     const apiEndpoint = category
       ? `finances/subcategory/get/?category=${category}&type=${transactionType[0]}`
       : `finances/category/get/?type=${transactionType[0]}`;
+    const response = await fetch(`${apiURL}${apiEndpoint}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    const responseData = await response.json();
+    if (response.status === 200) {
+      onSuccess(responseData);
+    } else if (response.status === 400 || response.status === 500) {
+      onError(responseData);
+    }
+  } catch (exception) {
+    logErrorToServer(exception, "Exception in Home.jsx");
+    onError(exception);
+  }
+}
+
+export async function fetchTransactions(onSuccess, onError) {
+  try {
+    const apiEndpoint = "finances/transaction/get/";
     const response = await fetch(`${apiURL}${apiEndpoint}`, {
       method: "GET",
       headers: {
