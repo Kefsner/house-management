@@ -1,3 +1,286 @@
-Serializer Errors:
-2024-01-30 21:34:35.780425
-{'category': [ErrorDetail(string='Incorrect type. Expected pk value, received str.', code='incorrect_type')], 'subcategory': [ErrorDetail(string='Incorrect type. Expected pk value, received str.', code='incorrect_type')]}==================================================
+Traceback:
+2024-01-31 14:00:28.608713
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 25, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 11, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:03:10.647072
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 25, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 14, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:03:57.134653
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 25, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 15, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:04:23.097319
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 26, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 14, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:04:38.484457
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 26, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 14, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:06:27.837061
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 26, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 14, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:07:17.750825
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 26, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 14, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:10:49.474053
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 26, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 14, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:10:56.063313
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 26, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 14, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:11:40.178577
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 26, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 14, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:12:15.047140
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 26, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 14, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:12:35.982490
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 26, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 14, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================
+Traceback:
+2024-01-31 14:16:29.049665
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/finances/views/CreateTransaction.py", line 26, in post
+    if not serializer.is_valid():
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 227, in is_valid
+    self._validated_data = self.run_validation(self.initial_data)
+                           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/rest_framework/serializers.py", line 426, in run_validation
+    value = self.to_internal_value(data)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/finances/serializers.py", line 14, in to_internal_value
+    subcategory = Subcategory.objects.get(name=data['subcategory'])
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 647, in get
+    raise self.model.DoesNotExist(
+finances.models.Subcategory.DoesNotExist: Subcategory matching query does not exist.
+==================================================

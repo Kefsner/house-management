@@ -50,7 +50,8 @@ class TransactionServices():
         category = self.data['category']
         category = Category.objects.get(id=category)
         subcategory = self.data['subcategory']
-        subcategory = Subcategory.objects.get(id=subcategory)
+        if subcategory:
+            subcategory = Subcategory.objects.get(id=subcategory)
         description = self.data['description']
         value = self.data['value']
         date = self.data['date']

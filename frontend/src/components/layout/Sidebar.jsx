@@ -13,7 +13,7 @@ export default function Sidebar(props) {
       <div className="sidebar-main">
         <Card
           className="sidebar-main-card"
-          icon="icons/home.svg"
+          icon="/icons/home.svg"
           text="Home"
           onClick={() => navigate("/")}
         />
@@ -21,13 +21,13 @@ export default function Sidebar(props) {
       <div className="sidebar-footer">
         <Card
           className="sidebar-user-card"
-          icon="icons/user.svg"
+          icon="/icons/user.svg"
           text={props.username}
           onClick={() => navigate("/profile")}
         />
         <Card
           className="sidebar-config-card"
-          icon="icons/gear.svg"
+          icon="/icons/gear.svg"
           text="Config"
           onClick={() => navigate("/config")}
         />

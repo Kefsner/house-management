@@ -16,7 +16,7 @@ class GetCategoriesView(APIView):
         messages = FinancesMessages()
         logger = Logger()
         try:
-            type = request.GET['type'][0]
+            type = request.GET['type']
             categories = Category.objects.filter(type=type)
             payload = []
             for category in categories:

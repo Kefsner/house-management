@@ -14,13 +14,13 @@ export default function Home() {
       <div className="home">
         <Card
           className="finances-card"
-          icon="icons/finances.svg"
+          icon="/icons/finances.svg"
           text="Finances"
           onClick={() => navigate("/finances")}
         />
         <Card
           className="shoplist-card"
-          icon="icons/shoplist.svg"
+          icon="/icons/shoplist.svg"
           text="ShopList"
           onClick={() => navigate("/shoplist")}
         />

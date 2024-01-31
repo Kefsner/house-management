@@ -25,7 +25,6 @@ class CreateSubcategoryView(APIView):
             if not serializer.is_valid():
                 logger.log_serializer_errors(serializer.errors)
                 raise SerializerError
-            print(data)
             services = SubcategoryServices(data)
             payload = services.create_subcategory()
             return Response(payload, status.HTTP_201_CREATED)

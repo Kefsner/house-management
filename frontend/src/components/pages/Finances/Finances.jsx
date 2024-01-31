@@ -83,6 +83,10 @@ export default function Finances(props) {
                 handleTransactionSubmit={handleTransactionSubmit}
             />
         </section>
+        <section>
+            <h1>Manage Categories</h1>
+            <button onClick={() => navigate("categories")}>Categories</button>
+        </section>
     </Layout>
   );
 }

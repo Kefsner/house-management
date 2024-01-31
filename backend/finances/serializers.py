@@ -8,7 +8,10 @@ class TransactionSerializer(serializers.ModelSerializer):
 
     def to_internal_value(self, data):
         category = Category.objects.get(name=data['category'])
-        subcategory = Subcategory.objects.get(name=data['subcategory'])
+        if data['subcategory'] == 'None':
+            subcategory = None
+        else:
+            subcategory = Subcategory.objects.get(name=data['subcategory'])
         data['category'] = category.id
         data['subcategory'] = subcategory.id
         return data

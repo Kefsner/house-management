@@ -29,7 +29,6 @@ class CreateTransactionView(APIView):
             payload = services.create_transaction()
             return Response(payload, status.HTTP_201_CREATED)
         except (json.JSONDecodeError, KeyError, SerializerError):
-            print(traceback.format_exc())
             payload = { 'error': messages.bad_request }
             return Response(payload, status.HTTP_400_BAD_REQUEST)
         except:

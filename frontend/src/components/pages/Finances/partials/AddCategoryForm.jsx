@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 import { getCsrfToken, logErrorToServer } from "../../../../utils/utils";
 
@@ -7,6 +8,7 @@ import "./AddCategoryForm.css";
 const apiURL = process.env.REACT_APP_API_URL;
 
 export default function AddCategoryForm(props) {
+  const navigate = useNavigate();
   const [categoryData, setCategoryData] = useState({
     type: props.type,
     name: "",
@@ -17,9 +19,9 @@ export default function AddCategoryForm(props) {
   const handleCategorySubmit = () => async (event) => {
     event.preventDefault();
 
-  const apiEndpoint = props.category
-  ? `finances/subcategory/create/`
-  : "finances/category/create/";
+    const apiEndpoint = props.category
+      ? `finances/subcategory/create/`
+      : "finances/category/create/";
 
     const csrfToken = getCsrfToken();
     try {
@@ -54,24 +56,35 @@ export default function AddCategoryForm(props) {
       onSubmit={handleCategorySubmit(props.category)}
       className="add-category-form"
     >
-      {props.category ? (
-      <h2 className="add-category-title">Add subcategory to {props.category}</h2>
-      ) : (
-        <h2 className="add-category-title">Add category</h2>
-      )}
-        <label htmlFor="type" className="add-category-label">
-          Type
-        </label>
-        <input
-          id="type"
-          className="add-category-select"
-          value={props.type}
-          onChange={(event) =>
-            setCategoryData({ ...categoryData, type: event.target.value })
-          }
-          required={true}
-          readOnly={true}
-        />
+      <div className="add-category-form-header">
+        {props.category ? (
+          <h3 className="add-category-title">
+            Add subcategory to {props.category}
+          </h3>
+        ) : (
+          <h2 className="add-category-title">Add category</h2>
+        )}
+        <button
+          type="button"
+          onClick={() => navigate("categories")}
+          className="add-category-manage"
+        >
+          Manage categories
+        </button>
+      </div>
+      <label htmlFor="type" className="add-category-label">
+        Type
+      </label>
+      <input
+        id="type"
+        className="add-category-select"
+        value={props.type}
+        onChange={(event) =>
+          setCategoryData({ ...categoryData, type: event.target.value })
+        }
+        required={true}
+        readOnly={true}
+      />
       <label htmlFor="name" className="add-category-label">
         Name
       </label>

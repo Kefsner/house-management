@@ -1,13 +1,11 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useEffect } from "react";
 
 import Modal from "../../../../components/common/Modal";
 
-import { logErrorToServer } from "../../../../utils/utils";
+import { logErrorToServer, fetchCategories } from "../../../../utils/utils";
 
 import "./TransactionForm.css";
 import AddCategoryForm from "./AddCategoryForm";
-
-const apiURL = process.env.REACT_APP_API_URL;
 
 export default function TransactionForm(props) {
   const [categories, setCategories] = useState([]);
@@ -25,68 +23,33 @@ export default function TransactionForm(props) {
     setModalAction(null);
   };
 
-  const fetchCategories = useCallback(async () => {
-    try {
-      const response = await fetch(
-        `${apiURL}finances/category/get/?type=${props.transactionData.type}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
-      const responseData = await response.json();
-      if (response.status === 200) {
-        setCategories(responseData);
-      } else if (response.status === 400 || response.status === 500) {
-        logErrorToServer(responseData, "TransactionForm.jsx");
-      }
-    } catch (exception) {
-      logErrorToServer(exception, "Exception in TransactionForm.jsx");
+  useEffect(() => {
+    if (!props.transactionData.type) {
+      setCategories([]);
+      return;
     }
+    const onSuccess = (data) => {
+      setCategories(data);
+    };
+    const onError = (error) => {
+      logErrorToServer(error, "TransactionForm.jsx");
+    };
+    fetchCategories(props.transactionData.type, null, onSuccess, onError);
   }, [props.transactionData.type]);
 
   useEffect(() => {
-    if (props.transactionData.type) {
-      fetchCategories();
-    }
-  }, [props.transactionData.type, fetchCategories]);
-
-  const fetchSubcategories = useCallback(async () => {
     if (!props.transactionData.category) {
       setSubcategories([]);
       return;
     }
-
-    const apiEndpoint = `finances/subcategory/get/?category=${props.transactionData.category}&type=${props.transactionData.type}`;
-
-    try {
-      const response = await fetch(
-        `${apiURL}${apiEndpoint}`,
-        {
-          method: "GET",
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
-          },
-        }
-      );
-      const responseData = await response.json();
-      if (response.status === 200) {
-        setSubcategories(responseData);
-      } else if (response.status === 400 || response.status === 500) {
-        logErrorToServer(responseData, "TransactionForm.jsx");
-      }
-    } catch (exception) {
-      logErrorToServer(exception, "Exception in TransactionForm.jsx");
-    }
-  }, [props.transactionData.category, props.transactionData.type]);
-
-  useEffect(() => {
-    fetchSubcategories();
-  }, [props.transactionData.category, props.transactionData.type, fetchSubcategories]);
+    const onSuccess = (data) => {
+      setSubcategories(data);
+    };
+    const onError = (error) => {
+      logErrorToServer(error, "TransactionForm.jsx");
+    };
+    fetchCategories(props.transactionData.type, props.transactionData.category, onSuccess, onError);
+  }, [props.transactionData.type, props.transactionData.category]);
 
   return (
     <>
@@ -106,6 +69,8 @@ export default function TransactionForm(props) {
             props.setTransactionData({
               ...props.transactionData,
               type: event.target.value,
+              category: "",
+              subcategory: "",
             })
           }
           required={true}
@@ -254,14 +219,14 @@ export default function TransactionForm(props) {
         {modalAction === "category" ? (
           <AddCategoryForm
             type={props.transactionData.type}
-            onCategoryAdded={fetchCategories}
+            onCategoryAdded={() => fetchCategories(props.transactionData.type, null, setCategories, logErrorToServer)}
             closeModal={closeModal}
           />
         ) : (
           <AddCategoryForm
             type={props.transactionData.type}
             category={props.transactionData.category}
-            onCategoryAdded={fetchSubcategories}
+            onCategoryAdded={() => fetchCategories(props.transactionData.type, props.transactionData.category, setSubcategories, logErrorToServer)}
             closeModal={closeModal}
           />
         )}

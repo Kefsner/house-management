@@ -22,5 +22,5 @@ class Transaction(MetaData):
     description = models.CharField(max_length=100)
     value = models.DecimalField(max_digits=10, decimal_places=2)
     category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    subcategory = models.ForeignKey(Subcategory, on_delete=models.DO_NOTHING)
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.DO_NOTHING, null=True)
     date = models.DateField()

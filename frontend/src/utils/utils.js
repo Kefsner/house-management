@@ -62,3 +62,27 @@ export async function handleLogout(navigate) {
     logErrorToServer(exception, "Exception in Home.jsx");
   }
 }
+
+export async function fetchCategories(transactionType, category, onSuccess, onError) {
+  try {
+    const apiEndpoint = category
+      ? `finances/subcategory/get/?category=${category}&type=${transactionType[0]}`
+      : `finances/category/get/?type=${transactionType[0]}`;
+    const response = await fetch(`${apiURL}${apiEndpoint}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        "Authorization": `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    const responseData = await response.json();
+    if (response.status === 200) {
+      onSuccess(responseData);
+    } else if (response.status === 400 || response.status === 500) {
+      onError(responseData);
+    }
+  } catch (exception) {
+    logErrorToServer(exception, "Exception in Home.jsx");
+    onError(exception);
+  }
+}
