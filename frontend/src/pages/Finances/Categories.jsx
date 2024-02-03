@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { isAuthenticated } from "../../../utils/utils";
+import { isAuthenticated } from "../../utils/authUtils";
 
 import Layout from "../../layout/Layout";
 import Modal from "../../common/Modal";

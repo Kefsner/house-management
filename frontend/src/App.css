@@ -1,12 +1,14 @@
 * {
     margin: 0;
     padding: 0;
+    box-sizing: border-box;
 }
 
 body {
     font-family: 'Roboto', sans-serif;
 }
 
-#root {
-    height: 100vh;
+.layout-content {
+    height: calc(100vh - 70px);
+    background-color: #f0f0f0;
 }

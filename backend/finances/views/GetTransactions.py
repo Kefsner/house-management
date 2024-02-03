@@ -17,17 +17,17 @@ class GetTransactionsView(APIView):
         logger = Logger()
         try:
             transactions = Transaction.objects.all()
-            incomes = []
-            expenses = []
+            payload = []
             for transaction in transactions:
-                if transaction.category.type == 'I':
-                    incomes.append(transaction.value)
-                else:
-                    expenses.append(transaction.value)
-            payload = {
-                'incomes': sum(incomes),
-                'expenses': sum(expenses)
-            }
+                payload.append({
+                    'id': transaction.id,
+                    'type': transaction.category.type,
+                    'value': transaction.value,
+                    'date': transaction.date,
+                    'description': transaction.description,
+                    'category': transaction.category.name,
+                    'subcategory': transaction.subcategory.name
+                })
             return Response(payload, status.HTTP_200_OK)
         except:
             logger.log_tracebak(traceback.format_exc())

@@ -1,8 +1,8 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import Layout from "../../layout/Layout";
-import Card from "../../common/Card";
+import Layout from "../../components/layout/Layout";
+import Card from "./partials/Card";
 
 import "./Home.css";
 
@@ -11,18 +11,12 @@ export default function Home() {
 
   return (
     <Layout>
-      <div className="home">
+      <div id="home-page">
         <Card
           className="finances-card"
           icon="/icons/finances.svg"
           text="Finances"
           onClick={() => navigate("/finances")}
-        />
-        <Card
-          className="shoplist-card"
-          icon="/icons/shoplist.svg"
-          text="ShopList"
-          onClick={() => navigate("/shoplist")}
         />
       </div>
     </Layout>

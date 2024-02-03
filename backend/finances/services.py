@@ -1,9 +1,9 @@
 from django.contrib.auth.models import User
 
 from finances.messages import FinancesMessages
-from finances.models import Category, Subcategory, Transaction
+from finances.models import Category, Subcategory, Transaction, Account
 
-from core.exceptions import CategoryAlreadyExists, SubcategoryAlreadyExists
+from core.exceptions import CategoryAlreadyExists, SubcategoryAlreadyExists, AccountAlreadyExists
 
 class CategoryServices():
     def __init__(self, data: dict) -> None:
@@ -16,7 +16,7 @@ class CategoryServices():
         type = self.data['type']
         if Category.objects.filter(type=type, name=name).exists():
             raise CategoryAlreadyExists(self.messages.category_already_exists)
-        created_by = User.objects.get(username=user)
+        created_by = User.objects.get(id=user)
         Category.objects.create(name=name, type=type, created_by=created_by)
         payload = { 'success': self.messages.category_created }
         return payload
@@ -34,9 +34,28 @@ class SubcategoryServices():
         category = Category.objects.get(id=category)
         if Subcategory.objects.filter(name=name, category=category).exists():
             raise SubcategoryAlreadyExists(self.messages.subcategory_already_exists)
-        created_by = User.objects.get(username=user)
+        created_by = User.objects.get(id=user)
         Subcategory.objects.create(name=name, category=category, created_by=created_by)
         payload = { 'success': self.messages.subcategory_created }
+        return payload
+    
+class AccountServices():
+    def __init__(self, data: dict) -> None:
+        self.data = data
+        self.messages = FinancesMessages()
+
+    def create_account(self) -> dict:
+        user = self.data['user']
+        user = User.objects.get(id=user)
+        name = self.data['name']
+        initial_balance = self.data['initial_balance']
+        balance = initial_balance
+        if Account.objects.filter(name=name, user=user).exists():
+            raise AccountAlreadyExists(self.messages.account_already_exists)
+        created_by = self.data['created_by']
+        created_by = User.objects.get(id=created_by)
+        Account.objects.create(name=name, initial_balance=initial_balance, balance=balance, user=user, created_by=created_by)
+        payload = { 'success': self.messages.account_created }
         return payload
 
 class TransactionServices():
@@ -46,7 +65,7 @@ class TransactionServices():
 
     def create_transaction(self) -> dict:
         user = self.data['user']
-        created_by = User.objects.get(username=user)
+        created_by = User.objects.get(id=user)
         category = self.data['category']
         category = Category.objects.get(id=category)
         subcategory = self.data['subcategory']
@@ -55,6 +74,16 @@ class TransactionServices():
         description = self.data['description']
         value = self.data['value']
         date = self.data['date']
-        Transaction.objects.create(description=description, value=value, category=category, subcategory=subcategory, date=date, created_by=created_by)
+        account = self.data['account']
+        account = Account.objects.get(id=account)
+        Transaction.objects.create(
+            description=description,
+            value=value,
+            category=category,
+            subcategory=subcategory,
+            date=date,
+            account=account,
+            created_by=created_by
+        )
         payload = { 'success': self.messages.transaction_created }
         return payload

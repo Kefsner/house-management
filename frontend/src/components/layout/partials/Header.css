@@ -1,15 +1,15 @@
 header {
-    background-color: #f0f0f0;
-    padding: 10px;
+    background-color: #61a0a8;
+    color: #fff;
+    padding: 10px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    border-bottom: 1px solid #ccc;
-    position: relative;
-    z-index: 1;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.7);
+    height: 70px;
 }
 
-.header-title{
+.header-title {
     display: flex;
     align-items: center;
 }
@@ -26,7 +26,7 @@ header {
 }
 
 .nav-link a {
-    color: #00796b;
+    color: #fff;
     text-decoration: none;
     margin-left: 20px;
     font-weight: bold;

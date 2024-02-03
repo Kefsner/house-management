@@ -23,7 +23,8 @@ class GetSubcategoriesView(APIView):
             for subcategory in subcategories:
                 payload.append({
                     'id': subcategory.id,
-                    'name': subcategory.name
+                    'name': subcategory.name,
+                    'description': subcategory.description
                 })
             return Response(payload, status.HTTP_200_OK)
         except (KeyError):

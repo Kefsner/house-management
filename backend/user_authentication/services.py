@@ -18,7 +18,9 @@ class AuthServices():
         refresh = RefreshToken.for_user(user)
         payload = {
             'refresh': str(refresh),
-            'access': str(refresh.access_token)
+            'access': str(refresh.access_token),
+            'username': username,
+            'user_id': user.id
         }
         return payload
     

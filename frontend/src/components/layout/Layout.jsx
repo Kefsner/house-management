@@ -1,39 +1,34 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { isAuthenticated, handleLogout } from '../../utils/utils';
+import { isAuthenticated, handleLogout } from "../../utils/authUtils";
 
-import Header from './Header';
-import Sidebar from './Sidebar';
-
-import './Layout.css';
+import Header from "./partials/Header";
 
 export default function Layout({ children }) {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const onLogout = () => {
-      handleLogout(navigate);
+  useEffect(() => {
+    if (!isAuthenticated) {
+      navigate("/auth");
     }
-  
-    useEffect(() => {
-      if (!isAuthenticated()) {
-        navigate("/auth");
-      }
-    }, [navigate]);
-  
+  }, [navigate]);
+
+  const onLogout = () => {
+    handleLogout(navigate);
+  };
+
   return (
-    <div className='layout-container'>
-        <Header
-            navLinks={[
-                { label: "Finances", path: "/finances" },
-                { label: "ShopList", path: "/shoplist" },
-                { label: "Logout", onClick: onLogout },
-            ]}
-        />
-        <Sidebar
-            username={localStorage.getItem("username")}
-        />
-      <main className='layout-content'>{children}</main>
-    </div>
+    <>
+      <Header
+        navLinks={[
+          { label: "Home", onClick: () => navigate("/") },
+          { label: "Profile", onClick: () => navigate("/profile") },
+          { label: "Config", onClick: () => navigate("/config") },
+          { label: "Logout", onClick: onLogout },
+        ]}
+      />
+      <main className="layout-content">{children}</main>
+    </>
   );
-};
+}

@@ -3,7 +3,7 @@
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    background-image: url('../../../assets/login-background.png');
+    background-image: url('../../assets/login-background.png');
     min-height: 100vh;
 }
 

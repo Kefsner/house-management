@@ -1,9 +1,0 @@
-.layout-content {
-    position: fixed;
-    top: 70px;
-    left: 40%;
-    width: 60%;
-    height: calc(100vh - 70px);
-    overflow: scroll;
-    padding: 20px;
-}

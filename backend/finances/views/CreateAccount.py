@@ -3,9 +3,9 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
 
-from finances.serializers import TransactionSerializer
-from finances.services import TransactionServices
+from finances.serializers import AccountSerializer
 from finances.messages import FinancesMessages
+from finances.services import AccountServices
 
 from core.exceptions import SerializerError
 from core.logger import Logger
@@ -13,7 +13,7 @@ from core.logger import Logger
 import traceback
 import json
 
-class CreateTransactionView(APIView):
+class CreateAccountView(APIView):
     permission_classes = [IsAuthenticated]
 
     def post(self, request):
@@ -21,13 +21,12 @@ class CreateTransactionView(APIView):
         logger = Logger()
         try:
             data = json.loads(request.body)
-            print(data)
-            serializer = TransactionSerializer(data=data)
+            serializer = AccountSerializer(data=data)
             if not serializer.is_valid():
                 logger.log_serializer_errors(serializer.errors)
                 raise SerializerError
-            services = TransactionServices(data)
-            payload = services.create_transaction()
+            services = AccountServices(data)
+            payload = services.create_account()
             return Response(payload, status.HTTP_201_CREATED)
         except (json.JSONDecodeError, KeyError, SerializerError):
             payload = { 'error': messages.bad_request }

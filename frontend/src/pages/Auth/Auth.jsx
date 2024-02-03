@@ -1,26 +1,20 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+
 import { useNavigate } from "react-router-dom";
 
-import {
-  getCsrfToken,
-  isAuthenticated,
-  logErrorToServer,
-} from "../../../utils/utils";
+import useAuthCheck from "../../hooks/useAuthCheck";
 
 import AuthForm from "./partials/AuthForm";
 
+import { apiURL } from "../../utils/constants";
+import { getCsrfToken } from "../../utils/authUtils";
+
 import "./Auth.css";
 
-const apiURL = process.env.REACT_APP_API_URL;
+export default function Auth(props) {
+  useAuthCheck(props.url);
 
-export default function Auth() {
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (isAuthenticated()) {
-      navigate("/");
-    }
-  }, [navigate]);
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -36,32 +30,33 @@ export default function Auth() {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const csrfToken = getCsrfToken();
     try {
-      const response = await fetch(
-        `${apiURL}auth/${isRegister ? "register" : "login"}/`,
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-            "X-CSRFToken": csrfToken,
-          },
-          body: JSON.stringify(data),
-        }
-      );
+      const apiEndpoint = `auth/${isRegister ? "register" : "login"}/`;
+      const response = await fetch(`${apiURL}${apiEndpoint}`, {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          "X-CSRFToken": getCsrfToken(),
+        },
+        body: JSON.stringify(data),
+      });
       const responseData = await response.json();
       if (response.status === 200) {
-        localStorage.setItem("refreshToken", responseData.refresh);
         localStorage.setItem("accessToken", responseData.access);
-        localStorage.setItem("username", username);
-        navigate("/");
-      } else if (response.status === 201) {
+        localStorage.setItem("refreshToken", responseData.refresh);
+        localStorage.setItem("username", responseData.username);
+        localStorage.setItem("userId", responseData.user_id);
+        navigate(sessionStorage.getItem("next") || "/");
+        sessionStorage.removeItem("next");
+      }
+      else if (response.status === 201) {
         setIsRegister(false);
         setUsername("");
         setPassword("");
         setConfirmPassword("");
-        setMessage(responseData);
-      } else if (
+        setMessage(responseData)
+      }
+      else if (
         response.status === 400 ||
         response.status === 401 ||
         response.status === 409 ||
@@ -70,11 +65,10 @@ export default function Auth() {
         setPassword("");
         setConfirmPassword("");
         setMessage(responseData);
-      } else {
-        logErrorToServer(responseData, "Auth.jsx");
       }
-    } catch (exception) {
-      logErrorToServer(exception, "Exception in Auth.jsx");
+    }
+    catch (exception) {
+      console.log(exception);
     }
   };
 
