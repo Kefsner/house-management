@@ -7,7 +7,7 @@ from finances.serializers import AccountSerializer
 from finances.messages import FinancesMessages
 from finances.services import AccountServices
 
-from core.exceptions import SerializerError
+from core.exceptions import SerializerError, AccountAlreadyExists
 from core.logger import Logger
 
 import traceback
@@ -31,6 +31,9 @@ class CreateAccountView(APIView):
         except (json.JSONDecodeError, KeyError, SerializerError):
             payload = { 'error': messages.bad_request }
             return Response(payload, status.HTTP_400_BAD_REQUEST)
+        except AccountAlreadyExists:
+            payload = { 'error': messages.account_already_exists }
+            return Response(payload, status.HTTP_409_CONFLICT)
         except:
             logger.log_tracebak(traceback.format_exc())
             payload = { 'error': messages.internal_server_error }

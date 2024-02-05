@@ -4,14 +4,14 @@ import { PieChart, Pie, Cell, Tooltip } from "recharts";
 import Modal from "../../components/common/Modal";
 import Layout from "../../components/layout/Layout";
 
-import TransactionForm from "./partials/TransactionForm";
-import AccountForm from "./partials/AccountForm";
+import TransactionForm from "./Forms/TransactionForm";
+import AccountForm from "./Forms/AccountForm";
 
 import useAuthCheck from "../../hooks/useAuthCheck";
 
 import { getCsrfToken } from "../../utils/authUtils";
 
-import { fetchTransactions } from "../../utils/apiUtils";
+import { fetchTransactions, fetchAccounts } from "../../utils/apiUtils";
 import { INCOME_COLORS, EXPENSE_COLORS } from "../../utils/constants";
 
 import "./Finances.css";
@@ -21,11 +21,12 @@ const apiURL = process.env.REACT_APP_API_URL;
 export default function Finances(props) {
   useAuthCheck(props.url);
 
-  const [transactionsData, setTransactionsData] = useState([]);
+  const [transactions, setTransactions] = useState([]);
   const [incomeData, setIncomeData] = useState([]);
   const [expenseData, setExpenseData] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalActions, setModalActions] = useState("");
+  const [accounts, setAccounts] = useState([{id:"", name: "", user: "", balance: "" }]);
 
   const openModal = (action) => {
     setIsModalOpen(true);
@@ -90,7 +91,7 @@ export default function Finances(props) {
 
   const updateData = () => {
     const onSuccess = (data) => {
-      setTransactionsData(data);
+      setTransactions(data);
       setIncomeData(data.filter((transaction) => transaction.type === "I"));
       setExpenseData(data.filter((transaction) => transaction.type === "E"));
     };
@@ -99,8 +100,19 @@ export default function Finances(props) {
     };
     fetchTransactions(onSuccess, onError);
   };
+
   useEffect(() => {
     updateData();
+  }, []);
+
+  useEffect(() => {
+    const onSuccess = (data) => {
+      setAccounts(data);
+    };
+    const onError = (error) => {
+      console.error("Error:", error);
+    };
+    fetchAccounts(onSuccess, onError);
   }, []);
 
   const aggregateData = (data, property) => {
@@ -131,7 +143,7 @@ export default function Finances(props) {
   const expense = expenseData
     .reduce((acc, transaction) => acc + transaction.value, 0)
     .toFixed(2);
-
+  
   return (
     <Layout>
       <section className="finances-charts-section">
@@ -237,6 +249,34 @@ export default function Finances(props) {
           </PieChart>
         </div>
       </section>
+      <section className="finances-accounts-section">
+        <button
+          className="add-account-button"
+          onClick={() => {
+            openModal("add-account");
+          }}
+        >
+          Add Account
+        </button>
+        <table className="accounts-table">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>User</th>
+              <th>Balance</th>
+            </tr>
+          </thead>
+          <tbody>
+            {accounts.map((account) => (
+              <tr key={account.id}>
+                <td>{account.name}</td>
+                <td>{account.user}</td>
+                <td>{account.balance}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </section>
       <section className="finances-transactions-section">
         <table className="transactions-table">
           <thead>
@@ -249,7 +289,7 @@ export default function Finances(props) {
             </tr>
           </thead>
           <tbody>
-            {transactionsData.map((transaction) => (
+            {transactions.map((transaction) => (
               <tr key={transaction.id}>
                 <td>{transaction.date}</td>
                 <td>{transaction.description}</td>
@@ -260,11 +300,6 @@ export default function Finances(props) {
             ))}
           </tbody>
         </table>
-      </section>
-      <section className="finances-accounts-section">
-        <button className="add-account-button" onClick={() => {openModal("add-account")}}>
-          Add Account
-        </button>
       </section>
       <button
         className="add-button"
@@ -278,12 +313,12 @@ export default function Finances(props) {
         {modalActions === "add-account" ? (
           <AccountForm closeModal={closeModal} />
         ) : (
-        <TransactionForm
-          closeModal={closeModal}
-          transactionFormData={transactionFormData}
-          setTransactionFormData={setTransactionFormData}
-          handleTransactionSubmit={handleTransactionSubmit}
-        />
+          <TransactionForm
+            closeModal={closeModal}
+            transactionFormData={transactionFormData}
+            setTransactionFormData={setTransactionFormData}
+            handleTransactionSubmit={handleTransactionSubmit}
+          />
         )}
       </Modal>
     </Layout>

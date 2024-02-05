@@ -7,6 +7,7 @@ from finances.views.GetSubcategories import GetSubcategoriesView
 from finances.views.CreateTransaction import CreateTransactionView
 from finances.views.GetTransactions import GetTransactionsView
 from finances.views.CreateAccount import CreateAccountView
+from finances.views.GetAccounts import GetAccountsView
 
 app_name = 'finances'
 
@@ -18,4 +19,5 @@ urlpatterns = [
     path('transaction/create/', CreateTransactionView.as_view(), name='create_transaction'),
     path('transaction/get/', GetTransactionsView.as_view(), name='get_transactions'),
     path('account/create/', CreateAccountView.as_view(), name='create_account'),
+    path('account/get/', GetAccountsView.as_view(), name='get_accounts'),
 ]
