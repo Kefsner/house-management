@@ -1,53 +1,54 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
+
 import { getCsrfToken } from "../../../utils/authUtils";
 import { apiURL } from "../../../utils/constants";
 
-import { fetchCategories } from "../../../utils/apiUtils";
+import Input from "./partials/Input";
+import Select from "./partials/Select";
+import Button from "./partials/Button";
 
 export default function AddCategoryForm(props) {
-  const [categories, setCategories] = useState([]);
-    useEffect(() => {
-        const onSuccess = (data) => {
-            setCategories(data);
-        };
-        const onError = (error) => {
-            console.error("Error:", error);
-        };
-        fetchCategories(null, null, onSuccess, onError);
-    }, []);
-  const [categoryFormData, setCategoryFormData] = useState({
-    type: "",
+  const [formData, setFormData] = useState({
+    type: "", // Expense or Income (E or I)
+    class: "", // Category or Subcategory
     name: "",
     user: localStorage.getItem("username"),
-    category: "category",
-    subcategory: "",
+    category: "",
   });
 
-  const handleCategorySubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    const csrfToken = getCsrfToken();
-    const apiEndpoint = categoryFormData.subcategory ? "finances/subcategory/create/" : "finances/category/create/";
-    console.log(apiEndpoint)
-
     try {
+      const apiEndpoint =
+        formData.class === "subcategory"
+          ? "finances/subcategory/create/"
+          : "finances/category/create/";
       const response = await fetch(`${apiURL}${apiEndpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          "X-CSRFToken": csrfToken,
+          "X-CSRFToken": getCsrfToken(),
           Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
         },
-        body: JSON.stringify(categoryFormData),
+        body: JSON.stringify(formData),
       });
-      const responseData = await response.json();
       if (response.status === 201) {
+        setFormData({
+          type: "",
+          class: "",
+          name: "",
+          user: localStorage.getItem("username"),
+          category: "",
+          subcategory: "",
+        });
+        props.onSuccess();
         props.closeModal();
       } else if (
         response.status === 400 ||
         response.status === 409 ||
         response.status === 500
       ) {
-        console.log(responseData);
+        console.error("Error:");
       }
     } catch (error) {
       console.error("Error:", error);
@@ -55,120 +56,84 @@ export default function AddCategoryForm(props) {
   };
 
   return (
-    <form onSubmit={handleCategorySubmit} className="form-form">
-    <div className="form-radio-container">
-        <div className="form-radio-option">
-            <label htmlFor="category-radio" className="form-radio-label">
-                Category
-            </label>
-            <input
-                type="radio"
-                id="category-radio"
-                name="category"
-                value="category"
-                checked={categoryFormData.category === "category"}
-                onChange={(event) =>
-                    setCategoryFormData({
-                    ...categoryFormData,
-                    category: event.target.value,
-                    subcategory: "",
-                    })
-                }
-            />
-        </div>
-        <div className="form-radio-option">
-            <label htmlFor="subcategory-radio" className="form-radio-label">
-                Subcategory
-            </label>
-            <input
-                type="radio"
-                id="subcategory-radio"
-                name="subcategory"
-                value="subcategory"
-                checked={categoryFormData.subcategory === "subcategory"}
-                onChange={(event) =>
-                    setCategoryFormData({
-                    ...categoryFormData,
-                    category: "",
-                    subcategory: event.target.value,
-                    })
-                }
-            />
-        </div>
-    </div>
-      <label htmlFor="type" className="form-label">
-        Type
-      </label>
-      <select
-        id="type"
-        className="form-input"
-        value={categoryFormData.type}
+    <form onSubmit={handleSubmit} className="form-form">
+      <Select
+        id="category-category-type"
+        label="Category or Subcategory"
+        value={formData.class}
+        options={[
+          { value: "category", label: "Category" },
+          { value: "subcategory", label: "Subcategory" },
+        ]}
         onChange={(event) =>
-            setCategoryFormData({
-                ...categoryFormData,
-                type: event.target.value,
+          setFormData({
+            ...formData,
+            class: event.target.value,
+          })
+        }
+        required={true}
+        placeholder="Select class"
+      />
+      <Select
+        id="category-transaction-type"
+        label="Income or Expense"
+        value={formData.type}
+        options={[
+          { value: "I", label: "Income" },
+          { value: "E", label: "Expense" },
+        ]}
+        onChange={(event) =>
+          setFormData({
+            ...formData,
+            type: event.target.value,
+            category: "",
+          })
+        }
+        required={true}
+        placeholder="Select type"
+      />
+      {formData.class === "subcategory" && (
+        <Select
+          id="category-category"
+          label="Category"
+          value={formData.category}
+          options={props.categories.filter(
+            (category) => category.type === formData.type
+          )}
+          onChange={(event) =>
+            setFormData({
+              ...formData,
+              category: event.target.value,
             })
-            }
-        required
-      >
-        <option value="" disabled hidden>
-          Select type
-        </option>
-        <option value="Expense">Expense</option>
-        <option value="Income">Income</option>
-      </select>
-    {categoryFormData.subcategory && (
-        <>
-        <label htmlFor="category" className="form-label">
-            Category
-        </label>
-        <select
-            id="category"
-            className="form-input"
-            value={categoryFormData.category}
-            onChange={(event) =>
-                setCategoryFormData({
-                ...categoryFormData,
-                category: event.target.value,
-                })
-            }
-            required
-        >
-            <option value="" disabled hidden>
-                Select category
-            </option>
-            {categories
-                .filter((category) => category.type === categoryFormData.type[0])
-                .map((category) => (
-                <option key={category.id} value={category.name}>
-                    {category.name}
-                </option>
-                ))}
-        </select>
-        </>
-    )}
-      <label htmlFor="name" className="form-label">
-        Name
-      </label>
-      <input
+          }
+          required={true}
+          placeholder="Select category"
+        />
+      )}
+      <Input
         type="text"
-        id="name"
-        className="form-input"
-        value={categoryFormData.name}
+        id="category-name"
+        label="Name"
+        value={formData.name}
         onChange={(event) =>
-          setCategoryFormData({
-            ...categoryFormData,
+          setFormData({
+            ...formData,
             name: event.target.value,
           })
         }
         required={true}
       />
-        <button type="submit" className="form-button">
-            Save
-        </button>
-      <button type="button" className="form-button" onClick={props.closeModal}>
-        Close
-      </button>
+      <Button
+          type="submit"
+          className="form-button"
+          label={`Add ${formData.class}`}
+        />
+      <Button
+        type="button"
+        className="form-button"
+        label="Close"
+        onClick={props.closeModal}
+      />
     </form>
   );
 }

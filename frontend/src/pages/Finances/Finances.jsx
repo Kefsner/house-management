@@ -61,6 +61,10 @@ export default function Finances(props) {
     fetchTransactions(updateTransactions, handleError);
   }, []);
 
+  const handleCategorySuccess = useCallback(() => {
+    fetchCategories(setCategories, handleError);
+  }, []);
+
   return (
     <Layout>
       <Charts incomeData={incomeData} expenseData={expenseData} />
@@ -77,7 +81,11 @@ export default function Finances(props) {
           />
         )}
         {modalActions === "add-category" && (
-          <AddCategoryForm closeModal={closeModal} />
+          <AddCategoryForm
+          categories={categories}
+          onSuccess={handleCategorySuccess}
+          closeModal={closeModal}
+          />
         )}
         {modalActions === "add-account" && (
           <AccountForm

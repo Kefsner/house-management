@@ -9,7 +9,7 @@ import Button from "./partials/Button";
 
 export default function TransactionForm(props) {
   const [formData, setFormData] = useState({
-    type: "",
+    type: "", // Expense or Income (E or I)
     description: "",
     value: "",
     date: new Date().toISOString().slice(0, 10),
@@ -83,11 +83,11 @@ export default function TransactionForm(props) {
       <Select
         id="type"
         label="Type"
+        value={formData.type}
         options={[
           { value: "I", label: "Income" },
           { value: "E", label: "Expense" },
         ]}
-        value={formData.type}
         onChange={(event) =>
           setFormData({
             ...formData,
