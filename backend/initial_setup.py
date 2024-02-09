@@ -38,7 +38,7 @@ class InitDB:
             {
                 'name': 'Investments & Savings',
                 'type': 'E'
-            },
+            }
         ]
         for category in categories:
             c = Category.objects.create(**category, created_by=User.objects.get(username='admin'))

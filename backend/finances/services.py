@@ -47,7 +47,7 @@ class AccountServices():
     def create_account(self) -> dict:
         user = self.data['user']
         user = User.objects.get(id=user)
-        name = self.data['name']
+        name = self.data['name'].lower()
         initial_balance = self.data['initial_balance']
         balance = initial_balance
         if Account.objects.filter(name=name, user=user).exists():
@@ -85,5 +85,12 @@ class TransactionServices():
             account=account,
             created_by=created_by
         )
+        print(type(value))
+        print(account.balance)
+        if category.type == 'I':
+            account.balance += value
+        else:
+            account.balance -= value
+        account.save()
         payload = { 'success': self.messages.transaction_created }
         return payload

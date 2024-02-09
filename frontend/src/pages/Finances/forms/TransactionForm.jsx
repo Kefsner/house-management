@@ -99,11 +99,11 @@ export default function TransactionForm(props) {
         required={true}
         placeholder="Select type"
       />
-      {formData.type === "E" && (
+      {formData.type && (
         <Select
           id="transaction-category"
           label="Category"
-          options={props.categories.filter((category) => category.type === "E")}
+          options={props.categories.filter((category) => category.type === formData.type)}
           value={formData.category}
           onChange={(event) =>
             setFormData({

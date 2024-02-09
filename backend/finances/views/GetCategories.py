@@ -16,13 +16,15 @@ class GetCategoriesView(APIView):
         messages = FinancesMessages()
         logger = Logger()
         try:
-            type = request.GET['type']
-            categories = Category.objects.filter(type=type)
+            categories = Category.objects.all()
             payload = []
             for category in categories:
+                subcategories = category.subcategory_set.all()
                 payload.append({
                     'id': category.id,
-                    'name': category.name
+                    'type': category.type,
+                    'name': category.name,
+                    'subcategories': [{'name': subcategory.name, 'id': subcategory.id} for subcategory in subcategories]
                 })
             return Response(payload, status.HTTP_200_OK)
         except (KeyError):
