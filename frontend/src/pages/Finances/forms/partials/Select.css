@@ -1,0 +1,55 @@
+.form-select-container {
+    position: relative;
+    margin-bottom: 1rem;
+}
+
+.form-select-label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    transition: all 0.15s ease;
+    color: gray;
+    background-color: white;
+    padding: 0 0.5rem;
+    pointer-events: none;
+}
+
+.form-select {
+    padding: 1rem;
+    font-size: 1rem;
+    width: 100%;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    appearance: none; /* Removes default styling provided by the browser */
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-color: white;
+}
+
+.form-select:focus {
+    border-color: #009688;
+    outline: none;
+}
+
+.form-select:not(:placeholder-shown) + .form-select-label,
+.form-select:focus + .form-select-label {
+    transform: translateY(-130%) scale(0.8) translateX(-20%);
+    color: #009688;
+}
+
+/* Style for the dropdown arrow */
+.form-select-container::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+    /* Custom arrow styles */
+    width: 0; 
+    height: 0; 
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #888; /* Adjust the color to match your design */
+    z-index: 1;
+}

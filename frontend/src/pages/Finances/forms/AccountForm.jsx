@@ -13,8 +13,9 @@ export default function AccountForm(props) {
   const handleAccountSubmit = async (event) => {
     event.preventDefault();
     const csrfToken = getCsrfToken();
+    const apiEndpoint = "finances/account/create/";
     try {
-      const response = await fetch(`${apiURL}finances/account/create/`, {
+      const response = await fetch(`${apiURL}${apiEndpoint}`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -29,7 +30,13 @@ export default function AccountForm(props) {
           user: "",
           initial_balance: "",
         });
-        // props.updateData();
+        const onSuccess = (data) => {
+          props.setAccounts(data);
+        };
+        const onError = (error) => {
+          console.error("Error:", error);
+        };
+        props.fetchAccounts(onSuccess, onError);
         props.closeModal();
       } else if (response.status === 401) {
         props.history.push("/login");
