@@ -7,18 +7,18 @@ import Input from "./partials/Input";
 import Select from "./partials/Select";
 import Button from "./partials/Button";
 
-export default function AccountForm(props) {
+export default function CreditCardForm(props) {
   const [formData, setFormData] = useState({
     name: "",
-    user: "",
-    initial_balance: "",
+    account: "",
+    limit: "",
     created_by: localStorage.getItem("userId"),
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const apiEndpoint = "finances/account/create/";
+      const apiEndpoint = "finances/credit-card/create/";
       const response = await fetch(`${apiURL}${apiEndpoint}`, {
         method: "POST",
         headers: {
@@ -32,8 +32,8 @@ export default function AccountForm(props) {
       if (response.status === 201) {
         setFormData({
           name: "",
-          user: "",
-          initial_balance: "",
+          account: "",
+          limit: "",
         });
         props.onSuccess();
         props.closeModal();
@@ -55,52 +55,35 @@ export default function AccountForm(props) {
     <form onSubmit={handleSubmit} className="form-form">
       <Input
         type="text"
-        id="account-name"
+        id="credit-card-name"
         label="Name"
         value={formData.name}
         onChange={(event) =>
-          setFormData({
-            ...formData,
-            name: event.target.value,
-          })
+          setFormData({ ...formData, name: event.target.value })
         }
         required
       />
       <Select
-        id="account-user"
-        label="User"
-        value={formData.user}
-        options={[
-          {
-            value: localStorage.getItem("userId"),
-            label: localStorage.getItem("username"),
-          },
-        ]}
+        id="credit-card-account"
+        label="Account"
+        value={formData.account}
         onChange={(event) =>
-          setFormData({
-            ...formData,
-            user: event.target.value,
-          })
+          setFormData({ ...formData, account: event.target.value })
         }
+        options={props.accounts}
         required
-        placeholder="Select user"
+        placeholder="Select an account"
       />
       <Input
         type="number"
-        id="account-initial-value"
-        label="Initial Balance"
-        value={formData.initial_balance}
+        id="credit-card-limit"
+        label="Credit Limit"
+        value={formData.limit}
         onChange={(event) =>
-          setFormData({
-            ...formData,
-            initial_balance: event.target.value,
-          })
+          setFormData({ ...formData, limit: event.target.value })
         }
-        required
-        min={0}
-        step="0.01"
       />
-      <Button type="submit" label="Save" className="form-button" />
+      <Button type="submit" className="form-button" label="Add Credit Card" />
       <Button
         type="button"
         label="Cancel"

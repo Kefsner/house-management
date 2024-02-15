@@ -1,34 +1,22 @@
 import React from "react";
 
+import Table from "../forms/partials/Table";
+import Button from "../forms/partials/Button";
+
 export default function Accounts(props) {
   return (
-    <section className="finances-accounts-section">
-      <button
-        className="add-account-button"
-        onClick={() => {
-          props.openModal("add-account");
-        }}
-      >
-        Add Account
-      </button>
-      <table className="accounts-table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>User</th>
-            <th>Balance</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.accounts.map((account) => (
-            <tr key={account.id}>
-              <td>{account.name}</td>
-              <td>{account.user}</td>
-              <td>{account.balance}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
-    </section>
+      <section className="finances-accounts-section">
+        <Button
+          className="add-button"
+          onClick={() => {
+            props.openModal("add-account");
+          }}
+          label="Add Account"
+        />
+        <Table
+          headers={["Name", "Balance", "User"]}
+          rows={props.accounts}
+        />    
+      </section>
   );
 }

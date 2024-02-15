@@ -23,7 +23,7 @@ class GetAccountsView(APIView):
                     'id': account.id,
                     'name': account.name,
                     'balance': account.balance,
-                    'user': account.user.id
+                    'user': account.user.username,
                 })
             return Response(payload, status.HTTP_200_OK)
         except:

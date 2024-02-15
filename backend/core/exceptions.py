@@ -25,3 +25,8 @@ class SubcategoryAlreadyExists(Exception):
 class AccountAlreadyExists(Exception):
     def __init__(self, message: str) -> None:
         super().__init__(message)
+
+class CreditCardAlreadyExists(Exception):
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
+        

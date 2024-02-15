@@ -22,11 +22,12 @@ class GetTransactionsView(APIView):
                 payload.append({
                     'id': transaction.id,
                     'type': transaction.category.type,
-                    'value': transaction.value,
                     'date': transaction.date,
+                    'value': transaction.value,
                     'description': transaction.description,
                     'category': transaction.category.name,
-                    'subcategory': transaction.subcategory.name
+                    'subcategory': transaction.subcategory.name,
+                    'account': transaction.account.name,
                 })
             return Response(payload, status.HTTP_200_OK)
         except:

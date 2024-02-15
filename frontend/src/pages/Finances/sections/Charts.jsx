@@ -48,7 +48,7 @@ export default function Charts(props) {
           >
             <tspan className="pie-chart-label">Income</tspan>
             <tspan
-              className="pie-chart-value income"
+              className="pie-chart-value green"
               x={chart_text_x}
               dy={chart_span_dy}
             >{`R$ ${income}`}</tspan>
@@ -80,10 +80,10 @@ export default function Charts(props) {
             textAnchor="middle"
             dominantBaseline="middle"
           >
-            <tspan className="pie-chart-label">Balance</tspan>
+            <tspan className="pie-chart-label"
+            >Balance</tspan>
             <tspan
-              className="pie-chart-value balance"
-              x={chart_text_x}
+              className={`pie-chart-value ${income - expense >= 0 ? "green" : "red"}`}             x={chart_text_x}
               dy={chart_span_dy}
             >{`R$ ${(income - expense).toFixed(2)}`}</tspan>
           </text>
@@ -115,7 +115,7 @@ export default function Charts(props) {
           >
             <tspan className="pie-chart-label">Expense</tspan>
             <tspan
-              className="pie-chart-value expense"
+              className="pie-chart-value red"
               x={chart_text_x}
               dy={chart_span_dy}
             >{`R$ ${expense}`}</tspan>

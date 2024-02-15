@@ -1,5 +1,7 @@
 import { apiURL } from "./constants";
 
+import { handleLogout } from "./authUtils";
+
 export async function fetchTransactions(onSuccess, onError) {
   try {
     const apiEndpoint = "finances/transaction/get/";
@@ -13,9 +15,10 @@ export async function fetchTransactions(onSuccess, onError) {
     const responseData = await response.json();
     if (response.status === 200) {
       onSuccess(responseData);
+    } else if (response.status === 401) {
+      await handleLogout();
     } else if (
       response.status === 400 ||
-      response.status === 401 ||
       response.status === 500
     ) {
       onError(responseData);
@@ -38,9 +41,10 @@ export async function fetchCategories(onSuccess, onError) {
     const responseData = await response.json();
     if (response.status === 200) {
       onSuccess(responseData);
+    } else if (response.status === 401) {
+      await handleLogout();
     } else if (
       response.status === 400 ||
-      response.status === 401 ||
       response.status === 500
     ) {
       onError(responseData);
@@ -63,9 +67,36 @@ export async function fetchAccounts(onSuccess, onError) {
     const responseData = await response.json();
     if (response.status === 200) {
       onSuccess(responseData);
+    } else if (response.status === 401) {
+      await handleLogout();
     } else if (
       response.status === 400 ||
-      response.status === 401 ||
+      response.status === 500
+    ) {
+      onError(responseData);
+    }
+  } catch (exception) {
+    onError(exception);
+  }
+}
+
+export async function fetchCreditCards(onSuccess, onError) {
+  try {
+    const apiEndpoint = "finances/credit-card/get/";
+    const response = await fetch(`${apiURL}${apiEndpoint}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    const responseData = await response.json();
+    if (response.status === 200) {
+      onSuccess(responseData);
+    } else if (response.status === 401) {
+      await handleLogout();
+    } else if (
+      response.status === 400 ||
       response.status === 500
     ) {
       onError(responseData);

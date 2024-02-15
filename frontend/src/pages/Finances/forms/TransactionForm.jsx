@@ -76,12 +76,12 @@ export default function TransactionForm(props) {
             });
           }
         }}
-        required={true}
+        required
         min={0}
         step="0.01"
       />
       <Select
-        id="type"
+        id="transaction-type"
         label="Type"
         value={formData.type}
         options={[
@@ -173,7 +173,10 @@ export default function TransactionForm(props) {
           <Select
             id="transaction-credit-card"
             label="Credit Card"
-            options={props.accounts}
+            options={props.accounts.filter(
+              (account) => account.type === "credit"
+            )
+            }
             value={formData.creditCard}
             onChange={(event) =>
               setFormData({

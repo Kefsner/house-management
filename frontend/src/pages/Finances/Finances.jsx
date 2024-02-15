@@ -9,18 +9,21 @@ import Transactions from "./sections/Transactions";
 import Categories from "./sections/Categories";
 
 import TransactionForm from "./forms/TransactionForm";
-import AccountForm from "./forms/AccountForm";
 import AddCategoryForm from "./forms/CategoryForm";
+import AccountForm from "./forms/AccountForm";
+import CreditCardForm from "./forms/CreditCardForm";
 
 import useAuthCheck from "../../hooks/useAuthCheck";
 
 import {
   fetchTransactions,
-  fetchAccounts,
   fetchCategories,
+  fetchAccounts,
+  fetchCreditCards,
 } from "../../utils/apiUtils";
 
 import "./Finances.css";
+import CreditCards from "./sections/CreditCards";
 
 export default function Finances(props) {
   useAuthCheck(props.url);
@@ -40,6 +43,7 @@ export default function Finances(props) {
   const [expenseData, setExpenseData] = useState([]);
   const [categories, setCategories] = useState([]);
   const [accounts, setAccounts] = useState([]);
+  const [creditCards, setCreditCards] = useState([]);
 
   const updateTransactions = (data) => {
     setTransactions(data);
@@ -48,13 +52,14 @@ export default function Finances(props) {
   };
 
   const handleError = (error) => {
-    alert("Error: " + error);
+    console.log(error);
   };
 
   useEffect(() => {
     fetchTransactions(updateTransactions, handleError);
     fetchCategories(setCategories, handleError);
     fetchAccounts(setAccounts, handleError);
+    fetchCreditCards(setCreditCards, handleError);
   }, []);
 
   const handleTransactionSuccess = useCallback(() => {
@@ -65,12 +70,25 @@ export default function Finances(props) {
     fetchCategories(setCategories, handleError);
   }, []);
 
+  const handleAccountSuccess = useCallback(() => {
+    fetchAccounts(setAccounts, handleError);
+  }, []);
+
+  const handleCreditCardSuccess = useCallback(() => {
+    fetchCreditCards(setCreditCards, handleError);
+  }, []);
+
   return (
     <Layout>
       <Charts incomeData={incomeData} expenseData={expenseData} />
-      <Transactions transactions={transactions} openModal={openModal} />
+      <div className="finances-content-group">
+        <Transactions transactions={transactions} openModal={openModal} />
       <Categories categories={categories} openModal={openModal} />
-      <Accounts accounts={accounts} openModal={openModal} />
+      </div>
+      <div className="finances-content-group">
+        <Accounts accounts={accounts} openModal={openModal} />
+        <CreditCards creditCards={creditCards} openModal={openModal} />
+      </div>
       <Modal isOpen={isModalOpen}>
         {modalActions === "add-transaction" && (
           <TransactionForm
@@ -82,16 +100,22 @@ export default function Finances(props) {
         )}
         {modalActions === "add-category" && (
           <AddCategoryForm
-          categories={categories}
-          onSuccess={handleCategorySuccess}
-          closeModal={closeModal}
+            categories={categories}
+            onSuccess={handleCategorySuccess}
+            closeModal={closeModal}
           />
         )}
         {modalActions === "add-account" && (
           <AccountForm
+          onSuccess={handleAccountSuccess}
+          closeModal={closeModal}
+          />
+        )}
+        {modalActions === "add-credit-card" && (
+          <CreditCardForm
+            accounts={accounts}
+            onSuccess={handleCreditCardSuccess}
             closeModal={closeModal}
-            fetchAccounts={fetchAccounts}
-            setAccounts={setAccounts}
           />
         )}
       </Modal>

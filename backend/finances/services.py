@@ -1,7 +1,7 @@
 from django.contrib.auth.models import User
 
 from finances.messages import FinancesMessages
-from finances.models import Category, Subcategory, Transaction, Account
+from finances.models import Category, Subcategory, Transaction, Account, CreditCard
 
 from core.exceptions import CategoryAlreadyExists, SubcategoryAlreadyExists, AccountAlreadyExists
 
@@ -85,12 +85,30 @@ class TransactionServices():
             account=account,
             created_by=created_by
         )
-        print(type(value))
-        print(account.balance)
         if category.type == 'I':
             account.balance += value
         else:
             account.balance -= value
         account.save()
         payload = { 'success': self.messages.transaction_created }
+        return payload
+    
+class CreditCardServices():
+    def __init__(self, data: dict) -> None:
+        self.data = data
+        self.messages = FinancesMessages()
+
+    def create_credit_card(self) -> dict:
+        print(self.data)
+        return
+        user = self.data['user']
+        user = User.objects.get(id=user)
+        name = self.data['name']
+        limit = self.data['limit']
+        account = self.data['account']
+        account = Account.objects.get(id=account)
+        created_by = self.data['created_by']
+        created_by = User.objects.get(id=created_by)
+        CreditCard.objects.create(name=name, limit=limit, user=user, account=account, created_by=created_by)
+        payload = { 'success': self.messages.credit_card_created }
         return payload

@@ -39,6 +39,6 @@ class Transaction(MetaData):
 
 class CreditCard(MetaData):
     name = models.CharField(max_length=100)
-    limit = models.DecimalField(max_digits=10, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='owned_credit_cards')
     account = models.ForeignKey(Account, on_delete=models.DO_NOTHING)
+    limit = models.DecimalField(max_digits=10, decimal_places=2)

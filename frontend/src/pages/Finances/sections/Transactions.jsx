@@ -1,30 +1,22 @@
 import React from "react";
 
+import Table from "../forms/partials/Table";
+import Button from "../forms/partials/Button";
+
 export default function Transactions(props) {
   return (
     <section className="finances-transactions-section">
-      <table className="transactions-table">
-        <thead>
-          <tr>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Value</th>
-            <th>Category</th>
-            <th>Subcategory</th>
-          </tr>
-        </thead>
-        <tbody>
-          {props.transactions.map((transaction) => (
-            <tr key={transaction.id}>
-              <td>{transaction.date}</td>
-              <td>{transaction.description}</td>
-              <td>{transaction.value}</td>
-              <td>{transaction.category}</td>
-              <td>{transaction.subcategory}</td>
-            </tr>
-          ))}
-        </tbody>
-      </table>
+      <Button
+        className="add-button"
+        onClick={() => {
+          props.openModal("add-transaction");
+        }}
+        label="Add Transaction"
+      />
+      <Table
+        headers={["Type", "Date", "Amount", "Description", "Category", "Subcategory", "Account"]}
+        rows={props.transactions}
+      />
     </section>
   );
 }
