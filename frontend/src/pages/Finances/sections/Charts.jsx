@@ -89,8 +89,8 @@ export default function Charts(props) {
           </text>
           <Pie
             data={[
-              { name: "Income", value: income },
-              { name: "Expense", value: expense },
+              { name: "Income", value: Number(income) },
+              { name: "Expense", value: Number(expense) },
             ]}
             dataKey="value"
             nameKey="name"

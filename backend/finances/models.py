@@ -39,6 +39,23 @@ class Transaction(MetaData):
 
 class CreditCard(MetaData):
     name = models.CharField(max_length=100)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='owned_credit_cards')
     account = models.ForeignKey(Account, on_delete=models.DO_NOTHING)
+    due_date = models.IntegerField()
     limit = models.DecimalField(max_digits=10, decimal_places=2)
+    remaining_limit = models.DecimalField(max_digits=10, decimal_places=2)
+    
+class CreditCardTransaction(MetaData):
+    description = models.CharField(max_length=100, null=True)
+    value = models.DecimalField(max_digits=10, decimal_places=2)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.DO_NOTHING, null=True)
+    date = models.DateField()
+    credit_card = models.ForeignKey(CreditCard, on_delete=models.DO_NOTHING, related_name='transactions')
+    installments = models.IntegerField()
+
+class CreditCardInstallment(MetaData):
+    credit_card_transaction = models.ForeignKey(CreditCardTransaction, on_delete=models.DO_NOTHING, related_name='transaction_installments')
+    value = models.FloatField()
+    due_date = models.DateField()
+    installment_number = models.IntegerField()
+    paid = models.BooleanField(default=False)

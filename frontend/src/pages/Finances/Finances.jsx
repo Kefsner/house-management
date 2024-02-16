@@ -7,6 +7,8 @@ import Charts from "./sections/Charts";
 import Accounts from "./sections/Accounts";
 import Transactions from "./sections/Transactions";
 import Categories from "./sections/Categories";
+import CreditCards from "./sections/CreditCards";
+import CreditCardTransactions from "./sections/CreditCardTransactions";
 
 import TransactionForm from "./forms/TransactionForm";
 import AddCategoryForm from "./forms/CategoryForm";
@@ -20,10 +22,10 @@ import {
   fetchCategories,
   fetchAccounts,
   fetchCreditCards,
+  fetchCreditCardTransactions,
 } from "../../utils/apiUtils";
 
 import "./Finances.css";
-import CreditCards from "./sections/CreditCards";
 
 export default function Finances(props) {
   useAuthCheck(props.url);
@@ -44,6 +46,7 @@ export default function Finances(props) {
   const [categories, setCategories] = useState([]);
   const [accounts, setAccounts] = useState([]);
   const [creditCards, setCreditCards] = useState([]);
+  const [creditCardTransactions, setCreditCardTransactions] = useState([]);
 
   const updateTransactions = (data) => {
     setTransactions(data);
@@ -62,59 +65,76 @@ export default function Finances(props) {
     fetchCreditCards(setCreditCards, handleError);
   }, []);
 
-  const handleTransactionSuccess = useCallback(() => {
+  useEffect(() => {
+    for (let i = 0; i < creditCards.length; i++) {
+      fetchCreditCardTransactions(
+        creditCards[i].id,
+        setCreditCardTransactions,
+        handleError
+      );
+    }
+  }, [creditCards]);
+
+  const handleSuccess = useCallback(() => {
     fetchTransactions(updateTransactions, handleError);
-  }, []);
-
-  const handleCategorySuccess = useCallback(() => {
     fetchCategories(setCategories, handleError);
-  }, []);
-
-  const handleAccountSuccess = useCallback(() => {
     fetchAccounts(setAccounts, handleError);
-  }, []);
-
-  const handleCreditCardSuccess = useCallback(() => {
     fetchCreditCards(setCreditCards, handleError);
   }, []);
+
+  // const handleCategorySuccess = useCallback(() => {
+  //   fetchCategories(setCategories, handleError);
+  // }, []);
+
+  // const handleAccountSuccess = useCallback(() => {
+  //   fetchAccounts(setAccounts, handleError);
+  // }, []);
+
+  // const handleCreditCardSuccess = useCallback(() => {
+  //   fetchCreditCards(setCreditCards, handleError);
+  // }, []);
 
   return (
     <Layout>
       <Charts incomeData={incomeData} expenseData={expenseData} />
       <div className="finances-content-group">
         <Transactions transactions={transactions} openModal={openModal} />
-      <Categories categories={categories} openModal={openModal} />
+        <Categories categories={categories} openModal={openModal} />
       </div>
       <div className="finances-content-group">
         <Accounts accounts={accounts} openModal={openModal} />
         <CreditCards creditCards={creditCards} openModal={openModal} />
+        <CreditCardTransactions
+          creditCardTransactions={creditCardTransactions}
+        />
       </div>
       <Modal isOpen={isModalOpen}>
         {modalActions === "add-transaction" && (
           <TransactionForm
             categories={categories}
             accounts={accounts}
-            onSuccess={handleTransactionSuccess}
+            creditCards={creditCards}
+            onSuccess={handleSuccess}
             closeModal={closeModal}
           />
         )}
         {modalActions === "add-category" && (
           <AddCategoryForm
             categories={categories}
-            onSuccess={handleCategorySuccess}
+            onSuccess={handleSuccess}
             closeModal={closeModal}
           />
         )}
         {modalActions === "add-account" && (
           <AccountForm
-          onSuccess={handleAccountSuccess}
-          closeModal={closeModal}
+            onSuccess={handleSuccess}
+            closeModal={closeModal}
           />
         )}
         {modalActions === "add-credit-card" && (
           <CreditCardForm
             accounts={accounts}
-            onSuccess={handleCreditCardSuccess}
+            onSuccess={handleSuccess}
             closeModal={closeModal}
           />
         )}

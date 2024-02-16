@@ -10,6 +10,9 @@ class FinancesMessages(CoreMessages):
     _subcategory_already_exists = 'Subcategory already exists.'
     _account_created = 'Account created successfully.'
     _account_already_exists = 'Account already exists.'
+    _credit_card_created = 'Credit card created successfully.'
+    _credit_card_transaction_created = 'Credit card transaction created successfully.'
+    _credit_card_installment_paid = 'Credit card installment paid successfully.'
 
     @property
     def description_length_invalid(self):
@@ -46,3 +49,15 @@ class FinancesMessages(CoreMessages):
     @property
     def account_already_exists(self):
         return self._account_already_exists
+    
+    @property
+    def credit_card_created(self):
+        return self._credit_card_created
+    
+    @property
+    def credit_card_transaction_created(self):
+        return self._credit_card_transaction_created
+    
+    @property
+    def credit_card_installment_paid(self):
+        return self._credit_card_installment_paid

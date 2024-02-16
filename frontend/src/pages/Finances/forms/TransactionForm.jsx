@@ -16,7 +16,7 @@ export default function TransactionForm(props) {
     category: "",
     subcategory: "",
     paymentMethod: "",
-    creditCard: "",
+    credit_card: "",
     installments: "",
     account: "",
     user: localStorage.getItem("userId"),
@@ -25,7 +25,9 @@ export default function TransactionForm(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const apiEndpoint = "finances/transaction/create/";
+      const apiEndpoint = formData.credit_card
+        ? `finances/credit_card/create_transaction/`
+        : `finances/transaction/create/`;
       const response = await fetch(`${apiURL}${apiEndpoint}`, {
         method: "POST",
         headers: {
@@ -44,6 +46,9 @@ export default function TransactionForm(props) {
           date: new Date().toISOString().slice(0, 10),
           category: "",
           subcategory: "",
+          paymentMethod: "",
+          credit_card: "",
+          installments: "",
           user: localStorage.getItem("username"),
         });
         props.onSuccess();
@@ -103,7 +108,9 @@ export default function TransactionForm(props) {
         <Select
           id="transaction-category"
           label="Category"
-          options={props.categories.filter((category) => category.type === formData.type)}
+          options={props.categories.filter(
+            (category) => category.type === formData.type
+          )}
           value={formData.category}
           onChange={(event) =>
             setFormData({
@@ -173,15 +180,12 @@ export default function TransactionForm(props) {
           <Select
             id="transaction-credit-card"
             label="Credit Card"
-            options={props.accounts.filter(
-              (account) => account.type === "credit"
-            )
-            }
-            value={formData.creditCard}
+            options={props.creditCards}
+            value={formData.credit_card}
             onChange={(event) =>
               setFormData({
                 ...formData,
-                creditCard: event.target.value,
+                credit_card: event.target.value,
               })
             }
             required={true}

@@ -1,21 +1,24 @@
-table {
-    width: 100%;
-    border-collapse: collapse;
+.table-container {
     margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.4);
+}
+
+table {
+    border-collapse: collapse;
 }
 
 th {
     background-color: #009688;
     color: white;
     padding: 10px;
+    position: sticky;
+    top: 0;
 }
 
 td {
     padding: 10px;
-}
-
-tr:last-child td {
-    border-bottom: 2px solid #009688;
 }
 
 tr:nth-child(odd) {

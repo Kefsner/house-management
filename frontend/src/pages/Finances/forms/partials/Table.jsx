@@ -7,7 +7,7 @@ export default function Table(props) {
     if (typeof content === "object") {
       return content.map((item) => (
         <div key={item.id} className="table-cell-content">
-          {item.name}
+          {item.name || item.id }
         </div>
       ));
     }

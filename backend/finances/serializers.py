@@ -1,7 +1,8 @@
 from rest_framework import serializers
 from django.contrib.auth.models import User
-from finances.models import Transaction, Category, Subcategory, Account, CreditCard
+from finances.models import Transaction, Category, Subcategory, Account, CreditCard, CreditCardTransaction
 from decimal import Decimal
+import datetime
 
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -56,11 +57,29 @@ class AccountSerializer(serializers.ModelSerializer):
 class CreditCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = CreditCard
-        fields = ['name', 'limit', 'user', 'account']
+        fields = ['name', 'account', 'due_date', 'limit']
 
     def to_internal_value(self, data):
-        user = User.objects.get(username=data['user'])
         account = Account.objects.get(name=data['account'])
-        data['user'] = user.id
         data['account'] = account.id
+        return data
+    
+class CreditCardTransactionSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = CreditCardTransaction
+        fields = ['description', 'value', 'category', 'subcategory', 'date', 'credit_card', 'installments']
+
+    def to_internal_value(self, data):
+        category = Category.objects.get(name=data['category'])
+        if data['subcategory'] == 'None':
+            subcategory = None
+        else:
+            subcategory = Subcategory.objects.get(name=data['subcategory'])
+        credit_card = CreditCard.objects.get(name=data['credit_card'])
+        data['category'] = category.id
+        data['subcategory'] = subcategory.id
+        data['credit_card'] = credit_card.id
+        data['value'] = Decimal(data['value'])
+        data['installments'] = int(data['installments'])
+        data['date'] = datetime.datetime.strptime(data['date'], '%Y-%m-%d').date()
         return data

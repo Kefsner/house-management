@@ -12,13 +12,14 @@ export default function CreditCardForm(props) {
     name: "",
     account: "",
     limit: "",
+    due_date: "",
     created_by: localStorage.getItem("userId"),
   });
 
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const apiEndpoint = "finances/credit-card/create/";
+      const apiEndpoint = "finances/credit_card/create/";
       const response = await fetch(`${apiURL}${apiEndpoint}`, {
         method: "POST",
         headers: {
@@ -34,6 +35,7 @@ export default function CreditCardForm(props) {
           name: "",
           account: "",
           limit: "",
+          due_date: "",
         });
         props.onSuccess();
         props.closeModal();
@@ -82,6 +84,17 @@ export default function CreditCardForm(props) {
         onChange={(event) =>
           setFormData({ ...formData, limit: event.target.value })
         }
+        required
+      />
+      <Input
+        type="number"
+        id="credit-card-due-date"
+        label="Due Date"
+        value={formData.due_date}
+        onChange={(event) =>
+          setFormData({ ...formData, due_date: event.target.value })
+        }
+        required
       />
       <Button type="submit" className="form-button" label="Add Credit Card" />
       <Button

@@ -16,7 +16,7 @@ function App() {
       <Routes>
         <Route path="/auth" element={<Auth url="/auth" />} />
         
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={<Home url="/" />} />
         <Route path="/finances" element={<Finances url="/finances" />} />
 
         <Route path="*" element={<NotFound />} />
