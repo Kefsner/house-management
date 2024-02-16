@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 
+import { useNavigate } from "react-router-dom";
+
 import { getCsrfToken, handleLogout } from "../../../utils/authUtils";
 import { apiURL } from "../../../utils/constants";
 
@@ -8,6 +10,7 @@ import Select from "./partials/Select";
 import Button from "./partials/Button";
 
 export default function CreditCardForm(props) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     account: "",
@@ -40,7 +43,7 @@ export default function CreditCardForm(props) {
         props.onSuccess();
         props.closeModal();
       } else if (response.status === 401) {
-        await handleLogout();
+        await handleLogout(navigate);
       } else if (
         response.status === 400 ||
         response.status === 409 ||

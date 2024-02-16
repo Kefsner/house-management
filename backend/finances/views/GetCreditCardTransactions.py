@@ -30,6 +30,7 @@ class GetCreditCardTransactionsView(APIView):
                         "value": installments.value,
                         "due_date": installments.due_date,
                         "paid": installments.paid,
+                        "installment_number": installments.installment_number,
                         } for installments in transaction.transaction_installments.all()
                     ],
                     'description': transaction.description,

@@ -82,18 +82,6 @@ export default function Finances(props) {
     fetchCreditCards(setCreditCards, handleError);
   }, []);
 
-  // const handleCategorySuccess = useCallback(() => {
-  //   fetchCategories(setCategories, handleError);
-  // }, []);
-
-  // const handleAccountSuccess = useCallback(() => {
-  //   fetchAccounts(setAccounts, handleError);
-  // }, []);
-
-  // const handleCreditCardSuccess = useCallback(() => {
-  //   fetchCreditCards(setCreditCards, handleError);
-  // }, []);
-
   return (
     <Layout>
       <Charts incomeData={incomeData} expenseData={expenseData} />

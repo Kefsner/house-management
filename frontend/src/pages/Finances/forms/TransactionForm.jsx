@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 
-import { getCsrfToken } from "../../../utils/authUtils";
+import { useNavigate } from "react-router-dom";
+
+import { getCsrfToken, handleLogout } from "../../../utils/authUtils";
 import { apiURL } from "../../../utils/constants";
 
 import Input from "./partials/Input";
@@ -8,6 +10,7 @@ import Select from "./partials/Select";
 import Button from "./partials/Button";
 
 export default function TransactionForm(props) {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     type: "", // Expense or Income (E or I)
     description: "",
@@ -53,6 +56,8 @@ export default function TransactionForm(props) {
         });
         props.onSuccess();
         props.closeModal();
+      } else if (response.status === 401) {
+        await handleLogout(navigate);
       } else if (
         response.status === 400 ||
         response.status === 409 ||
