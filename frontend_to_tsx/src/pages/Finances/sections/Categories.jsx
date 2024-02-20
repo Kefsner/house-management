@@ -12,6 +12,7 @@ export default function Categories(props) {
         label="Add Category"
       />
       <Table
+        title="Categories"
         headers={["Type", "Name", "Subcategories"]}
         rows={props.categories}
       />

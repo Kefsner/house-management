@@ -14,6 +14,7 @@ export default function Transactions(props) {
         label="Add Transaction"
       />
       <Table
+        title="Transactions"
         headers={["Type", "Date", "Amount", "Description", "Category", "Subcategory", "Account"]}
         rows={props.transactions}
       />

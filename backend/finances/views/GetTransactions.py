@@ -9,6 +9,7 @@ from finances.models import Transaction
 from core.logger import Logger
 
 import traceback
+import datetime
 
 class GetTransactionsView(APIView):
     permission_classes = [IsAuthenticated]
@@ -16,7 +17,8 @@ class GetTransactionsView(APIView):
         messages = FinancesMessages()
         logger = Logger()
         try:
-            transactions = Transaction.objects.all()
+            today = datetime.date.today()
+            transactions = Transaction.objects.filter(date__month=today.month, date__year=today.year)
             payload = []
             for transaction in transactions:
                 payload.append({

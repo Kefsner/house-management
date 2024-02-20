@@ -21,6 +21,7 @@ export default function TransactionForm(props) {
     paymentMethod: "",
     credit_card: "",
     installments: "",
+    from_account: "",
     account: "",
     user: localStorage.getItem("userId"),
   });
@@ -30,7 +31,9 @@ export default function TransactionForm(props) {
     try {
       const apiEndpoint = formData.credit_card
         ? `finances/credit_card/create_transaction/`
-        : `finances/transaction/create/`;
+        : formData.type !== "T"
+        ? `finances/transaction/create/`
+        : `finances/transfer/create/`;
       const response = await fetch(`${apiURL}${apiEndpoint}`, {
         method: "POST",
         headers: {
@@ -97,6 +100,7 @@ export default function TransactionForm(props) {
         options={[
           { value: "I", label: "Income" },
           { value: "E", label: "Expense" },
+          { value: "T", label: "Transfer" },
         ]}
         onChange={(event) =>
           setFormData({
@@ -104,30 +108,52 @@ export default function TransactionForm(props) {
             type: event.target.value,
             category: "",
             subcategory: "",
+            from_account: "",
+            account: "",
+            paymentMethod: "",
+            credit_card: "",
+            installments: "",
           })
         }
         required={true}
         placeholder="Select type"
       />
-      {formData.type && (
-        <Select
-          id="transaction-category"
-          label="Category"
-          options={props.categories.filter(
-            (category) => category.type === formData.type
-          )}
-          value={formData.category}
-          onChange={(event) =>
-            setFormData({
-              ...formData,
-              category: event.target.value,
-              subcategory: "",
-            })
-          }
-          required={true}
-          placeholder="Select a category"
-        />
-      )}
+      {formData.type &&
+        (formData.type !== "T" ? (
+          <Select
+            id="transaction-category"
+            label="Category"
+            options={props.categories.filter(
+              (category) => category.type === formData.type
+            )}
+            value={formData.category}
+            onChange={(event) =>
+              setFormData({
+                ...formData,
+                category: event.target.value,
+                subcategory: "",
+              })
+            }
+            required={true}
+            placeholder="Select a category"
+          />
+        ) : (
+          <Select
+            id="transaction-from-account"
+            label="From Account"
+            options={props.accounts}
+            value={formData.from_account}
+            onChange={(event) =>
+              setFormData({
+                ...formData,
+                from_account: event.target.value,
+                account: "",
+              })
+            }
+            required={true}
+            placeholder="Select an account"
+          />
+        ))}
       {formData.category && (
         <Select
           id="transaction-subcategory"
@@ -148,19 +174,21 @@ export default function TransactionForm(props) {
           placeholder="Select a subcategory"
         />
       )}
-      <Input
-        type="text"
-        id="transaction-description"
-        label="Description"
-        value={formData.description}
-        onChange={(event) =>
-          setFormData({
-            ...formData,
-            description: event.target.value,
-          })
-        }
-        required={true}
-      />
+      {formData.type !== "T" && (
+        <Input
+          type="text"
+          id="transaction-description"
+          label="Description"
+          value={formData.description}
+          onChange={(event) =>
+            setFormData({
+              ...formData,
+              description: event.target.value,
+            })
+          }
+          required={true}
+        />
+      )}
       {formData.type === "E" && (
         <Select
           id="transaction-payment-method"
@@ -217,8 +245,10 @@ export default function TransactionForm(props) {
       ) : (
         <Select
           id="transaction-account"
-          label="Account"
-          options={props.accounts}
+          label={formData.type === "T" ? "To Account" : "Account"}
+          options={props.accounts.filter(
+            (account) => account.name !== formData.from_account
+          )}
           value={formData.account}
           onChange={(event) =>
             setFormData({

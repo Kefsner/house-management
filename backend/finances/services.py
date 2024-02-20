@@ -1,15 +1,15 @@
 from django.contrib.auth.models import User
 
 from finances.messages import FinancesMessages
-from finances.models import Category, Subcategory, Transaction, Account, CreditCard, CreditCardTransaction, CreditCardInstallment
+from finances.models import Category, Subcategory, Transaction, Account, CreditCard, CreditCardTransaction, CreditCardInstallment, Transfer
 
-from core.exceptions import CategoryAlreadyExists, SubcategoryAlreadyExists, AccountAlreadyExists
+from core.exceptions import CategoryAlreadyExists, SubcategoryAlreadyExists, AccountAlreadyExists, InsufficientFunds
 
 from dateutil.relativedelta import relativedelta
 import datetime
 import holidays
 
-class CategoryServices():
+class CategoryServices:
     def __init__(self, data: dict) -> None:
         self.data = data
         self.messages = FinancesMessages()
@@ -26,7 +26,7 @@ class CategoryServices():
         return payload
     
 
-class SubcategoryServices():
+class SubcategoryServices:
     def __init__(self, data: dict) -> None:
         self.data = data
         self.messages = FinancesMessages()
@@ -43,7 +43,7 @@ class SubcategoryServices():
         payload = { 'success': self.messages.subcategory_created }
         return payload
     
-class AccountServices():
+class AccountServices:
     def __init__(self, data: dict) -> None:
         self.data = data
         self.messages = FinancesMessages()
@@ -62,7 +62,7 @@ class AccountServices():
         payload = { 'success': self.messages.account_created }
         return payload
 
-class TransactionServices():
+class TransactionServices:
     def __init__(self, data: dict) -> None:
         self.data = data
         self.messages = FinancesMessages()
@@ -97,7 +97,7 @@ class TransactionServices():
         payload = { 'success': self.messages.transaction_created }
         return payload
     
-class CreditCardServices():
+class CreditCardServices:
     def __init__(self, data: dict) -> None:
         self.data = data
         self.messages = FinancesMessages()
@@ -121,26 +121,28 @@ class CreditCardServices():
         )
         payload = { 'success': self.messages.credit_card_created }
         return payload
-
-class CreditCardTransactionServices():
-    def __init__(self, data: dict) -> None:
-        self.data = data
-        self.messages = FinancesMessages()
-
-    def adjusts_for_holidays_and_weekends(self, date: datetime.date) -> datetime.date:
+    
+    @staticmethod
+    def adjusts_for_holidays_and_weekends(date: datetime.date) -> datetime.date:
         while date in holidays.Brazil() or date.weekday() in [5, 6]:
             date += datetime.timedelta(days=1)
         return date
     
-    def calculate_due_date(self, due_date: int, month: datetime.date) -> datetime.date:
+    @staticmethod
+    def get_due_date(due_date: int, month: datetime.date) -> datetime.date:
         due_date = month.replace(day=due_date) + relativedelta(months=1)
-        due_date = self.adjusts_for_holidays_and_weekends(due_date)
+        due_date = CreditCardServices.adjusts_for_holidays_and_weekends(due_date)
         closing_date = due_date - datetime.timedelta(days=7)
         today = datetime.date.today()
         if today > closing_date:
             due_date = due_date + relativedelta(months=1)
-            due_date = self.adjusts_for_holidays_and_weekends(due_date)
+            due_date = CreditCardServices.adjusts_for_holidays_and_weekends(due_date)
         return due_date
+
+class CreditCardTransactionServices:
+    def __init__(self, data: dict) -> None:
+        self.data = data
+        self.messages = FinancesMessages()
 
     def create_credit_card_transaction(self) -> dict:
             user = self.data['user']
@@ -170,7 +172,7 @@ class CreditCardTransactionServices():
             credit_card.save()
             value = value / installments
             for i in range(installments):
-                due_date = self.calculate_due_date(credit_card.due_date, date)
+                due_date = CreditCardServices.get_due_date(credit_card.due_date, date)
                 CreditCardInstallment.objects.create(
                     credit_card_transaction=transaction,
                     value=value,
@@ -181,3 +183,42 @@ class CreditCardTransactionServices():
                 date = date + relativedelta(months=1)
             payload = { 'success': self.messages.credit_card_transaction_created }
             return payload
+
+class TransferServices:
+    def __init__(self, data: dict) -> None:
+        self.data = data
+        self.messages = FinancesMessages()
+
+    def create_transfer(self) -> dict:
+        user = self.data['user']
+        created_by = User.objects.get(id=user)
+        value = self.data['value']
+        from_account = self.data['from_account']
+        from_account = Account.objects.get(id=from_account)
+        to_account = self.data['account']
+        to_account = Account.objects.get(id=to_account)
+        if from_account.balance < value:
+            raise InsufficientFunds(self.messages.insufficient_funds)
+        date = self.data['date']
+        Transfer.objects.create(
+            value=value,
+            from_account=from_account,
+            to_account=to_account,
+            date=date,
+            created_by=created_by
+        )
+        from_account.balance -= value
+        to_account.balance += value
+        from_account.save()
+        to_account.save()
+        payload = { 'success': self.messages.transfer_created }
+        return payload
+    
+class RecurrentTransactionServices:
+    def __init__(self, data: dict) -> None:
+        self.data = data
+        self.messages = FinancesMessages()
+
+    def create_recurrent_transaction(self) -> dict:
+        pass
+    

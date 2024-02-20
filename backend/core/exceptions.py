@@ -29,4 +29,11 @@ class AccountAlreadyExists(Exception):
 class CreditCardAlreadyExists(Exception):
     def __init__(self, message: str) -> None:
         super().__init__(message)
-        
+
+class AccountDoesNotExist(Exception):
+    def __init__(self, message: str) -> None:
+        super().__init__(message)
+
+class InsufficientFunds(Exception):
+    def __init__(self, message: str) -> None:
+        super().__init__(message)

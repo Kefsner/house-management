@@ -83,3 +83,20 @@ class CreditCardTransactionSerializer(serializers.ModelSerializer):
         data['installments'] = int(data['installments'])
         data['date'] = datetime.datetime.strptime(data['date'], '%Y-%m-%d').date()
         return data
+    
+class TransferSerializer(serializers.Serializer):
+    from_account = serializers.CharField()
+    to_account = serializers.CharField()
+    value = serializers.DecimalField(max_digits=10, decimal_places=2)
+    
+    def to_internal_value(self, data):
+        from_account = Account.objects.get(name=data['from_account'])
+        account = Account.objects.get(name=data['account'])
+        data['from_account'] = from_account.id
+        data['account'] = account.id
+        data['value'] = Decimal(data['value'])
+        data['date'] = datetime.datetime.strptime(data['date'], '%Y-%m-%d').date()
+        return data
+    
+class RecurrentTransactionSerializer(serializers.Serializer):
+    pass

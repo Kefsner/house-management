@@ -14,7 +14,8 @@ export default function CreditCards(props) {
         label="Add Credit Card"
       />
       <Table
-        headers={["Name", "Balance", "Account"]}
+        title="Credit Cards"
+        headers={["Name", "Account", "Limit", "Closing Day", "Due Day", "Current Limit"]}
         rows={props.creditCards}
       />
     </section>

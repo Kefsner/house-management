@@ -14,6 +14,7 @@ export default function Accounts(props) {
           label="Add Account"
         />
         <Table
+          title="Accounts"
           headers={["Name", "Balance", "User"]}
           rows={props.accounts}
         />    

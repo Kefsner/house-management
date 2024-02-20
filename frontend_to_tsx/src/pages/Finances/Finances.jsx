@@ -9,11 +9,13 @@ import Transactions from "./sections/Transactions";
 import Categories from "./sections/Categories";
 import CreditCards from "./sections/CreditCards";
 import CreditCardTransactions from "./sections/CreditCardTransactions";
+import RecurrentTransactions from "./sections/RecurrentTransactions";
 
 import TransactionForm from "./forms/TransactionForm";
 import AddCategoryForm from "./forms/CategoryForm";
 import AccountForm from "./forms/AccountForm";
 import CreditCardForm from "./forms/CreditCardForm";
+import PayCreditCardForm from "./forms/PayCreditCardForm";
 
 import useAuthCheck from "../../hooks/useAuthCheck";
 
@@ -23,6 +25,7 @@ import {
   fetchAccounts,
   fetchCreditCards,
   fetchCreditCardTransactions,
+  fetchRecurrentTransactions,
 } from "../../utils/apiUtils";
 
 import "./Finances.css";
@@ -32,7 +35,7 @@ export default function Finances(props) {
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalActions, setModalActions] = useState("");
-  const openModal = (action) => {
+  const openModal = (action, props) => {
     setIsModalOpen(true);
     setModalActions(action);
   };
@@ -47,6 +50,7 @@ export default function Finances(props) {
   const [accounts, setAccounts] = useState([]);
   const [creditCards, setCreditCards] = useState([]);
   const [creditCardTransactions, setCreditCardTransactions] = useState([]);
+  const [recurrentTransactions, setRecurrentTransactions] = useState([]);
 
   const updateTransactions = (data) => {
     setTransactions(data);
@@ -63,6 +67,7 @@ export default function Finances(props) {
     fetchCategories(setCategories, handleError);
     fetchAccounts(setAccounts, handleError);
     fetchCreditCards(setCreditCards, handleError);
+    fetchRecurrentTransactions(setRecurrentTransactions, handleError);
   }, []);
 
   useEffect(() => {
@@ -80,7 +85,15 @@ export default function Finances(props) {
     fetchCategories(setCategories, handleError);
     fetchAccounts(setAccounts, handleError);
     fetchCreditCards(setCreditCards, handleError);
-  }, []);
+    for (let i = 0; i < creditCards.length; i++) {
+      fetchCreditCardTransactions(
+        creditCards[i].id,
+        setCreditCardTransactions,
+        handleError
+      );
+    };
+    fetchRecurrentTransactions(setRecurrentTransactions, handleError);
+  }, [creditCards]);
 
   return (
     <Layout>
@@ -93,7 +106,13 @@ export default function Finances(props) {
         <Accounts accounts={accounts} openModal={openModal} />
         <CreditCards creditCards={creditCards} openModal={openModal} />
         <CreditCardTransactions
-          creditCardTransactions={creditCardTransactions}
+          creditCardTransactions={creditCardTransactions} openModal={openModal}
+        />
+      </div>
+      <div className="finances-content-group">
+        <RecurrentTransactions
+          transactions={recurrentTransactions}
+          openModal={openModal}
         />
       </div>
       <Modal isOpen={isModalOpen}>
@@ -122,6 +141,14 @@ export default function Finances(props) {
         {modalActions === "add-credit-card" && (
           <CreditCardForm
             accounts={accounts}
+            onSuccess={handleSuccess}
+            closeModal={closeModal}
+          />
+        )}
+        {modalActions === "pay-credit-card" && (
+          <PayCreditCardForm
+            creditCards={creditCards}
+            creditCardTransactions={creditCardTransactions}
             onSuccess={handleSuccess}
             closeModal={closeModal}
           />

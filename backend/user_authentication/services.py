@@ -1,6 +1,8 @@
 from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 
+from finances.models import Account
+
 from user_authentication.messages import UserAuthenticationMessages
 from core.exceptions import InvalidCredentials, InvalidPassword, UserAlreadyExists
 
@@ -10,7 +12,7 @@ class AuthServices():
         self.messages = UserAuthenticationMessages()
 
     def login(self) -> dict:
-        username = self.data['username']
+        username = self.data['username'].lower()
         password = self.data['password']
         user = User.objects.get(username=username)
         if not user.check_password(password):
@@ -25,13 +27,15 @@ class AuthServices():
         return payload
     
     def register(self) -> dict:
-        username = self.data['username']
+        username = self.data['username'].lower()
         password = self.data['password']
         confirmPassword = self.data['confirmPassword']
         if User.objects.filter(username=username).exists():
             raise UserAlreadyExists(self.messages.username_already_exists)
         self.check_password(password, confirmPassword)
-        User.objects.create_user(username=username, password=password)
+        user = User.objects.create_user(username=username, password=password)
+        admin = User.objects.get(username='admin')
+        Account.objects.create(name='Wallet', user=user, initial_balance=0, created_by=admin, balance=0)
         payload = { 'success': self.messages.register_success }
         return payload
     

@@ -14,6 +14,7 @@ class Category(MetaData):
     CATEGORY_TYPES = (
         ('I', 'Income'),
         ('E', 'Expense'),
+        ('T', 'Transfer'),
     )
     name = models.CharField(max_length=100)
     type = models.CharField(max_length=1, choices=CATEGORY_TYPES)
@@ -59,3 +60,20 @@ class CreditCardInstallment(MetaData):
     due_date = models.DateField()
     installment_number = models.IntegerField()
     paid = models.BooleanField(default=False)
+
+class Transfer(MetaData):
+    value = models.DecimalField(max_digits=10, decimal_places=2)
+    date = models.DateField()
+    from_account = models.ForeignKey(Account, on_delete=models.DO_NOTHING, related_name='transfers_sent')
+    to_account = models.ForeignKey(Account, on_delete=models.DO_NOTHING, related_name='transfers_received')
+
+class RecurrentTransaction(MetaData):
+    description = models.CharField(max_length=100)
+    mean_value = models.DecimalField(max_digits=10, decimal_places=2)
+    last_value = models.DecimalField(max_digits=10, decimal_places=2)
+    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
+    subcategory = models.ForeignKey(Subcategory, on_delete=models.DO_NOTHING, null=True)
+    due_date = models.DateField()
+    active = models.BooleanField(default=True)
+    interval = models.IntegerField()
+    interval_type = models.CharField(max_length=1, choices=[('D', 'Days'), ('W', 'Weeks'), ('M', 'Months'), ('Y', 'Years')])

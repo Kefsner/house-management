@@ -131,3 +131,29 @@ export async function fetchCreditCardTransactions(creditCardId, onSuccess, onErr
     onError(exception);
   }
 }
+
+export async function fetchRecurrentTransactions(onSuccess, onError) {
+  try {
+    const apiEndpoint = "finances/recurrent_transaction/get/";
+    const response = await fetch(`${apiURL}${apiEndpoint}`, {
+      method: "GET",
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${localStorage.getItem("accessToken")}`,
+      },
+    });
+    const responseData = await response.json();
+    if (response.status === 200) {
+      onSuccess(responseData);
+    } else if (response.status === 401) {
+      await handleLogout();
+    } else if (
+      response.status === 400 ||
+      response.status === 500
+    ) {
+      onError(responseData);
+    }
+  } catch (exception) {
+    onError(exception);
+  }
+}
