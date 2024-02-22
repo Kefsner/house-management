@@ -6,7 +6,6 @@ from rest_framework import status
 from finances.messages import FinancesMessages
 from finances.models import Transaction
 
-from core.logger import Logger
 
 import traceback
 import datetime
@@ -15,7 +14,6 @@ class GetTransactionsView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         messages = FinancesMessages()
-        logger = Logger()
         try:
             today = datetime.date.today()
             transactions = Transaction.objects.filter(date__month=today.month, date__year=today.year)
@@ -33,6 +31,5 @@ class GetTransactionsView(APIView):
                 })
             return Response(payload, status.HTTP_200_OK)
         except:
-            logger.log_tracebak(traceback.format_exc())
             payload = { 'error': messages.internal_server_error }
             return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)

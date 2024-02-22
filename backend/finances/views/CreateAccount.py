@@ -8,8 +8,8 @@ from finances.messages import FinancesMessages
 from finances.services import AccountServices
 
 from core.exceptions import SerializerError, AccountAlreadyExists
-from core.logger import Logger
 
+import logging
 import traceback
 import json
 
@@ -18,12 +18,10 @@ class CreateAccountView(APIView):
 
     def post(self, request):
         messages = FinancesMessages()
-        logger = Logger()
         try:
             data = json.loads(request.body)
             serializer = AccountSerializer(data=data)
             if not serializer.is_valid():
-                logger.log_serializer_errors(serializer.errors)
                 raise SerializerError
             services = AccountServices(data)
             payload = services.create_account()
@@ -35,6 +33,5 @@ class CreateAccountView(APIView):
             payload = { 'error': messages.account_already_exists }
             return Response(payload, status.HTTP_409_CONFLICT)
         except:
-            logger.log_tracebak(traceback.format_exc())
-            payload = { 'error': messages.internal_server_error }
-            return Response(payload, status.HTTP_500_INTERNAL_SERVER_ERROR)
+            logging.error(traceback.format_exc())
+            return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)

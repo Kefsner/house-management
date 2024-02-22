@@ -6,7 +6,6 @@ from rest_framework import status
 from finances.messages import FinancesMessages
 from finances.models import CreditCard
 
-from core.logger import Logger
 
 import traceback
 
@@ -14,7 +13,6 @@ class GetCreditCardTransactionsView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request, credit_card_id):
         messages = FinancesMessages()
-        logger = Logger()
         try:
             credit_card = CreditCard.objects.get(id=credit_card_id)
             transactions = credit_card.transactions.all()
@@ -39,6 +37,5 @@ class GetCreditCardTransactionsView(APIView):
                 })
             return Response(payload, status.HTTP_200_OK)
         except:
-            logger.log_tracebak(traceback.format_exc())
             payload = { 'error': messages.internal_server_error }
             return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)

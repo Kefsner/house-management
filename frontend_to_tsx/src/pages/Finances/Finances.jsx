@@ -26,7 +26,7 @@ import {
   fetchCreditCards,
   fetchCreditCardTransactions,
   fetchRecurrentTransactions,
-} from "../../utils/apiUtils";
+} from "../../../../frontend/src/utils/apiUtils";
 
 import "./Finances.css";
 

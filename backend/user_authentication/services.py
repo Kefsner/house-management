@@ -1,57 +1,71 @@
 from django.contrib.auth.models import User
+
 from rest_framework_simplejwt.tokens import RefreshToken
+from rest_framework.response import Response
+from rest_framework import status
 
-from finances.models import Account
+from user_authentication.exceptions import *
 
-from user_authentication.messages import UserAuthenticationMessages
-from core.exceptions import InvalidCredentials, InvalidPassword, UserAlreadyExists
+class AuthServices:
+    """
+    Service class for handling authentication logic.
 
-class AuthServices():
+    Provides methods to generate JWT tokens and perform user login authentication,
+    including setting the refresh token as an HttpOnly cookie.
+    """
+
     def __init__(self, data: dict) -> None:
-        self.data = data
-        self.messages = UserAuthenticationMessages()
+        """
+        Initialize the AuthServices instance with user credentials.
 
-    def login(self) -> dict:
-        username = self.data['username'].lower()
-        password = self.data['password']
-        user = User.objects.get(username=username)
-        if not user.check_password(password):
-            raise InvalidCredentials()
+        Args:
+            data (dict): A dictionary containing 'username' and 'password' keys.
+        """
+        self.username = data['username'].lower()
+        self.password = data['password']
+
+    def generate_tokens(self, user: User) -> dict:
+        """
+        Generate JWT access and refresh tokens for a given user.
+
+        Args:
+            user (User): The user instance for whom to generate tokens.
+
+        Returns:
+            dict: A dictionary containing 'refresh' and 'access' tokens.
+        """
         refresh = RefreshToken.for_user(user)
-        payload = {
+        return {
             'refresh': str(refresh),
             'access': str(refresh.access_token),
-            'username': username,
-            'user_id': user.id
         }
-        return payload
-    
-    def register(self) -> dict:
-        username = self.data['username'].lower()
-        password = self.data['password']
-        confirmPassword = self.data['confirmPassword']
-        if User.objects.filter(username=username).exists():
-            raise UserAlreadyExists(self.messages.username_already_exists)
-        self.check_password(password, confirmPassword)
-        user = User.objects.create_user(username=username, password=password)
-        admin = User.objects.get(username='admin')
-        Account.objects.create(name='Wallet', user=user, initial_balance=0, created_by=admin, balance=0)
-        payload = { 'success': self.messages.register_success }
-        return payload
-    
-    def check_password(self, password: str, confirmPassword: str) -> None:
-        errors = []
-        if password != confirmPassword:
-            errors.append(self.messages.passwords_do_not_match)
-        if any(char.isspace() for char in password):
-            errors.append(self.messages.password_has_space)
-        if not any(char.isupper() for char in password):
-            errors.append(self.messages.password_has_no_uppercase)
-        if not any(char.islower() for char in password):
-            errors.append(self.messages.password_has_no_lowercase)
-        if not any(char.isdigit() for char in password):
-            errors.append(self.messages.password_has_no_number)
-        if not any(char.isalnum() for char in password):
-            errors.append(self.messages.password_has_no_special_char)
-        if errors:
-            raise InvalidPassword(errors)
+
+    def login(self) -> Response:
+        """
+        Authenticate the user and return the login response.
+
+        Validates the user's password, generates JWT tokens upon successful
+        authentication, sets the refresh token as an HttpOnly cookie, and
+        returns the access token in the response body.
+
+        Raises:
+            InvalidCredentials: If the password check fails.
+            User.DoesNotExist: If the user does not exist.
+
+        Returns:
+            Response: The HTTP response containing the access token or an error.
+        """
+        user = User.objects.get(username=self.username)
+        if not user.check_password(self.password):
+            raise InvalidCredentials()
+        tokens = self.generate_tokens(user)
+        response = Response(tokens['access'], status=status.HTTP_200_OK)
+        response.set_cookie(
+            key='refresh_token',
+            value=tokens['refresh'],
+            httponly=True,
+            secure=True,
+            path='/auth/refresh/',
+            samesite='Lax',
+        )
+        return response

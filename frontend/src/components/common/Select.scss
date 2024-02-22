@@ -1,0 +1,70 @@
+$form-border-color: #ddd;
+$focus-border-color: #009688;
+$label-color: gray;
+$arrow-color: #888;
+
+.form-select-container {
+  position: relative;
+  margin-bottom: 1rem;
+
+  .form-select-label {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    transition: all 0.15s ease;
+    color: $label-color;
+    background-color: white;
+    padding: 0 0.5rem;
+    pointer-events: none;
+  }
+
+  .form-select {
+    padding: 1rem;
+    font-size: 1rem;
+    width: 100%;
+    border: 1px solid $form-border-color;
+    border-radius: 4px;
+    appearance: none;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-color: white;
+
+    &:focus {
+      border-color: $focus-border-color;
+      outline: none;
+    }
+
+    &:not(:placeholder-shown) + .form-select-label,
+    &:focus + .form-select-label {
+      transform: translateY(-130%) scale(0.8) translateX(-20%);
+      color: $focus-border-color;
+    }
+  }
+
+  // Style for the dropdown arrow
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    right: 1rem;
+    transform: translateY(-50%);
+    pointer-events: none;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid $arrow-color; // Adjust the color to match your design
+    z-index: 1;
+  }
+
+  .form-select.error {
+    border-color: #ff0000;
+  }
+
+  .form-select-error {
+    color: #ff0000;
+    margin-top: 0.5rem;
+    font-size: 0.9rem;
+  }
+
+}

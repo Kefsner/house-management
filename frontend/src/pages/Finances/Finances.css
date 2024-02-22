@@ -1,0 +1,38 @@
+.finances-charts-section {
+  display: flex;
+  justify-content: space-around;
+}
+
+.finances-transactions-section,
+.finances-accounts-section,
+.finances-categories-section {
+  margin: 20px;
+}
+
+.finances-content-group {
+  display: flex;
+  justify-content: space-between;
+}
+
+.pie-chart-value {
+  font-size: 25px;
+}
+
+.pie-chart-value.green {
+  fill: green;
+}
+
+.pie-chart-value.red {
+  fill: red;
+}
+
+/* ========== FORM ========== */
+.form-form {
+  display: flex;
+  flex-direction: column;
+  width: 400px;
+  padding: 20px;
+  border: 2px solid #ddd;
+  border-radius: 4px;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.4);
+}

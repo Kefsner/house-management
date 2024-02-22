@@ -6,14 +6,12 @@ from rest_framework import status
 from finances.messages import FinancesMessages
 from finances.models import Category, Subcategory
 
-from core.logger import Logger
 
 import traceback
 class GetSubcategoriesView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):
         messages = FinancesMessages()
-        logger = Logger()
         try:
             category_name = request.GET['category']
             category_type = request.GET['type'][0]
@@ -31,6 +29,5 @@ class GetSubcategoriesView(APIView):
             payload = { 'error': messages.bad_request }
             return Response(payload, status.HTTP_400_BAD_REQUEST)
         except:
-            logger.log_tracebak(traceback.format_exc())
             payload = { 'error': messages.internal_server_error }
             return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)

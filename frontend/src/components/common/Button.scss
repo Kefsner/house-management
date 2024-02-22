@@ -1,0 +1,51 @@
+$form-border-color: #ddd;
+$submit-bg-color: #009688;
+$submit-bg-hover-color: #33a9a5;
+$button-bg-color: #f5f5f5;
+$button-bg-hover-color: #e0e0e0;
+$button-text-color: #333;
+$button-font-size: 18px;
+$button-padding: 10px;
+$button-border-radius: 4px;
+
+// Common styles for form buttons
+.form-button,
+.add-button {
+  padding: $button-padding;
+  border: 1px solid $form-border-color;
+  border-radius: $button-border-radius;
+  font-size: $button-font-size;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+// Specific styles for submit buttons
+.form-button[type="submit"] {
+  background-color: $submit-bg-color;
+  color: #fff;
+
+  &:hover {
+    background-color: $submit-bg-hover-color;
+  }
+}
+
+// Specific styles for generic button type
+.form-button[type="button"] {
+  background-color: $button-bg-color;
+  color: $button-text-color;
+  margin-top: 10px;
+
+  &:hover {
+    background-color: $button-bg-hover-color;
+  }
+}
+
+// Styles for add button
+.add-button {
+  background-color: $submit-bg-color;
+  color: #fff;
+
+  &:hover {
+    background-color: $submit-bg-hover-color;
+  }
+}
