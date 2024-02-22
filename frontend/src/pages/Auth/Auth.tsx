@@ -1,20 +1,14 @@
 import React from "react";
-
 import useAuthCheck from "../../hooks/useAuthCheck";
-
 import AuthForm from "./components/AuthForm";
+import "./Auth.scss";
 
-import "./Auth.css";
-
-// Define the shape of props expected by the Auth component.
-interface AuthProps {
-  // The URL where the authentication process is handled or redirected.
-  url: string;
-}
-
+/**
+ * The Auth component renders the authentication form and handles user redirection based on their authentication status.
+ * Utilizes the useAuthCheck hook to check the user's authentication status and redirect accordingly.
+ */
 export default function Auth(props: AuthProps) {
   useAuthCheck(props.url);
-
   return (
     <div className="bg-image">
       <div className="content-container">
@@ -23,4 +17,12 @@ export default function Auth(props: AuthProps) {
       </div>
     </div>
   );
+}
+
+
+/**
+ * Props for the Auth component.
+ */
+interface AuthProps {
+  url: string; // The current URL path the user is attempting to access, used for redirection after successful authentication.
 }

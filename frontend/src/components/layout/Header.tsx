@@ -1,19 +1,12 @@
 import React from "react";
 import "./Header.css";
 
-// Define the type for each navigation link
-interface NavLink {
-  label: string;
-  path?: string; // Optional because a link might not always navigate to a new path (could be a button)
-  onClick?: () => void; // Optional onClick handler
-}
-
-// Define the props expected by the Header component
-interface HeaderProps {
-  navLinks: NavLink[]; // Array of NavLink objects
-}
-
-const Header: React.FC<HeaderProps> = ({ navLinks }) => {
+/**
+ * A component that renders the application's header, including the logo and navigation links.
+ * 
+ * @param {HeaderProps} props - The props passed to the Header component.
+ */
+export default function Header(props: HeaderProps) {
   return (
     <header>
       <div className="header-title">
@@ -22,8 +15,8 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
       </div>
       <nav>
         <ul className="nav-links">
-          {navLinks.map((link) => (
-            <li key={link.label} className="nav-link">
+          {props.navLinks.map((link, index) => (
+            <li key={index} className="nav-link">
               <a href={link.path || "#"} onClick={link.onClick}>
                 {link.label}
               </a>
@@ -33,6 +26,21 @@ const Header: React.FC<HeaderProps> = ({ navLinks }) => {
       </nav>
     </header>
   );
-};
+}
 
-export default Header;
+
+/**
+ * Defines the structure for each navigation link in the header.
+ */
+interface NavLink {
+  label: string; // The text label for the navigation link.
+  path?: string; // The optional path to navigate to when the link is clicked.
+  onClick?: () => void; // An optional click handler for the link.
+}
+
+/**
+ * Defines the props expected by the Header component.
+ */
+interface HeaderProps {
+  navLinks: NavLink[]; // An array of NavLink objects to be displayed in the header.
+}

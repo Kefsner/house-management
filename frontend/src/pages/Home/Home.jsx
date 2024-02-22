@@ -3,18 +3,19 @@ import { useNavigate } from "react-router-dom";
 
 import useAuthCheck from "../../hooks/useAuthCheck";
 
-// import Layout from "../../components/layout/Layout";
+import Layout from "../../components/layout/Layout";
 import Card from "./partials/Card";
 
 import "./Home.css";
 
 export default function Home(props) {
+  console.log("Home", props);
   useAuthCheck(props.url);
 
   const navigate = useNavigate();
 
   return (
-    // <Layout>
+    <Layout>
       <div id="home-page">
         <Card
           className="finances-card"
@@ -23,6 +24,6 @@ export default function Home(props) {
           onClick={() => navigate("/finances")}
         />
       </div>
-    // </Layout>
+    </Layout>
   );
 }

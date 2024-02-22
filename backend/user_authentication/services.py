@@ -4,16 +4,21 @@ from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.response import Response
 from rest_framework import status
 
+from core.services import BaseAuthServices
+
 from user_authentication.exceptions import *
 
-class AuthServices:
+class AuthServices(BaseAuthServices):
     """
     Service class for handling authentication logic.
 
     Provides methods to generate JWT tokens and perform user login authentication,
     including setting the refresh token as an HttpOnly cookie.
-    """
 
+    Attributes:
+        username (str): The username of the user attempting to log in.
+        password (str): The password of the user attempting to log in.
+    """
     def __init__(self, data: dict) -> None:
         """
         Initialize the AuthServices instance with user credentials.
@@ -23,22 +28,6 @@ class AuthServices:
         """
         self.username = data['username'].lower()
         self.password = data['password']
-
-    def generate_tokens(self, user: User) -> dict:
-        """
-        Generate JWT access and refresh tokens for a given user.
-
-        Args:
-            user (User): The user instance for whom to generate tokens.
-
-        Returns:
-            dict: A dictionary containing 'refresh' and 'access' tokens.
-        """
-        refresh = RefreshToken.for_user(user)
-        return {
-            'refresh': str(refresh),
-            'access': str(refresh.access_token),
-        }
 
     def login(self) -> Response:
         """
@@ -68,8 +57,8 @@ class AuthServices:
             key='refresh_token',
             value=tokens['refresh'],
             httponly=True,
-            secure=True,
-            path='/auth/refresh/',
+            # secure=True,
+            path='/',
             samesite='Lax',
         )
         return response

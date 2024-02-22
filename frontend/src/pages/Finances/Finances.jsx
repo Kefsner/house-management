@@ -31,7 +31,9 @@ import useAuthCheck from "../../hooks/useAuthCheck";
 import "./Finances.css";
 
 export default function Finances(props) {
+  console.log("Finances props.url: ", props.url);
   useAuthCheck(props.url);
+  console.log("Finances props.url: 323232", props.url);
 
   // const [isModalOpen, setIsModalOpen] = useState(false);
   // const [modalActions, setModalActions] = useState("");

@@ -12,11 +12,13 @@
 .message.error {
   text-align: center;
   color: #ff0000;
-  margin-bottom: 10px;
 }
 
 .message.info {
   text-align: center;
   color: #0000ff;
-  margin-bottom: 10px;
+}
+
+.message-text {
+  margin-bottom: 1rem;
 }

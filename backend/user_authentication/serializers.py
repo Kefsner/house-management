@@ -1,7 +1,5 @@
 from rest_framework import serializers
-from user_authentication.constants import *
-
-from rest_framework import serializers
+from core.constants import *
 
 class LoginSerializer(serializers.Serializer):
     """
@@ -13,8 +11,16 @@ class LoginSerializer(serializers.Serializer):
     """
 
     # Define fields that the serializer will accept.
-    username = serializers.CharField()
-    password = serializers.CharField()
+    username = serializers.CharField(
+        max_length=MAX_USERNAME_LENGTH,
+        min_length=MIN_USERNAME_LENGTH,
+        required=True,
+    )
+    password = serializers.CharField(
+        max_length=MAX_PASSWORD_LENGTH,
+        min_length=MIN_PASSWORD_LENGTH,
+        required=True,
+    )
 
     def validate(self, data: dict) -> dict:
         """
@@ -47,21 +53,3 @@ class LoginSerializer(serializers.Serializer):
             'username': username,
             'password': password,
         }
-
-class RegisterSerializer(serializers.Serializer):
-    username = serializers.CharField(
-        max_length=MAX_USERNAME_LENGHT,
-        min_length=MIN_USERNAME_LENGHT,
-        required=True,
-    )
-    password = serializers.CharField(
-        max_length=MAX_PASSWORD_LENGHT,
-        min_length=MIN_PASSWORD_LENGHT,
-        required=True,
-    )
-    confirmPassword = serializers.CharField(
-        max_length=MAX_PASSWORD_LENGHT,
-        min_length=MIN_PASSWORD_LENGHT,
-        required=True,
-        write_only=True
-    )

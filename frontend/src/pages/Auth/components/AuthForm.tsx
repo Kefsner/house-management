@@ -13,71 +13,47 @@ import { getCsrfToken } from "../../../utils/authUtils";
 import "./AuthForm.scss";
 
 /**
- * FormData interface defines the structure for form data used in the AuthForm.
- */
-interface FormData {
-  username: string;
-  password: string;
-  passwordConfirm: string;
-}
-
-/**
- * ResponseData interface defines the structure for response data from the server.
- */
-interface ResponseData {
-  access?: string;
-  username?: string;
-  message: string;
-}
-
-/**
- * AuthForm component provides a user interface for authentication.
- *
- * It supports both login and registration functionalities, allowing users
- * to switch between them. It handles user input for username, password,
- * and password confirmation (for registration). Upon submission, it makes
- * a POST request to the appropriate endpoint and navigates the user based
- * on the response.
+ * Provides a form interface for authentication, supporting both login and registration.
+ * Users can input their credentials to either log in or register a new account.
+ * The component dynamically adjusts based on the current mode (login or registration),
+ * handling form submissions accordingly and navigating the user upon successful authentication.
  */
 export default function AuthForm() {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
     username: "",
     password: "",
-    passwordConfirm: "",
+    confirmPassword: "",
   });
   const [isRegister, setIsRegister] = useState(false);
   const [message, setMessage] = useState("");
   const [messageType, setMessageType] = useState<"error" | "info">("info");
 
   /**
-   * Toggles the form between login and registration modes.
+   * Switches the form mode between login and registration, resetting relevant state.
    */
   const toggleForm = () => {
     setIsRegister(!isRegister);
+    setMessage("");
     setFormData({
       ...formData,
       password: "",
-      passwordConfirm: "",
+      confirmPassword: "",
     });
   };
 
   /**
-   * Handles form submission for login or registration.
+   * Submits the form data for authentication, either logging in the user or registering a new account.
+   * Upon successful authentication, navigates the user to their intended destination.
    *
-   * It constructs the API endpoint based on the current mode (login/register),
-   * sends the form data to the server, and processes the response.
-   * On successful login, it stores the access token and username in localStorage
-   * and navigates to the next path or home page.
-   *
-   * @param {FormEvent<HTMLFormElement>} event - The form event triggered by submission.
+   * @param {FormEvent<HTMLFormElement>} event The form submission event.
    */
   const handleSubmit = async (
     event: FormEvent<HTMLFormElement>
   ): Promise<void> => {
     event.preventDefault();
     try {
-      const apiEndpoint = isRegister ? "user/register/" : "auth/login/";
+      const apiEndpoint = isRegister ? "users/register/" : "auth/login/";
       const response = await fetch(`${apiURL}${apiEndpoint}`, {
         method: "POST",
         headers: {
@@ -88,23 +64,27 @@ export default function AuthForm() {
       });
       const responseData: ResponseData = await response.json();
       if (response.status === 200) {
-        localStorage.setItem("accessToken", responseData.access || "");
+        localStorage.setItem("accessToken", responseData.accessToken || "");
         localStorage.setItem("username", responseData.username || "");
         navigate(sessionStorage.getItem("nextPath") || "/");
-        sessionStorage.removeItem("nextPath");
+        console.log(sessionStorage.getItem("nextPath"));
       } else if (response.status === 201) {
         toggleForm();
-        setMessage(responseData.message);
         setMessageType("info");
+        setMessage(responseData.message);
+      } else if (isRegister && response.status === 400) {
+        setFormData({ ...formData, password: "", confirmPassword: "" });
+        setMessageType("error");
+        setMessage(responseData.message);
       } else if (response.status === 401) {
         setFormData({ ...formData, username: "", password: "" });
-        setMessage(responseData.message);
         setMessageType("error");
+        setMessage(responseData.message);
       } else {
-        console.error(response);
+        console.log("Errorssssssss:", responseData.message);
       }
     } catch (error) {
-      console.error("Error:", error);
+      console.log("Error:", error);
     }
   };
 
@@ -136,12 +116,12 @@ export default function AuthForm() {
       />
       {isRegister && (
         <Input
-          id="passwordConfirm"
+          id="confirmPassword"
           type="password"
           label="Confirm Password"
-          value={formData.passwordConfirm}
+          value={formData.confirmPassword}
           onChange={(event) =>
-            setFormData({ ...formData, passwordConfirm: event.target.value })
+            setFormData({ ...formData, confirmPassword: event.target.value })
           }
           required
           maxlength={50}
@@ -149,7 +129,7 @@ export default function AuthForm() {
         />
       )}
       <Message message={message} type={messageType} />
-      <Button type="submit" label={isRegister ? "Register" : "Login"} />
+      <Button type="submit" label={isRegister ? "Registrar" : "Entrar"} />
       <Button
         type="button"
         label={isRegister ? "Voltar" : "Criar Usuário"}
@@ -157,4 +137,23 @@ export default function AuthForm() {
       />
     </form>
   );
+}
+
+
+/**
+ * Defines the structure for form data used in the AuthForm.
+ */
+interface FormData {
+  username: string; // The user's username.
+  password: string; // The user's password.
+  confirmPassword: string; // The user's password confirmation (for registration).
+}
+
+/**
+ * Defines the structure for server response data.
+ */
+interface ResponseData {
+  accessToken?: string; // The access token issued upon successful authentication.
+  username?: string; // The username of the authenticated user.
+  message: string; // A message from the server, indicating the result of the operation.
 }
