@@ -59,7 +59,11 @@ class AuthServices:
         if not user.check_password(self.password):
             raise InvalidCredentials()
         tokens = self.generate_tokens(user)
-        response = Response(tokens['access'], status=status.HTTP_200_OK)
+        payload = {
+            'accessToken': tokens['access'],
+            'username': user.username,
+        }
+        response = Response(payload, status=status.HTTP_200_OK)
         response.set_cookie(
             key='refresh_token',
             value=tokens['refresh'],

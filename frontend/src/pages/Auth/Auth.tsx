@@ -2,7 +2,7 @@ import React from "react";
 
 import useAuthCheck from "../../hooks/useAuthCheck";
 
-import AuthForm from "./AuthForm";
+import AuthForm from "./components/AuthForm";
 
 import "./Auth.css";
 

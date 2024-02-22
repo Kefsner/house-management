@@ -9,6 +9,7 @@ from django.contrib.auth.models import User
 from django.http.response import HttpResponse
 from django.http.request import HttpRequest
 
+from user_authentication.messages import UserAuthenticationMessages
 from user_authentication.exceptions import InvalidCredentials
 from user_authentication.serializers import LoginSerializer
 from user_authentication.services import AuthServices
@@ -41,6 +42,7 @@ class LoginView(APIView):
             HttpResponse: JWT access and refresh tokens upon successful login or
             an error status code for failed attempts.
         """
+        messages = UserAuthenticationMessages()
         try:
             serializer = LoginSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
@@ -48,9 +50,12 @@ class LoginView(APIView):
             services = AuthServices(data)
             return services.login()
         except ValidationError:
-            return Response(status=status.HTTP_400_BAD_REQUEST)    
+            payload = { 'message': messages.bad_request }
+            return Response(payload, status.HTTP_400_BAD_REQUEST)
         except (User.DoesNotExist, InvalidCredentials):
-            return Response(status=status.HTTP_401_UNAUTHORIZED)
+            payload = { 'message': messages.invalid_credentials }
+            return Response(payload, status.HTTP_401_UNAUTHORIZED) 
         except:
             logging.error(traceback.format_exc())
-            return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            payload = { 'message': messages.internal_server_error }
+            return Response(payload, status.HTTP_500_INTERNAL_SERVER_ERROR)

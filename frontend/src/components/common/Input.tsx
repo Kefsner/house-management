@@ -28,6 +28,8 @@ interface NumberInputProps extends BaseInputProps {
  */
 interface TextInputProps extends BaseInputProps {
   type: "text" | "password" | "email"; // Defines the type of text input.
+  maxlength?: number; // Maximum length for the input value.
+  minlength?: number; // Minimum length for the input value.
 }
 
 /**
@@ -60,6 +62,10 @@ export default function Input(props: InputProps): JSX.Element {
           step: props.step, // Set the step interval if provided.
         })}
         placeholder="" // Clear the default placeholder for styling consistency.
+        {...(props.type === "text" || props.type === "password") && { // Conditionally add text-specific attributes.
+          maxLength: props.maxlength, // Set the maximum length if provided.
+          minLength: props.minlength, // Set the minimum length if provided.
+        }}
       />
       <label htmlFor={props.id} className="form-input-label">
         {props.label}
