@@ -1,6 +1,6 @@
 import React from "react";
 
-import Table from "../forms/partials/Table";
+import Table from "../../../components/common/Table";
 
 export default function RecurrentTransactions(props) {
   return (

@@ -44,7 +44,7 @@ type InputProps = NumberInputProps | TextInputProps;
  * and adjusting validation attributes for text inputs. It offers a unified look and feel while providing specific
  * functionality tailored to the input type, ensuring usability and accessibility.
  */
-export default function Input(props: InputProps): JSX.Element {
+export default function Input(props: InputProps) {
   return (
     <div className="form-input-container">
       <input

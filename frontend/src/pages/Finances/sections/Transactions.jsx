@@ -1,6 +1,6 @@
 import React from "react";
 
-import Table from "../forms/partials/Table";
+import Table from "../../../components/common/Table";
 import Button from "../forms/partials/Button";
 
 export default function Transactions(props) {
