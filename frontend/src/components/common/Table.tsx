@@ -19,6 +19,7 @@ interface TableRow {
 
 /**
  * Renders a table component with customizable headers and rows.
+ * 
  */
 export default function Table(props: TableProps) {
   return (

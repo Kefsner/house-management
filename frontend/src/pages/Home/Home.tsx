@@ -8,8 +8,7 @@ import Card from "./partials/Card";
 
 import "./Home.css";
 
-export default function Home(props) {
-  console.log("Home", props);
+export default function Home(props: HomeProps) {
   useAuthCheck(props.url);
 
   const navigate = useNavigate();
@@ -23,7 +22,17 @@ export default function Home(props) {
           text="Finances"
           onClick={() => navigate("/finances")}
         />
+        <Card
+          className="categories-card"
+          icon="/icons/categories.svg"
+          text="Categories"
+          onClick={() => navigate("/categories")}
+        />
       </div>
     </Layout>
   );
+}
+
+interface HomeProps {
+  url: string;
 }

@@ -2,15 +2,6 @@ from rest_framework import serializers
 from core.constants import *
 
 class LoginSerializer(serializers.Serializer):
-    """
-    Serializer for user login.
-
-    Validates that a username and password are included in the request.
-    This serializer does not directly authenticate a user; it merely validates
-    the presence of login credentials.
-    """
-
-    # Define fields that the serializer will accept.
     username = serializers.CharField(
         max_length=MAX_USERNAME_LENGTH,
         min_length=MIN_USERNAME_LENGTH,

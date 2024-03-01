@@ -6,8 +6,6 @@ from rest_framework import status
 from finances.messages import FinancesMessages
 from finances.models import Category, Subcategory
 
-
-import traceback
 class GetSubcategoriesView(APIView):
     permission_classes = [IsAuthenticated]
     def get(self, request):

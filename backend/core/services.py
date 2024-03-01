@@ -3,6 +3,12 @@ from django.contrib.auth.models import User
 from rest_framework_simplejwt.tokens import RefreshToken
 
 class BaseAuthServices:
+    """
+    Base class for authentication services.
+
+    Provides methods for generating and refreshing JWT tokens.
+    """
+
     def generate_tokens(self, user: User) -> dict:
         """
         Generate JWT access and refresh tokens for a given user.

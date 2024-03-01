@@ -22,28 +22,6 @@ class TransactionSerializer(serializers.ModelSerializer):
         data['value'] = Decimal(data['value'])
         return data
 
-class CategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Category
-        fields = ['name', 'type']
-
-    def to_internal_value(self, data):
-        user = User.objects.get(username=data['user'])
-        data['user'] = user.id
-        return data
-
-class SubcategorySerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Subcategory
-        fields = ['name', 'category']
-
-    def to_internal_value(self, data):
-        category = Category.objects.get(name=data['category'])
-        data['category'] = category.id
-        user = User.objects.get(username=data['user'])
-        data['user'] = user.id
-        return data
-
 class AccountSerializer(serializers.ModelSerializer):
     class Meta:
         model = Account

@@ -1,16 +1,5 @@
 import React from "react";
-import "./Modal.css"; // Importing CSS for styling
-
-/**
- * Props expected by the Modal component.
- * 
- * @param {boolean} isOpen - Controls the visibility of the modal. If false, the modal is not rendered.
- * @param {React.ReactNode} children - The content to be displayed within the modal. This can include any valid React elements or components.
- */
-interface ModalProps {
-  isOpen: boolean;
-  children: React.ReactNode;
-}
+import "./Modal.scss"; // Importing CSS for styling
 
 /**
  * A component for rendering a modal dialog overlay.

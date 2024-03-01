@@ -1,34 +1,18 @@
 from django.db import models
-
 from django.contrib.auth.models import User
 
-class MetaData(models.Model):
-    id = models.AutoField(primary_key=True)
-    created_by = models.ForeignKey(User, on_delete=models.DO_NOTHING)
-    created_at = models.DateTimeField(auto_now_add=True)
+from category_management.models import Category, Subcategory
 
-    class Meta:
-        abstract = True
-
-class Category(MetaData):
-    CATEGORY_TYPES = (
-        ('I', 'Income'),
-        ('E', 'Expense'),
-        ('T', 'Transfer'),
-    )
-    name = models.CharField(max_length=100)
-    type = models.CharField(max_length=1, choices=CATEGORY_TYPES)
-
-class Subcategory(MetaData):
-    name = models.CharField(max_length=100)
-    category = models.ForeignKey(Category, on_delete=models.DO_NOTHING)
-    description = models.CharField(max_length=100)
+from core.models import MetaData
 
 class Account(MetaData):
     name = models.CharField(max_length=100)
     initial_balance = models.DecimalField(max_digits=10, decimal_places=2)
     balance = models.DecimalField(max_digits=10, decimal_places=2)
     user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='owned_accounts')
+
+    class Meta:
+        unique_together = ('name', 'user')
 
 class Transaction(MetaData):
     description = models.CharField(max_length=100, null=True)
