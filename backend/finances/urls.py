@@ -2,7 +2,6 @@ from django.urls import path
 
 from finances.views.CreateTransaction import CreateTransactionView
 from finances.views.GetTransactions import GetTransactionsView
-from finances.views.CreateAccount import CreateAccountView
 from finances.views.GetAccounts import GetAccountsView
 from finances.views.CreateCreditCard import CreateCreditCardView
 from finances.views.GetCreditCards import GetCreditCardsView
@@ -16,7 +15,6 @@ app_name = 'finances'
 urlpatterns = [
     path('transaction/create/', CreateTransactionView.as_view(), name='create_transaction'),
     path('transaction/get/', GetTransactionsView.as_view(), name='get_transactions'),
-    path('account/create/', CreateAccountView.as_view(), name='create_account'),
     path('account/get/', GetAccountsView.as_view(), name='get_accounts'),
     path('credit_card/create/', CreateCreditCardView.as_view(), name='create_credit_card'),
     path('credit_card/get/', GetCreditCardsView.as_view(), name='get_credit_cards'),

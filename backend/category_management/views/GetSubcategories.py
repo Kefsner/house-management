@@ -7,8 +7,32 @@ from finances.messages import FinancesMessages
 from finances.models import Category, Subcategory
 
 class GetSubcategoriesView(APIView):
+    """
+    View for getting subcategories of a category.
+
+    This view allows authenticated users to get subcategories of a category. It returns a list of dictionaries,
+    each containing a subcategory. This class uses the IsAuthenticated permission class to ensure that only
+    authenticated users can access the view. 
+    """
     permission_classes = [IsAuthenticated]
+
     def get(self, request, category_id):
+        """
+        Handle GET request to get subcategories of a category.
+
+        This method retrieves all subcategories of a category from the database and returns them as a list of
+        dictionaries. It handles exceptions to return the appropriate HTTP response, including internal server
+        errors.
+
+        Args:
+            request (Request): The DRF request object.
+            category_id (int): The ID of the category whose subcategories are to be retrieved.
+
+        Returns:
+            Response: A DRF Response object. On success, it includes a list of dictionaries, each containing a
+            subcategory. On failure, it returns an error message and an HTTP status code indicating the nature
+            of the failure (e.g., 500 for internal server errors).
+        """
         messages = FinancesMessages()
         try:
             category = Category.objects.get(id=category_id)

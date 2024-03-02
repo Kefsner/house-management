@@ -21,16 +21,6 @@ class TransactionSerializer(serializers.ModelSerializer):
         data['account'] = account.id
         data['value'] = Decimal(data['value'])
         return data
-
-class AccountSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Account
-        fields = ['name', 'balance', 'user']
-
-    def to_internal_value(self, data):
-        user = User.objects.get(id=data['user'])
-        data['user'] = user.id
-        return data
     
 class CreditCardSerializer(serializers.ModelSerializer):
     class Meta:

@@ -43,25 +43,6 @@ class SubcategoryServices:
         payload = { 'success': self.messages.subcategory_created }
         return payload
     
-class AccountServices:
-    def __init__(self, data: dict) -> None:
-        self.data = data
-        self.messages = FinancesMessages()
-
-    def create_account(self) -> dict:
-        user = self.data['user']
-        user = User.objects.get(id=user)
-        name = self.data['name'].lower()
-        initial_balance = self.data['initial_balance']
-        balance = initial_balance
-        if Account.objects.filter(name=name, user=user).exists():
-            raise AccountAlreadyExists(self.messages.account_already_exists)
-        created_by = self.data['created_by']
-        created_by = User.objects.get(id=created_by)
-        Account.objects.create(name=name, initial_balance=initial_balance, balance=balance, user=user, created_by=created_by)
-        payload = { 'success': self.messages.account_created }
-        return payload
-
 class TransactionServices:
     def __init__(self, data: dict) -> None:
         self.data = data

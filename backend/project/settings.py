@@ -32,8 +32,10 @@ INSTALLED_APPS = [
 
     'user_authentication',
     'user_management',
-    'finances',
     'category_management',
+    'account_management',
+    
+    'finances',
     
     'corsheaders',
 ]

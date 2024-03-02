@@ -5,4 +5,5 @@ urlpatterns = [
     path('users/', include('user_management.urls')),
     path('finances/', include('finances.urls')),
     path('categories/', include('category_management.urls')),
+    path('accounts/', include('account_management.urls')),
 ]

@@ -4,15 +4,7 @@ from django.contrib.auth.models import User
 from category_management.models import Category, Subcategory
 
 from core.models import MetaData
-
-class Account(MetaData):
-    name = models.CharField(max_length=100)
-    initial_balance = models.DecimalField(max_digits=10, decimal_places=2)
-    balance = models.DecimalField(max_digits=10, decimal_places=2)
-    user = models.ForeignKey(User, on_delete=models.DO_NOTHING, related_name='owned_accounts')
-
-    class Meta:
-        unique_together = ('name', 'user')
+from account_management.models import Account
 
 class Transaction(MetaData):
     description = models.CharField(max_length=100, null=True)

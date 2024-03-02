@@ -4,9 +4,6 @@ class FinancesMessages(CoreMessages):
     _description_length_invalid = 'The description must have a maximum of 100 characters.'
     _value_invalid = 'The value must be greater than 0.'
     _transaction_created = 'Transaction created successfully.'
-    _account_created = 'Account created successfully.'
-    _account_already_exists = 'Account already exists.'
-    _account_does_not_exist = 'Account does not exist.'
     _credit_card_created = 'Credit card created successfully.'
     _credit_card_transaction_created = 'Credit card transaction created successfully.'
     _credit_card_installment_paid = 'Credit card installment paid successfully.'
@@ -24,18 +21,6 @@ class FinancesMessages(CoreMessages):
     @property
     def transaction_created(self):
         return self._transaction_created
-    
-    @property
-    def category_created(self):
-        return self._category_created
-    
-    @property
-    def category_already_exists(self):
-        return self._category_already_exists
-    
-    @property
-    def subcategory_created(self):
-        return self._subcategory_created
     
     @property
     def subcategory_already_exists(self):

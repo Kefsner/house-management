@@ -7,8 +7,31 @@ from finances.messages import FinancesMessages
 from finances.models import Category
 
 class GetCategoriesView(APIView):
+    """
+    View for getting all categories and subcategories.
+
+    This view allows authenticated users to get all categories and subcategories. It returns a list of
+    dictionaries, each containing a category and its subcategories. This class uses the IsAuthenticated
+    permission class to ensure that only authenticated users can access the view.
+    """
     permission_classes = [IsAuthenticated]
+
     def get(self, request):
+        """
+        Handle GET request to get all categories and subcategories.
+
+        This method retrieves all categories and their subcategories from the database and returns them
+        as a list of dictionaries. It handles exceptions to return the appropriate HTTP response, including
+        internal server errors.
+
+        Args:
+            request (Request): The DRF request object.
+
+        Returns:
+            Response: A DRF Response object. On success, it includes a list of dictionaries, each containing
+            a category and its subcategories. On failure, it returns an error message and an HTTP status code
+            indicating the nature of the failure (e.g., 500 for internal server errors).
+        """
         messages = FinancesMessages()
         try:
             categories = Category.objects.all()
