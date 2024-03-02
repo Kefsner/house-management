@@ -2,8 +2,8 @@ import React, { useState, FormEvent } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { getCsrfToken, handleLogout } from "../../../utils/authUtils";
-import { apiURL } from "../../../utils/constants";
+import { getCsrfToken, handleLogout } from "../../../apiUtils/auth";
+import { apiURL } from "../../../apiUtils/constants";
 
 import Button from "../../../components/common/Button";
 import Input from "../../../components/common/Input";
@@ -15,11 +15,12 @@ import Select from "../../../components/common/Select";
 export default function CategoryForm(props: CategoryFormProps) {
   const navigate = useNavigate();
   const [formData, setFormData] = useState<FormData>({
-    type: "", // Income or Expense
-    class: "", // Category or Subcategory
-    category: "", // If class is subcategory, this is the parent category else it's empty
-    name: "", // Name of the category or subcategory
-    user: localStorage.getItem("username"), // User creating the category
+    type: "",
+    class: "",
+    category: "",
+    name: "",
+    description: "",
+    user: localStorage.getItem("username"),
   });
 
   const handleSubmit = async (
@@ -27,7 +28,10 @@ export default function CategoryForm(props: CategoryFormProps) {
   ): Promise<void> => {
     event.preventDefault();
     try {
-      const apiEndpoint = `categories/${formData.class}/create/`;
+      const apiEndpoint =
+      "categories/" +
+      (formData.category && `sub/${formData.category}/`) +
+      "create/";
       const response = await fetch(`${apiURL}${apiEndpoint}`, {
         method: "POST",
         headers: {
@@ -45,6 +49,7 @@ export default function CategoryForm(props: CategoryFormProps) {
           class: "",
           category: "",
           name: "",
+          description: "",
           user: localStorage.getItem("username"),
         });
         props.onSuccess();
@@ -121,11 +126,15 @@ export default function CategoryForm(props: CategoryFormProps) {
           }
           label="Category"
           placeholder="Select category"
-          options={props.categories.map((category) => ({
-            id: category.id,
-            value: category.id,
-            label: category.name,
-          }))}
+          options={props.categories
+            .filter((category) => category.type === formData.type)
+            .map((category) => {
+              return {
+                id: category.id,
+                value: category.id,
+                label: category.name,
+              };
+            })}
           required={true}
         />
       )}
@@ -142,33 +151,69 @@ export default function CategoryForm(props: CategoryFormProps) {
         label="Name"
         required={true}
       />
+      {formData.class === "subcategory" && (
+        <Input
+          type="text"
+          id="category-description"
+          value={formData.description}
+          onChange={(event) =>
+            setFormData({
+              ...formData,
+              description: event.target.value,
+            })
+          }
+          label="Description"
+          required={true}
+        />
+      )}
       <Button type="submit" label={`Add ${formData.class}`} />
       <Button type="button" label="Close" onClick={props.closeModal} />
     </form>
   );
 }
 
+/**
+ * The props for the CategoryForm component.
+ */
 interface CategoryFormProps {
-  closeModal: () => void;
-  onSuccess: () => void;
-  categories: Category[];
+  closeModal: () => void; // Function to close the modal
+  onSuccess: () => void; // Function to execute on successful form submission e.g. updating the categories list
+  categories: Category[]; // List of categories to populate the category select input
 }
 
+/**
+ * The data structure for the form data.
+ */
 interface FormData {
-  type: "income" | "expense" | "";
-  class: "category" | "subcategory" | "";
-  category: string;
-  name: string;
-  user: string | null;
+  type: "income" | "expense" | ""; // Income or Expense
+  class: "category" | "subcategory" | ""; // Category or Subcategory
+  category: string; // If class is subcategory, this is the parent category else it's empty
+  name: string; // Name of the category or subcategory
+  description: string; // Description for subcategory
+  user: string | null; // User creating the category
 }
 
+/**
+ * The data structure for the server response.
+ */
 interface ResponseData {
-  message: string;
+  message: string; // Message from the server
 }
 
+/**
+ * The data structure for a category.
+ */
 export interface Category {
-  id: string;
-  name: string;
-  type: string;
-  user: string;
+  id: string; // Unique identifier
+  name: string; // Name of the category
+  type: string; // Income or Expense
+  subcategories: Subcategory[]; // List of subcategories
+}
+
+/**
+ * The data structure for a subcategory.
+ */
+export interface Subcategory {
+  id: string; // Unique identifier
+  name: string; // Name of the subcategory
 }

@@ -14,15 +14,14 @@ import logging
 
 class CreateSubcategoryView(APIView):
     permission_classes = [IsAuthenticated]
-    def post(self, request):
+    def post(self, request, category_id):
         messages = SubcategoryMessages()
         logger = logging.getLogger('django')
         try:
-            print(request.data)
             serializer = SubcategorySerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             data = serializer.validated_data
-            services = SubcategoryServices(data)
+            services = SubcategoryServices(data, category_id)
             services.create_subcategory()
             payload = { 'message': messages.subcategory_created }
             return Response(payload, status.HTTP_201_CREATED)

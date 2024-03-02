@@ -13,31 +13,31 @@ class InitDB:
         categories = [
             {
                 'name': 'Housing',
-                'type': 'E',
+                'type': 'expense'
             },
             {
                 'name': 'Supermarket/Groceries',
-                'type': 'E'
+                'type': 'expense'
             },
             {
                 'name': 'Transportation',
-                'type': 'E'
+                'type': 'expense'
             },
             {
                 'name': 'Bills & Utilities',
-                'type': 'E'
+                'type': 'expense'
             },
             {
                 'name': 'Personal Care',
-                'type': 'E'
+                'type': 'expense'
             },
             {
                 'name': 'Entertainment',
-                'type': 'E'
+                'type': 'expense'
             },
             {
                 'name': 'Investments & Savings',
-                'type': 'E'
+                'type': 'expense'
             }
         ]
         for category in categories:

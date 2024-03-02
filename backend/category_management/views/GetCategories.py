@@ -17,14 +17,11 @@ class GetCategoriesView(APIView):
                 subcategories = category.subcategory_set.all()
                 payload.append({
                     'id': category.id,
-                    'type': category.type,
                     'name': category.name,
-                    'subcategories': [{'name': subcategory.name, 'id': subcategory.id} for subcategory in subcategories]
+                    'type': category.type,
+                    'subcategories': [{'id': subcategory.id, 'name': subcategory.name, 'description': subcategory.description} for subcategory in subcategories]
                 })
             return Response(payload, status.HTTP_200_OK)
-        except (KeyError):
-            payload = { 'error': messages.bad_request }
-            return Response(payload, status.HTTP_400_BAD_REQUEST)
         except:
             payload = { 'error': messages.internal_server_error }
             return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)

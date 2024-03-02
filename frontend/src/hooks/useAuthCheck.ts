@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import { isAuthenticated, refreshAccessToken } from "../utils/authUtils";
+import { isAuthenticated, refreshAccessToken } from "../apiUtils/auth";
 
 /**
  * A custom React hook to ensure user authentication status and handle redirections appropriately.

@@ -8,12 +8,10 @@ from finances.models import Category, Subcategory
 
 class GetSubcategoriesView(APIView):
     permission_classes = [IsAuthenticated]
-    def get(self, request):
+    def get(self, request, category_id):
         messages = FinancesMessages()
         try:
-            category_name = request.GET['category']
-            category_type = request.GET['type'][0]
-            category = Category.objects.get(name=category_name, type=category_type)
+            category = Category.objects.get(id=category_id)
             subcategories = Subcategory.objects.filter(category=category)
             payload = []
             for subcategory in subcategories:
@@ -23,9 +21,6 @@ class GetSubcategoriesView(APIView):
                     'description': subcategory.description
                 })
             return Response(payload, status.HTTP_200_OK)
-        except (KeyError):
-            payload = { 'error': messages.bad_request }
-            return Response(payload, status.HTTP_400_BAD_REQUEST)
         except:
             payload = { 'error': messages.internal_server_error }
             return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)

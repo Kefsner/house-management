@@ -10,8 +10,6 @@ class CategorySerializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
         user = User.objects.get(username=data['user'])
         data['user'] = user.id
-        data['type'] = data['type'][0].upper()
-        data['name'] = data['name'].lower()
         return data
 
 class SubcategorySerializer(serializers.ModelSerializer):
@@ -22,7 +20,4 @@ class SubcategorySerializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
         user = User.objects.get(username=data['user'])
         data['user'] = user.id
-        category = Category.objects.get(name=data['category'])
-        data['category'] = category.id
-        data['name'] = data['name'].lower()
         return data

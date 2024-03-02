@@ -9,11 +9,11 @@ import Table from "../../components/common/Table";
 import Modal from "../../components/common/Modal";
 import Button from "../../components/common/Button";
 
-import { fetchCategories } from "../../utils/apiUtils";
+import { fetchCategories } from "../../apiUtils/category";
 import CategoryForm, { Category } from "./Components/CategoryForm";
 
 import "./Categories.scss";
-import { handleLogout } from "../../utils/authUtils";
+import { handleLogout } from "../../apiUtils/auth";
 
 /**
  * The categories page component.
@@ -40,7 +40,7 @@ export default function Categories(props: CategoriesProps) {
         fetchData();
     }, [navigate]);
 
-  return (
+    return (
     <>
     <Layout>
         <div id="categories-page">
@@ -50,13 +50,17 @@ export default function Categories(props: CategoriesProps) {
                 label="Add Category"
             />
             <Table
-            headers={["Name", "Type"]}
-            rows={[
-                { Name: "Food", Type: "Expense" },
-                { Name: "Utilities", Type: "Expense" },
-                { Name: "Salary", Type: "Income" },
-                { Name: "Freelance", Type: "Income" },
-            ]}
+            headers={["Name", "Type", "Subcategories"]}
+            rows={categories.map((category) => ({
+                Name: category.name,
+                Type: category.type,
+                Subcategories: category.subcategories.map(sub => sub.name).join(", "),
+            }))}
+            />
+            <Button
+                type="button"
+                onClick={() => navigate("/")}
+                label="Back"
             />
         </div>
         <Modal

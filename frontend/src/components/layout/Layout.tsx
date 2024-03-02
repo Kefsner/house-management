@@ -1,7 +1,7 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 
-import { handleLogout } from "../../utils/authUtils";
+import { handleLogout } from "../../apiUtils/auth";
 
 import Header from "./Header";
 

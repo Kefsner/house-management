@@ -16,9 +16,15 @@ class CategoryServices:
         Category.objects.create(name=name, type=type, created_by=user)
 
 class SubcategoryServices:
-    def __init__(self, data) -> None:
+    def __init__(self, data: dict, category_id: int) -> None:
         self.data = data
+        self.category_id = category_id
         self.messages = CategoryMessages()
 
     def create_subcategory(self) -> None:
-        pass
+        user = self.data['user']
+        user = User.objects.get(id=user)
+        category = Category.objects.get(id=self.category_id)
+        name = self.data['name']
+        description = self.data.get('description', None)
+        Subcategory.objects.create(name=name, category=category, description=description, created_by=user)

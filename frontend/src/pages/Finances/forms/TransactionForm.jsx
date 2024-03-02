@@ -2,8 +2,8 @@ import React, { useState } from "react";
 
 import { useNavigate } from "react-router-dom";
 
-import { getCsrfToken, handleLogout } from "../../../utils/authUtils";
-import { apiURL } from "../../../utils/constants";
+import { getCsrfToken, handleLogout } from "../../../apiUtils/auth";
+import { apiURL } from "../../../apiUtils/constants";
 
 import Input from "./partials/Input";
 import Select from "./partials/Select";

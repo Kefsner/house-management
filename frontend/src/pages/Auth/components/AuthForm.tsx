@@ -7,8 +7,8 @@ import Button from "../../../components/common/Button";
 
 import Message from "./Message";
 
-import { apiURL } from "../../../utils/constants";
-import { getCsrfToken } from "../../../utils/authUtils";
+import { apiURL } from "../../../apiUtils/constants";
+import { getCsrfToken } from "../../../apiUtils/auth";
 
 import "./AuthForm.scss";
 
@@ -67,7 +67,6 @@ export default function AuthForm() {
         localStorage.setItem("accessToken", responseData.accessToken || "");
         localStorage.setItem("username", responseData.username || "");
         navigate(sessionStorage.getItem("nextPath") || "/");
-        console.log(sessionStorage.getItem("nextPath"));
       } else if (response.status === 201) {
         toggleForm();
         setMessageType("info");
