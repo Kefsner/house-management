@@ -1,5 +1,6 @@
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.exceptions import ValidationError
+from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import status
@@ -21,7 +22,7 @@ class CreateSubcategoryView(APIView):
     """
     permission_classes = [IsAuthenticated]
 
-    def post(self, request, category_id):
+    def post(self, request: Request, category_id: int) -> Response:
         """
         Handle POST request to create a subcategory.
 

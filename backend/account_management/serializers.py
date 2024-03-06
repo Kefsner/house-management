@@ -11,4 +11,6 @@ class AccountSerializer(serializers.ModelSerializer):
     def to_internal_value(self, data):
         created_by = User.objects.get(username=data['created_by'])
         data['created_by'] = created_by.id
+        user = User.objects.get(username=data['user'])
+        data['user'] = user.id
         return data

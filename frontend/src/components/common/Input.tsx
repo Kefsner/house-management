@@ -7,7 +7,7 @@ import "./Input.scss";
  */
 interface BaseInputProps {
   id: string; // Unique identifier for the input element.
-  value: string; // Current value of the input.
+  value: string // Current value of the input.
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void; // Handler for change events on the input.
   label: string; // Text label for the input.
   required?: boolean; // Indicates if the input is required for form submission.

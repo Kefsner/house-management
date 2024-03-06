@@ -14,7 +14,7 @@ import Select from "../../../components/common/Select";
  */
 export default function CategoryForm(props: CategoryFormProps) {
   const navigate = useNavigate();
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<CategoryFormData>({
     type: "",
     class: "",
     category: "",
@@ -41,7 +41,7 @@ export default function CategoryForm(props: CategoryFormProps) {
         },
         body: JSON.stringify(formData),
       });
-      const responseData: ResponseData = await response.json();
+      const responseData: CategoryResponseData = await response.json();
       console.log(responseData);
       if (response.status === 201) {
         setFormData({
@@ -135,7 +135,7 @@ export default function CategoryForm(props: CategoryFormProps) {
                 label: category.name,
               };
             })}
-          required={true}
+          required
         />
       )}
       <Input
@@ -149,7 +149,7 @@ export default function CategoryForm(props: CategoryFormProps) {
           })
         }
         label="Name"
-        required={true}
+        required
       />
       {formData.class === "subcategory" && (
         <Input
@@ -184,7 +184,7 @@ interface CategoryFormProps {
 /**
  * The data structure for the form data.
  */
-interface FormData {
+interface CategoryFormData {
   type: "income" | "expense" | ""; // Income or Expense
   class: "category" | "subcategory" | ""; // Category or Subcategory
   category: string; // If class is subcategory, this is the parent category else it's empty
@@ -196,7 +196,7 @@ interface FormData {
 /**
  * The data structure for the server response.
  */
-interface ResponseData {
+interface CategoryResponseData {
   message: string; // Message from the server
 }
 

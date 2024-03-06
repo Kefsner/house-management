@@ -28,6 +28,12 @@ export default function Home(props: HomeProps) {
           text="Categories"
           onClick={() => navigate("/categories")}
         />
+        <Card
+          className="accounts-card"
+          icon="/icons/accounts.svg"
+          text="Accounts"
+          onClick={() => navigate("/accounts")}
+        />
       </div>
     </Layout>
   );

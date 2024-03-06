@@ -1,10 +1,13 @@
-from rest_framework.views import APIView
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
+from rest_framework.request import Request
+from rest_framework.views import APIView
 from rest_framework import status
 
-from finances.messages import FinancesMessages
-from finances.models import Category, Subcategory
+from category_management.models import Category, Subcategory
+from category_management.messages import CategoryMessages
+
+import logging
 
 class GetSubcategoriesView(APIView):
     """
@@ -16,7 +19,7 @@ class GetSubcategoriesView(APIView):
     """
     permission_classes = [IsAuthenticated]
 
-    def get(self, request, category_id):
+    def get(self, request: Request, category_id: int) -> Response:
         """
         Handle GET request to get subcategories of a category.
 
@@ -33,7 +36,8 @@ class GetSubcategoriesView(APIView):
             subcategory. On failure, it returns an error message and an HTTP status code indicating the nature
             of the failure (e.g., 500 for internal server errors).
         """
-        messages = FinancesMessages()
+        messages = CategoryMessages()
+        logger = logging.getLogger('django')
         try:
             category = Category.objects.get(id=category_id)
             subcategories = Subcategory.objects.filter(category=category)
@@ -45,6 +49,7 @@ class GetSubcategoriesView(APIView):
                     'description': subcategory.description
                 })
             return Response(payload, status.HTTP_200_OK)
-        except:
+        except Exception as e:
+            logger.error(e, exc_info=True)
             payload = { 'error': messages.internal_server_error }
             return Response(status.HTTP_500_INTERNAL_SERVER_ERROR)
