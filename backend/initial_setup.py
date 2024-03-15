@@ -4,7 +4,7 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 django.setup()
 
-from finances.models import Category, Subcategory
+from transactions.models import Category, Subcategory
 from django.contrib.auth.models import User
 
 class InitDB:
