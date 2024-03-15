@@ -3,7 +3,7 @@ import React from "react";
 import Button from "../../../components/common/Button";
 import Table from "../../../components/common/Table";
 
-import { Transaction } from "../components/TransactionForm";
+import { Transaction } from "../Components/TransactionForm";
 
 export default function Transactions(props: TransactionsProps) {
   return (

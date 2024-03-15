@@ -10,7 +10,7 @@ import Input from "../../../components/common/Input";
 import Select from "../../../components/common/Select";
 
 import { Category } from "../../Categories/Components/CategoryForm";
-import { Account } from "../../Accounts/Components/AccountForm";
+import { Account } from "./AccountForm";
 import { CreditCard } from "../../CreditCards/Components/CreditCardForm";
 
 
