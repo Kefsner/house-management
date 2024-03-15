@@ -1,12 +1,10 @@
 from django.contrib.auth.models import User
 
-from account_management.messages import AccountMessages
 from account_management.models import Account
 
 class AccountServices():
     def __init__(self, data: dict) -> None:
         self.data = data
-        self.messages = AccountMessages()
 
     def create_account(self) -> None:
         name = self.data['name']

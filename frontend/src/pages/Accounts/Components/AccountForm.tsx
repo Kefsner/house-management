@@ -106,7 +106,6 @@ export default function AccountForm(props: AccountFormProps) {
             });
           }
         }}
-        
         label="Initial Balance"
         required
         min={0}

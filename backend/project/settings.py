@@ -34,6 +34,7 @@ INSTALLED_APPS = [
     'user_management',
     'category_management',
     'account_management',
+    'creditcard_management',
     
     'finances',
     
@@ -100,15 +101,19 @@ WSGI_APPLICATION = 'project.wsgi.application'
 
 # Postgres settings
 DATABASES = {
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.postgresql',
+    #     'NAME': config('DB_NAME'),
+    #     'USER': config('DB_USER'),
+    #     'PASSWORD': config('DB_PASSWORD'),
+    #     'HOST': config('DB_HOST'),
+    #     'PORT': config('DB_PORT'),
+    #     'CHARSET': 'UTF8',
+    # } # Postgres settings
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-        'CHARSET': 'UTF8',
-    }
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
+    } # SQLite settings
 }
 
 

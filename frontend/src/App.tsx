@@ -6,6 +6,7 @@ import Home from "./pages/Home/Home";
 import Finances from "./pages/Finances/Finances";
 import Categories from "./pages/Categories/Categories";
 import Accounts from "./pages/Accounts/Accounts";
+import CreditCards from "./pages/CreditCards/CreditCards";
 import NotFound from "./pages/NotFound/NotFound";
 
 import "./App.css";
@@ -27,6 +28,7 @@ function App() {
 
         <Route path="/categories" element={<Categories url="/categories" />} />
         <Route path="/accounts" element={<Accounts url="/accounts" />} />
+        <Route path="/credit-cards" element={<CreditCards url="/credit-cards" />} />
 
         <Route path="*" element={<NotFound />} />
       </Routes>

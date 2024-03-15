@@ -5,33 +5,33 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_framework import status
 
-from account_management.serializers import AccountSerializer
-from account_management.services import AccountServices
-from account_management.messages import AccountMessages
+from creditcard_management.serializers import CreditCardSerializer
+from creditcard_management.services import CreditCardServices
+from creditcard_management.messages import CreditCardMessages
 
 from django.db import IntegrityError
 
 import logging
 
-class CreateAccountView(APIView):
+class CreateCreditCardView(APIView):
     """
-    View for creating an account.
+    View for creating a credit card.
 
-    This view allows authenticated users to create an account. It uses the IsAuthenticated permission class
+    This view allows authenticated users to create a credit card. It uses the IsAuthenticated permission class
     to ensure that only authenticated users can access the view.
     """
     permission_classes = [IsAuthenticated]
 
     def post(self, request: Request) -> Response:
         """
-        Handle POST request to create an account.
+        Handle POST request to create a credit card.
 
-        This method validates the provided data using the AccountSerializer and creates an account
-        using the AccountServices. It handles various exceptions to return the appropriate HTTP response,
+        This method validates the provided data using the CreditCardSerializer and creates a credit card
+        using the CreditCardServices. It handles various exceptions to return the appropriate HTTP response,
         including bad requests, integrity errors, and internal server errors.
 
         Args:
-            request (Request): The DRF request object containing account data.
+            request (Request): The DRF request object containing credit card data.
 
         Returns:
             Response: A DRF Response object. On success, it includes a success message and an HTTP status code
@@ -39,15 +39,15 @@ class CreateAccountView(APIView):
             and an HTTP status code indicating the nature of the failure (e.g., 400 for bad requests, 409 for
             integrity errors, 500 for internal server errors).
         """
-        messages = AccountMessages()
+        messages = CreditCardMessages()
         logger = logging.getLogger('django')
         try:
-            serializer = AccountSerializer(data=request.data)
+            serializer = CreditCardSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             data = serializer.validated_data
-            services = AccountServices(data)
-            services.create_account()
-            payload = { 'message': messages.account_created }
+            services = CreditCardServices(data)
+            services.create_credit_card()
+            payload = { 'message': messages.credit_card_created }
             return Response(payload, status.HTTP_201_CREATED)
         except ValidationError:
             payload = { 'message': messages.bad_request }

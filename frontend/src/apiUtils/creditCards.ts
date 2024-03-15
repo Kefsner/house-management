@@ -1,12 +1,12 @@
 import { apiURL } from "./constants";
-import { Account } from "../pages/Accounts/Components/AccountForm";
+import { CreditCard } from "../pages/CreditCards/Components/CreditCardForm";
 
-export async function fetchAccounts(): Promise<{
-  data: Account[] | null;
+export async function fetchCreditCards(): Promise<{
+  data: CreditCard[] | null;
   status: number;
 }> {
   try {
-    const response = await fetch(`${apiURL}accounts/get/`, {
+    const response = await fetch(`${apiURL}credit_cards/get/`, {
       method: "GET",
       headers: {
         "Content-Type": "application/json",
@@ -16,7 +16,7 @@ export async function fetchAccounts(): Promise<{
     const responseData = await response.json();
     return { data: response.ok ? responseData : null, status: response.status };
   } catch (error) {
-    console.error("Error fetching accounts:", error);
+    console.error("Error fetching credit cards:", error);
     return { data: null, status: 500 };
   }
 }

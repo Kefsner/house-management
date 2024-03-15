@@ -16,7 +16,7 @@ class Category(MetaData):
         ('transfer', 'Transfer'),
     )
     name = models.CharField(max_length=100, unique=True)
-    type = models.CharField(choices=CATEGORY_TYPES)
+    type = models.CharField(choices=CATEGORY_TYPES, max_length=10)
 
 class Subcategory(MetaData):
     name = models.CharField(max_length=100)

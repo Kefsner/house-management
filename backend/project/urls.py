@@ -6,4 +6,5 @@ urlpatterns = [
     path('finances/', include('finances.urls')),
     path('categories/', include('category_management.urls')),
     path('accounts/', include('account_management.urls')),
+    path('credit_cards/', include('creditcard_management.urls')),
 ]
