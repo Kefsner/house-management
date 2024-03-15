@@ -5,9 +5,9 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_framework import status
 
-from transactions.serializers import TransactionSerializer
-from transactions.services import TransactionServices
-from transactions.messages import TransactionsMessages
+from account_management.serializers import TransactionSerializer
+from account_management.services import AccountServices
+from account_management.messages import AccountMessages
 
 import logging
 
@@ -37,13 +37,13 @@ class CreateTransactionView(APIView):
             and an HTTP status code indicating the nature of the failure (e.g., 400 for bad requests, 500 for
             internal server errors).
         """
-        messages = TransactionsMessages()
+        messages = AccountMessages()
         logger = logging.getLogger('django')
         try:
             serializer = TransactionSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             data = serializer.validated_data
-            services = TransactionServices(data)
+            services = AccountServices(data)
             services.create_transaction()
             payload = { 'message': messages.transaction_created }
             return Response(payload, status.HTTP_201_CREATED)

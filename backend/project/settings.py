@@ -36,8 +36,6 @@ INSTALLED_APPS = [
     'account_management',
     'creditcard_management',
     
-    'transactions',
-    
     'corsheaders',
 ]
 

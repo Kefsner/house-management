@@ -5,9 +5,9 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_framework import status
 
-from transactions.serializers import CreditCardTransactionSerializer
-from transactions.services import TransactionServices
-from transactions.messages import TransactionsMessages
+from creditcard_management.serializers import CreditCardTransactionSerializer
+from creditcard_management.services import CreditCardServices
+from creditcard_management.messages import CreditCardMessages
 
 import logging
 
@@ -38,13 +38,13 @@ class CreateCreditCardTransactionView(APIView):
             and an HTTP status code indicating the nature of the failure (e.g., 400 for bad requests, 500 for
             internal server errors).
         """
-        messages = TransactionsMessages()
+        messages = CreditCardMessages()
         logger = logging.getLogger('django')
         try:
             serializer = CreditCardTransactionSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             data = serializer.validated_data
-            services = TransactionServices(data, credit_card_id)
+            services = CreditCardServices(data, credit_card_id)
             services.create_credit_card_transaction()
             payload = { 'message': messages.credit_card_transaction_created }
             return Response(payload, status.HTTP_201_CREATED)

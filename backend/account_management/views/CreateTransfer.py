@@ -5,9 +5,9 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_framework import status
 
-from transactions.serializers import TransferSerializer
-from transactions.services import TransactionServices
-from transactions.messages import TransactionsMessages
+from account_management.serializers import TransferSerializer
+from account_management.services import AccountServices
+from account_management.messages import AccountMessages
 
 from core.exceptions import InsufficientFunds
 
@@ -39,13 +39,13 @@ class CreateTransferView(APIView):
             and an HTTP status code indicating the nature of the failure (e.g., 400 for bad requests, 404 for
             account does not exist, 500 for internal server errors).
         """
-        messages = TransactionsMessages()
+        messages = AccountMessages()
         logger = logging.getLogger('django')
         try:
             serializer = TransferSerializer(data=request.data)
             serializer.is_valid(raise_exception=True)
             data = serializer.validated_data
-            services = TransactionServices(data)
+            services = AccountServices(data)
             services.create_transfer()
             payload = { 'message': messages.transfer_created }
             return Response(payload, status.HTTP_201_CREATED)

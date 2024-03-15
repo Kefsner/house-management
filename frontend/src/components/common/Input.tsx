@@ -32,10 +32,14 @@ interface TextInputProps extends BaseInputProps {
   minlength?: number; // Minimum length for the input value.
 }
 
+interface DateInputProps extends BaseInputProps {
+  type: "date";
+}
+
 /**
  * Union type for input properties, covering both number and text input variations.
  */
-type InputProps = NumberInputProps | TextInputProps;
+type InputProps = NumberInputProps | TextInputProps | DateInputProps;
 
 /**
  * Renders a customizable input component, supporting various types including text, password, email, and number.

@@ -1,49 +1,21 @@
 import React from "react";
-
-// import Modal from "../../components/common/Modal";
-import Layout from "../../components/layout/Layout";
-
-// import Charts from "./sections/Charts";
-// import Accounts from "./sections/Accounts";
-// import Transactions from "./sections/Transactions";
-// import Categories from "./sections/Categories";
-// import CreditCards from "./sections/CreditCards";
-// import CreditCardTransactions from "./sections/CreditCardTransactions";
-// import RecurrentTransactions from "./sections/RecurrentTransactions";
-
-// import TransactionForm from "./forms/TransactionForm";
-// import AddCategoryForm from "./forms/CategoryForm";
-// import AccountForm from "./forms/AccountForm";
-// import CreditCardForm from "./forms/CreditCardForm";
-// import PayCreditCardForm from "./forms/PayCreditCardForm";
+import { useNavigate } from "react-router-dom";
 
 import useAuthCheck from "../../hooks/useAuthCheck";
 
-// import {
-//   fetchTransactions,
-//   fetchCategories,
-//   fetchAccounts,
-//   fetchCreditCards,
-//   fetchCreditCardTransactions,
-//   fetchRecurrentTransactions,
-// } from "../../utils/apiUtils";
+import Layout from "../../components/layout/Layout";
+import Button from "../../components/common/Button";
+
+// import { Transaction } from "./components/TransactionForm";
 
 import "./Finances.css";
 
-export default function Finances(props) {
+export default function Finances(props: FinancesProps) {
   useAuthCheck(props.url);
 
-  // const [isModalOpen, setIsModalOpen] = useState(false);
-  // const [modalActions, setModalActions] = useState("");
-  // const openModal = (action, props) => {
-  //   setIsModalOpen(true);
-  //   setModalActions(action);
-  // };
-  // const closeModal = () => {
-  //   setIsModalOpen(false);
-  // };
+  const navigate = useNavigate();
 
-  // const [transactions, setTransactions] = useState([]);
+  // const [transactions, setTransactions] = useState<Transaction[]>([]);
   // const [incomeData, setIncomeData] = useState([]);
   // const [expenseData, setExpenseData] = useState([]);
   // const [categories, setCategories] = useState([]);
@@ -154,6 +126,11 @@ export default function Finances(props) {
           />
         )}
       </Modal> */}
+      <Button type="button" onClick={() => navigate("/")} label="Back" />
     </Layout>
   );
+}
+
+interface FinancesProps {
+  url: string;
 }

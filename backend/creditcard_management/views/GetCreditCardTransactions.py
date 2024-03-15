@@ -4,9 +4,8 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_framework import status
 
-from transactions.messages import TransactionsMessages
-
 from creditcard_management.models import CreditCard
+from creditcard_management.messages import CreditCardMessages
 
 import logging
 
@@ -37,7 +36,7 @@ class GetCreditCardTransactionsView(APIView):
             transaction. On failure, it returns an error message and an HTTP status code indicating the nature
             of the failure (e.g., 500 for internal server errors).
         """
-        messages = TransactionsMessages()
+        messages = CreditCardMessages()
         logger = logging.getLogger('django')
         try:
             credit_card = CreditCard.objects.get(id=credit_card_id)

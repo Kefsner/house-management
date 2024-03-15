@@ -4,8 +4,8 @@ from rest_framework.request import Request
 from rest_framework.views import APIView
 from rest_framework import status
 
-from transactions.messages import TransactionsMessages
-from transactions.models import Transaction
+from account_management.messages import AccountMessages
+from account_management.models import Transaction
 
 import logging
 import datetime
@@ -36,7 +36,7 @@ class GetTransactionsView(APIView):
             transaction. On failure, it returns an error message and an HTTP status code indicating the nature
             of the failure (e.g., 500 for internal server errors).
         """
-        messages = TransactionsMessages()
+        messages = AccountMessages()
         logger = logging.getLogger('django')
         try:
             today = datetime.date.today()
