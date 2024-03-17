@@ -58,7 +58,6 @@ export default function Finances(props: FinancesProps) {
     const { data, status } = await fetchCategories();
     if (status === 200 && data) {
       setCategories(data);
-      console.log(data);
     } else if (status === 401) {
       handleLogout(navigate);
     } else {
