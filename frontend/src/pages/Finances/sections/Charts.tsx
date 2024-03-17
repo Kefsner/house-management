@@ -2,6 +2,8 @@ import React from "react";
 
 import { PieChart, Pie, Cell, Tooltip } from "recharts";
 
+import { Transaction } from "../../Accounts/Components/TransactionForm";
+
 const INCOME_COLORS = ["#4daf7c", "#6b8dae", "#a1887f"];
 
 const EXPENSE_COLORS = ["#d9534f", "#ff7043", "#bdbdbd"];
@@ -12,29 +14,37 @@ const chart_text_x = 125;
 const chart_text_y = 100;
 const chart_span_dy = 30;
 
-const aggregateData = (data, property) => {
-  const aggregatedData = data.reduce((acc, transaction) => {
-    if (acc[transaction[property]]) {
-      acc[transaction[property]].value += transaction.value;
+interface AggregatedDataItem {
+  category: string;
+  value: number;
+}
+
+const aggregateData = (data: Transaction[], property: keyof Transaction): AggregatedDataItem[] => {
+  const aggregation = data.reduce((acc: Record<string, AggregatedDataItem>, transaction: Transaction) => {
+    const key = transaction[property];
+    if (typeof key === 'string') { // Ensuring the property is a string
+      if (!acc[key]) {
+        acc[key] = { category: key, value: 0 };
+      }
+      acc[key].value += transaction.value;
     } else {
-      acc[transaction[property]] = {
-        category: transaction[property],
-        value: transaction.value,
-      };
+      console.error('Property is not a string', key);
     }
     return acc;
-  }, {});
-  return Object.values(aggregatedData);
+  }, {} as Record<string, AggregatedDataItem>);
+
+  return Object.values(aggregation);
 };
 
-export default function Charts(props) {
-  const income = props.incomeData
-    .reduce((acc, transaction) => acc + transaction.value, 0)
-    .toFixed(2);
 
-  const expense = props.expenseData
-    .reduce((acc, transaction) => acc + transaction.value, 0)
-    .toFixed(2);
+export default function Charts(props: ChartsProps) {
+  // Calculate totals as numbers
+const totalIncome = props.incomeData.reduce((acc, transaction) => acc + transaction.value, 0);
+const totalExpense = props.expenseData.reduce((acc, transaction) => acc + transaction.value, 0);
+
+// Convert to string only when displaying
+const incomeDisplay = totalIncome.toFixed(2);
+const expenseDisplay = totalExpense.toFixed(2);
 
   return (
     <section className="finances-charts-section">
@@ -51,7 +61,7 @@ export default function Charts(props) {
               className="pie-chart-value green"
               x={chart_text_x}
               dy={chart_span_dy}
-            >{`R$ ${income}`}</tspan>
+            >{`R$ ${incomeDisplay}`}</tspan>
           </text>
           <Pie
             data={aggregateData(props.incomeData, "category")}
@@ -83,14 +93,14 @@ export default function Charts(props) {
             <tspan className="pie-chart-label"
             >Balance</tspan>
             <tspan
-              className={`pie-chart-value ${income - expense >= 0 ? "green" : "red"}`}             x={chart_text_x}
+              className={`pie-chart-value ${totalIncome - totalExpense >= 0 ? "green" : "red"}`}             x={chart_text_x}
               dy={chart_span_dy}
-            >{`R$ ${(income - expense).toFixed(2)}`}</tspan>
+            >{`R$ ${(totalIncome - totalExpense).toFixed(2)}`}</tspan>
           </text>
           <Pie
             data={[
-              { name: "Income", value: Number(income) },
-              { name: "Expense", value: Number(expense) },
+              { name: "Income", value: totalIncome },
+              { name: "Expense", value: totalExpense },
             ]}
             dataKey="value"
             nameKey="name"
@@ -118,7 +128,7 @@ export default function Charts(props) {
               className="pie-chart-value red"
               x={chart_text_x}
               dy={chart_span_dy}
-            >{`R$ ${expense}`}</tspan>
+            >{`R$ ${expenseDisplay}`}</tspan>
           </text>
           <Pie
             data={aggregateData(props.expenseData, "category")}
@@ -141,4 +151,10 @@ export default function Charts(props) {
       </div>
     </section>
   );
+}
+
+
+interface ChartsProps {
+  incomeData: Transaction[];
+  expenseData: Transaction[];
 }

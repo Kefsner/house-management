@@ -130,8 +130,8 @@ export default function CategoryForm(props: CategoryFormProps) {
             .filter((category) => category.type === formData.type)
             .map((category) => {
               return {
-                id: category.id,
-                value: category.id,
+                id: category.id.toString(),
+                value: category.id.toString(),
                 label: category.name,
               };
             })}
@@ -204,7 +204,7 @@ interface CategoryResponseData {
  * The data structure for a category.
  */
 export interface Category {
-  id: string; // Unique identifier
+  id: number; // Unique identifier
   name: string; // Name of the category
   type: string; // Income or Expense
   subcategories: Subcategory[]; // List of subcategories

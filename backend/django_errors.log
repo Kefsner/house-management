@@ -1,0 +1,470 @@
+Field 'id' expected a number but got 'Supermarket/Groceries'.
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2112, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'Supermarket/Groceries'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/account_management/views/CreateTransaction.py", line 47, in post
+    services.create_transaction()
+  File "/home/kesley/Documents/house-management/backend/account_management/services.py", line 28, in create_transaction
+    category = Category.objects.get(id=category)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 633, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1600, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1632, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1546, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1376, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 362, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2114, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got 'Supermarket/Groceries'.
+Internal Server Error: /accounts/transaction/create/
+"POST /accounts/transaction/create/ HTTP/1.1" 500 38
+Field 'id' expected a number but got 'Transportation'.
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2112, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'Transportation'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/account_management/views/CreateTransaction.py", line 47, in post
+    services.create_transaction()
+  File "/home/kesley/Documents/house-management/backend/account_management/services.py", line 28, in create_transaction
+    category = Category.objects.get(id=category)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 633, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1600, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1632, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1546, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1376, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 362, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2114, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got 'Transportation'.
+Internal Server Error: /accounts/transaction/create/
+"POST /accounts/transaction/create/ HTTP/1.1" 500 38
+Field 'id' expected a number but got 'Transportation'.
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2112, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'Transportation'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/account_management/views/CreateTransaction.py", line 47, in post
+    services.create_transaction()
+  File "/home/kesley/Documents/house-management/backend/account_management/services.py", line 28, in create_transaction
+    category = Category.objects.get(id=category)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 633, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1600, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1632, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1546, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1376, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 362, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2114, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got 'Transportation'.
+Internal Server Error: /accounts/transaction/create/
+"POST /accounts/transaction/create/ HTTP/1.1" 500 38
+Field 'id' expected a number but got 'Transportation'.
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2112, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'Transportation'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/account_management/views/CreateTransaction.py", line 47, in post
+    services.create_transaction()
+  File "/home/kesley/Documents/house-management/backend/account_management/services.py", line 28, in create_transaction
+    category = Category.objects.get(id=category)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 633, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1600, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1632, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1546, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1376, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 362, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2114, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got 'Transportation'.
+Internal Server Error: /accounts/transaction/create/
+"POST /accounts/transaction/create/ HTTP/1.1" 500 38
+Field 'id' expected a number but got 'Transportation'.
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2112, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'Transportation'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/account_management/views/CreateTransaction.py", line 47, in post
+    services.create_transaction()
+  File "/home/kesley/Documents/house-management/backend/account_management/services.py", line 28, in create_transaction
+    category = Category.objects.get(id=category)
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 633, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1600, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1632, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1546, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1376, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 362, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2114, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got 'Transportation'.
+Internal Server Error: /accounts/transaction/create/
+"POST /accounts/transaction/create/ HTTP/1.1" 500 38
+Field 'id' expected a number but got 'subcategory'.
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2112, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'subcategory'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/account_management/views/CreateTransaction.py", line 47, in post
+    services.create_transaction()
+  File "/home/kesley/Documents/house-management/backend/account_management/services.py", line 31, in create_transaction
+    subcategory = Subcategory.objects.get(id=subcategory)
+                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 633, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1600, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1632, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1546, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1376, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 362, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2114, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got 'subcategory'.
+Internal Server Error: /accounts/transaction/create/
+"POST /accounts/transaction/create/ HTTP/1.1" 500 38
+Field 'id' expected a number but got 'NuBank'.
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2112, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'NuBank'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/account_management/views/CreateTransaction.py", line 47, in post
+    services.create_transaction()
+  File "/home/kesley/Documents/house-management/backend/account_management/services.py", line 35, in create_transaction
+    account = Account.objects.get(id=account)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 633, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1600, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1632, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1546, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1376, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 362, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2114, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got 'NuBank'.
+Internal Server Error: /accounts/transaction/create/
+"POST /accounts/transaction/create/ HTTP/1.1" 500 38
+Field 'id' expected a number but got 'NuBank'.
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2112, in get_prep_value
+    return int(value)
+           ^^^^^^^^^^
+ValueError: invalid literal for int() with base 10: 'NuBank'
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/account_management/views/CreateTransaction.py", line 47, in post
+    services.create_transaction()
+  File "/home/kesley/Documents/house-management/backend/account_management/services.py", line 35, in create_transaction
+    account = Account.objects.get(id=account)
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 633, in get
+    clone = self._chain() if self.query.combinator else self.filter(*args, **kwargs)
+                                                        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1476, in filter
+    return self._filter_or_exclude(False, args, kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1494, in _filter_or_exclude
+    clone._filter_or_exclude_inplace(negate, args, kwargs)
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 1501, in _filter_or_exclude_inplace
+    self._query.add_q(Q(*args, **kwargs))
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1600, in add_q
+    clause, _ = self._add_q(q_object, self.used_aliases)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1632, in _add_q
+    child_clause, needed_inner = self.build_filter(
+                                 ^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1546, in build_filter
+    condition = self.build_lookup(lookups, col, value)
+                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/sql/query.py", line 1376, in build_lookup
+    lookup = lookup_class(lhs, rhs)
+             ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 30, in __init__
+    self.rhs = self.get_prep_lookup()
+               ^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 362, in get_prep_lookup
+    return super().get_prep_lookup()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/lookups.py", line 88, in get_prep_lookup
+    return self.lhs.output_field.get_prep_value(self.rhs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/__init__.py", line 2114, in get_prep_value
+    raise e.__class__(
+ValueError: Field 'id' expected a number but got 'NuBank'.
+Internal Server Error: /accounts/transaction/create/
+"POST /accounts/transaction/create/ HTTP/1.1" 500 38
+Cannot assign "''": "Transaction.subcategory" must be a "Subcategory" instance.
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/account_management/views/CreateTransaction.py", line 47, in post
+    services.create_transaction()
+  File "/home/kesley/Documents/house-management/backend/account_management/services.py", line 37, in create_transaction
+    Transaction.objects.create(
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 675, in create
+    obj = self.model(**kwargs)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/base.py", line 543, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/related_descriptors.py", line 283, in __set__
+    raise ValueError(
+ValueError: Cannot assign "''": "Transaction.subcategory" must be a "Subcategory" instance.
+Internal Server Error: /accounts/transaction/create/
+"POST /accounts/transaction/create/ HTTP/1.1" 500 38
+Cannot assign "''": "Transaction.subcategory" must be a "Subcategory" instance.
+Traceback (most recent call last):
+  File "/home/kesley/Documents/house-management/backend/account_management/views/CreateTransaction.py", line 47, in post
+    services.create_transaction()
+  File "/home/kesley/Documents/house-management/backend/account_management/services.py", line 37, in create_transaction
+    Transaction.objects.create(
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/manager.py", line 87, in manager_method
+    return getattr(self.get_queryset(), name)(*args, **kwargs)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/query.py", line 675, in create
+    obj = self.model(**kwargs)
+          ^^^^^^^^^^^^^^^^^^^^
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/base.py", line 543, in __init__
+    _setattr(self, field.name, rel_obj)
+  File "/home/kesley/Documents/house-management/backend/venv/lib/python3.11/site-packages/django/db/models/fields/related_descriptors.py", line 283, in __set__
+    raise ValueError(
+ValueError: Cannot assign "''": "Transaction.subcategory" must be a "Subcategory" instance.
+Internal Server Error: /accounts/transaction/create/
+"POST /accounts/transaction/create/ HTTP/1.1" 500 38

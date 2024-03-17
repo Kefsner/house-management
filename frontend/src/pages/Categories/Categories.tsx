@@ -9,7 +9,7 @@ import Table from "../../components/common/Table";
 import Modal from "../../components/common/Modal";
 import Button from "../../components/common/Button";
 
-import { fetchCategories } from "../../apiUtils/category";
+import { fetchCategories } from "../../apiUtils/categories";
 import CategoryForm, { Category } from "./Components/CategoryForm";
 
 import { handleLogout } from "../../apiUtils/auth";

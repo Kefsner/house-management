@@ -1,4 +1,4 @@
-import React, { useState, FormEvent, useEffect, useCallback } from "react";
+import React, { useState, FormEvent } from "react";
 
 import { useNavigate } from "react-router-dom";
 
@@ -37,10 +37,10 @@ export default function TransactionForm(props: TransactionFormProps) {
     event.preventDefault();
     try {
       const apiEndpoint = formData.credit_card
-        ? `finances/credit_card/create_transaction/`
+        ? `credit_cards/${formData.credit_card}/create/`
         : formData.type !== "transfer"
-        ? `finances/transaction/create/`
-        : `finances/transfer/create/`;
+        ? `accounts/transaction/create/`
+        : `accounts/transfer/create/`;
       const response = await fetch(`${apiURL}${apiEndpoint}`, {
         method: "POST",
         headers: {
@@ -145,8 +145,8 @@ export default function TransactionForm(props: TransactionFormProps) {
             options={props.categories
               .filter((category) => category.type === formData.type)
               .map((category) => ({
-                id: category.name,
-                value: category.name,
+                id: category.id.toString(),
+                value: category.id.toString(),
                 label: category.name,
               }))}
             required
@@ -165,8 +165,8 @@ export default function TransactionForm(props: TransactionFormProps) {
             label="From Account"
             placeholder="Select an account"
             options={props.accounts.map((account) => ({
-              id: account.name,
-              value: account.name,
+              id: account.id.toString(),
+              value: account.id.toString(),
               label: account.name,
             }))}
             required
@@ -184,11 +184,15 @@ export default function TransactionForm(props: TransactionFormProps) {
           }
           label="Subcategory"
           placeholder="Select a subcategory"
-          options={[
-            { id: "subcategory", value: "subcategory", label: "Subcategory" },
-            { id: "subcategory2", value: "subcategory2", label: "Subcategory2" },
-          ]}
-          required
+          options={
+            props.categories
+              .find(category => category.id === Number(formData.category))
+              ?.subcategories.map(subcategory => ({
+                id: subcategory.id.toString(),
+                value: subcategory.id.toString(),
+                label: subcategory.name,
+              })) || []
+          }        
         />
       )}
       {formData.type !== "transfer" && (
@@ -273,8 +277,8 @@ export default function TransactionForm(props: TransactionFormProps) {
           }
           label={formData.type === "transfer" ? "To Account" : "Account"}
           options={props.accounts.map((account) => ({
-            id: account.name,
-            value: account.name,
+            id: account.id.toString(),
+            value: account.id.toString(),
             label: account.name,
           }))}
           placeholder="Select an account"
@@ -335,7 +339,7 @@ export interface Transaction {
   id: number;
   type: string;
   description: string;
-  value: string;
+  value: number;
   date: string;
   category: string;
   subcategory: string;

@@ -4,11 +4,11 @@ import django
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
 django.setup()
 
-from transactions.models import Category, Subcategory
+from category_management.models import Category, Subcategory
+from django.core.management import call_command
 from django.contrib.auth.models import User
 
 class InitDB:
-    initialized = False
     def populate_categories(self):
         categories = [
             {
@@ -151,12 +151,21 @@ class InitDB:
         for subcategory in subcategories:
             Subcategory.objects.create(**subcategory, created_by=User.objects.get(username='admin'))
 
+    def makemigrations(self):
+        call_command('makemigrations')
+
+    def migrate(self):
+        call_command('migrate')
+
+    def create_superuser(self):
+        User.objects.create_superuser('admin', '', 'admin')
+
     def run(self):
-        if self.initialized:
-            return
+        self.makemigrations()
+        self.migrate()
+        self.create_superuser()
         self.populate_categories()
         self.populate_subcategories()
-        self.initialized = True
         print('Categories and subcategories populated successfully')
 
 if __name__ == '__main__':

@@ -7,15 +7,23 @@ import { Transaction } from "../Components/TransactionForm";
 
 export default function Transactions(props: TransactionsProps) {
   return (
-    <section className="finances-transactions-section">
+    <>
       <Button
         onClick={() => {
           props.openModal("add-transaction");
         }}
         label="Add Transaction"
       />
-      <Table
-        headers={["Type", "Date", "Amount", "Description", "Category", "Subcategory", "Account"]}
+      {/* <Table
+        headers={[
+          "Type",
+          "Date",
+          "Amount",
+          "Description",
+          "Category",
+          "Subcategory",
+          "Account",
+        ]}
         rows={props.transactions.map((transaction) => ({
           Type: transaction.type,
           Date: transaction.date,
@@ -25,8 +33,8 @@ export default function Transactions(props: TransactionsProps) {
           Subcategory: transaction.subcategory,
           Account: transaction.account,
         }))}
-      />
-    </section>
+      /> */}
+    </>
   );
 }
 
